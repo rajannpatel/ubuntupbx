@@ -57,10 +57,10 @@ Anybody running Ubuntu 20.04 with an Ubuntu Pro subscription (free, or paid) wil
 
 Due to a [software bug involving hardcoded paths](https://bugs.debian.org/942412) to some architecture specific libraries, the odbc-mariadb software package in Ubuntu 20.04 can only install on AMD64/i386 (x86/x86_64) architectures. The fix for ARM64 (aarch64) support in the odbc-mariadb package arrived in Ubuntu 22.04, and is not backported into Ubuntu 20.04.
 
-|               | Ubuntu 20.04 	| Ubuntu 22.04  | architecture 	|  	|
-|---            |---            |---            |---            |---|
-|odbc-mariadb  	| 3.1.4         | 3.1.15 	    | amd64      	|  	|
-|odbc-mariadb  	| not available | 3.1.15 	    | arm64      	|  	|
+|               | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> | architecture&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4e0399a1-chip.svg" height="16" align="right"> |
+|---            |---            |---            |---            |
+|odbc-mariadb  	| 3.1.4         | 3.1.15 	    | amd64      	|
+|odbc-mariadb  	| not available | 3.1.15 	    | arm64      	|
 
 ## Security Patching Matrix
 
@@ -73,7 +73,7 @@ Chris Lea is an Engineering Manager at Salesforce, whose Ubuntu PPA is a reliabl
 Canonical has an 18-year track record of timely security updates for the main Ubuntu OS, with critical CVEs patched in less than 24 hours on average. Ubuntu Pro expands this coverage to include software installed from the universe repository. Patches are applied for critical, high, and selected medium CVEs, with many zero-day vulnerabilities fixed under embargo for release the moment the CVE is public.
 
 #### Where FreePBX dependencies can be installed from:
-|               | <img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16">&nbsp;&nbsp;&nbsp;Ubuntu 20.04 	        | <img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16">&nbsp;&nbsp;&nbsp;Ubuntu 22.04            |
+|               | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
 |---            |---                    |---                      |
 |PHP  	        | 7.4 from universe     | 7.4 from ppa:ondrej/php |
 |Node.js  	    | 10.19 from universe   | 12.22 from universe, or<br>10.x ppa:chris-lea/node.js |
