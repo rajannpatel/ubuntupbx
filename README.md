@@ -24,17 +24,17 @@ Please familiarize yourselves the contents of the cloud-init.yaml file or instal
 ### Using install.sh
 
 1. Clone the rajannpatel/ubuntupbx git repository
-```bash
+```console
 git clone --depth 1 git@github.com:rajannpatel/ubuntupbx.git
 ```
 
 2. change to the directory with files intended for your version of Ubuntu
-```bash
+```console
 cd "ubuntupbx/$(env -i bash -c '. /etc/os-release; echo $VERSION_CODENAME')/"
 ```
 
 3. read the install.sh script, and then run it
-```bash
+```console
 sudo bash install.sh
 ```
 
@@ -56,7 +56,7 @@ The following commands should be run as root.
 
 First, update all the software packages installed from Canonical:
 
-```bash
+```console
 apt-get update --fix-missing
 apt-get -y upgrade
 ```
@@ -65,7 +65,7 @@ Second, update the software whose source code you downloaded from Canonical, but
 
 - Upgrading / Changing between Asterisk 16 versions on Ubuntu 20.04
 
-```bash
+```console
 cd /tmp && curl -O http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-16-current.tar.gz
 ASTERISK_16_VERSION=$(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)
 mv $($ASTERISK_16_VERSION)/ /usr/src && cd $($ASTERISK_16_VERSION)
@@ -81,7 +81,7 @@ fwconsole restart
 
 - Upgrading / Changing between Asterisk 18 versions on Ubuntu 22.04
 
-```bash
+```console
 cd /tmp && curl -O http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18-current.tar.gz
 ASTERISK_18_VERSION=$(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)
 mv $($ASTERISK_18_VERSION)/ /usr/src && cd $($ASTERISK_18_VERSION)
@@ -97,7 +97,7 @@ fwconsole restart
 
 And third, update all the FreePBX modules:
 
-```bash
+```console
 fwconsole ma updateall && fwconsole reload
 ```
 
