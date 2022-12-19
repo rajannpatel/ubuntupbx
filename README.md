@@ -4,7 +4,9 @@ This project contains a collection of cloud-init.yaml and bash scripts which can
 
 Our goal is to install as much software as possible from Canonical, instead of other sources. All the software except FreePBX 16 can be installed from Canonical's universe repository when deploying on Ubuntu 20.04, making it the favorite for FreePBX deployments today.
 
-Ubuntu 22.04 is the only option for deploying to ARM64 machines, due to a software bug resulting in the odbc-mariadb package not being available for ARM64 machines running Ubuntu 20.04. Please the Compatibility Matrix section, below, for more information.
+Ubuntu 22.04 is the only option for deploying to ARM64 machines, due to a software bug resulting in the odbc-mariadb package not being available for ARM64 machines running Ubuntu 20.04. The Compatibility Matrix section, below, contains more information about this.
+
+---
 
 ## Installation
 
@@ -12,12 +14,92 @@ Cloud-init is a tool that is designed to perform initialization tasks on a virtu
 
 It is generally considered to be a security risk to curl and run a shell script from the Internet without thoroughly reviewing and understanding its contents first.
 
-Please familiarize yourselves the contents of the cloud-init.yaml file or install.sh file before using them. You only need to use either the cloud-init.yaml file or the install.sh. Downloading and running install.sh may be the more familiar path for some of you, but cloud-init.yaml is the fastest one.
+Please familiarize yourselves the contents of the cloud-init.yaml file or install.sh files in this project before using them. You only need to use either the cloud-init.yaml file or the install.sh. Downloading and running install.sh may be the more familiar path for some of you, but cloud-init.yaml is the fastest one.
 
 | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
 |---                    |---                      |
 | cloud-init.yaml - todo     | [cloud-init.yaml](./jammy/cloud-init.yaml) |
 | [install.sh](./focal/install.sh)   | [install.sh](./jammy/install.sh) |
+
+### Using install.sh
+
+1. Clone the rajannpatel/ubuntupbx git repository
+```bash
+git clone --depth 1 git@github.com:rajannpatel/ubuntupbx.git
+```
+
+2. change to the directory with files intended for your version of Ubuntu
+```bash
+cd "ubuntupbx/$(env -i bash -c '. /etc/os-release; echo $VERSION_CODENAME')/"
+```
+
+3. read the install.sh script, and then run it
+```bash
+sudo bash install.sh
+```
+
+### Using cloud-init
+
+Oracle Public Cloud provides a place to paste cloud-init.yaml files in their dashboard, when creating a new virtual machine.
+
+![add cloud-init to Oracle Cloud](https://miro.medium.com/max/1100/1*dfBpaXvB2YRDRQVBInFn5w.png)
+
+All cloud providers provide comparable experiences either in their dashboard, via command line tools, or both.
+
+---
+
+### Applying Security Patches and Updates
+
+Take a backup before attempting to upgrade. It is possible to do this using the FreePBX Backup module.
+
+The following commands should be run as root.
+
+First, update all the software packages installed from Canonical:
+
+```bash
+apt-get update --fix-missing
+apt-get -y upgrade
+```
+
+Second, update the software whose source code you downloaded from Canonical, but built from source.
+
+- Upgrading / Changing between Asterisk 16 versions on Ubuntu 20.04
+
+```bash
+cd /tmp && curl -O http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-16-current.tar.gz
+ASTERISK_16_VERSION=$(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)
+mv $($ASTERISK_16_VERSION)/ /usr/src && cd $($ASTERISK_16_VERSION)
+make distclean
+./configure --with-jansson-bundled
+make menuselect.makeopts
+menuselect/menuselect --enable app_macro --enable CORE-SOUNDS-EN-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-EN-ULAW --disable-category MENUSELECT_CDR --disable-ca>
+rm -rf /usr/lib/asterisk/modules/*
+make && make install && chown -R asterisk. /var/lib/asterisk
+fwconsole ma install core
+fwconsole restart
+```
+
+- Upgrading / Changing between Asterisk 18 versions on Ubuntu 22.04
+
+```bash
+cd /tmp && curl -O http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18-current.tar.gz
+ASTERISK_18_VERSION=$(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)
+mv $($ASTERISK_18_VERSION)/ /usr/src && cd $($ASTERISK_18_VERSION)
+make distclean
+./configure --with-jansson-bundled
+make menuselect.makeopts
+menuselect/menuselect --enable app_macro --enable CORE-SOUNDS-EN-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-EN-ULAW --disable-category MENUSELECT_CDR --disable-ca>
+rm -rf /usr/lib/asterisk/modules/*
+make && make install && chown -R asterisk. /var/lib/asterisk
+fwconsole ma install core
+fwconsole restart
+```
+
+And third, update all the FreePBX modules:
+
+```bash
+fwconsole ma updateall && fwconsole reload
+```
 
 ---
 
@@ -27,13 +109,13 @@ FreePBX is a web-based dashboard that controls Asterisk. Both FreePBX and Asteri
 
 A common way to install FreePBX is through Sangoma's operating system, which is based on CentOS 7.8.2003. It is trivial to launch FreePBX on public cloud and elsewhere in under 5 minutes via cloud-init.yaml configuration scripts, on any Linux of your choosing. The following 2 sections may help you decide what operating system you want to run FreePBX on, if you choose to run FreePBX on Ubuntu, this project contains cloud-init.yaml files which install FreePBX on currently supported Ubuntu LTS releases.
 
-## Why use Sangoma OS?
+### Why use Sangoma OS?
 
 Users interested in Sangoma's commercial support and software offerings are required to use FreePBX on Sangoma's CentOS 7.8.2003 based operating system.
 
 From a security patching perspective, when using Sangoma's CentOS derivative operating system, you rely on Sangoma to backport security patches from CentOS 7.9, and make them available in their CentOS 7.8.2003 derived Sangoma OS. CentOS 7.9 is the final subrelease of CentOS 7, and it will reach end of life in June 2024.
 
-## Why use Ubuntu?
+### Why use Ubuntu?
 
 Users interested in only the open source aspects of FreePBX and Asterisk have the option to install this software on Ubuntu.
 
@@ -44,7 +126,7 @@ Anybody running Ubuntu 20.04 with an Ubuntu Pro subscription (free, or paid) wil
 > “Since we first launched Ubuntu LTS, with five years free security coverage for the main OS, our enterprise customers have asked us to cover more and more of the wider open-source landscape under private commercial agreements. Today, we are excited to offer the benefits of all of that work, free of charge, to anyone in the world, with a free personal Ubuntu Pro subscription”
 > - Mark Shuttleworth, CEO of Canonical.
 
-## Compatibility Matrix
+### Compatibility Matrix
 
 Due to a [software bug involving hardcoded paths](https://bugs.debian.org/942412) to some architecture specific libraries, the odbc-mariadb software package in Ubuntu 20.04 can only install on AMD64/i386 (x86/x86_64) architectures. The fix for ARM64 (aarch64) support in the odbc-mariadb package arrived in Ubuntu 22.04, and is not backported into Ubuntu 20.04.
 
@@ -53,7 +135,7 @@ Due to a [software bug involving hardcoded paths](https://bugs.debian.org/942412
 |odbc-mariadb  	| 3.1.4         | 3.1.15 	    | amd64      	|
 |odbc-mariadb  	| not available | 3.1.15 	    | arm64      	|
 
-## Security Patching Matrix
+### Security Patching Matrix
 
 Ubuntu 22.04 ships with PHP 8.1 and Node.js 18.10, FreePBX 16 is unable to run on PHP 8.1, and requires PHP 7.4 to be installed from elsewhere. While only Node.js 10 is officially supported, FreePBX 16 did not produce any errors during the installation phase when using Node.js 18.10.
 
@@ -69,4 +151,3 @@ Canonical has an 18-year track record of timely security updates for the main Ub
 |PHP  	        | 7.4 from universe     | 7.4 from ppa:ondrej/php |
 |Node.js  	    | 10.19 from universe   | 12.22 from universe, or<br>10.x ppa:chris-lea/node.js |
 |Asterisk       | 16.2 from universe    | 18.10 from universe     |
-
