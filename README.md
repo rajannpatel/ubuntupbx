@@ -6,6 +6,17 @@ Our goal is to install as much software as possible from Canonical, instead of o
 
 Ubuntu 22.04 is the only option for deploying to ARM64 machines, due to a software bug resulting in the odbc-mariadb package not being available for ARM64 machines running Ubuntu 20.04. The Compatibility Matrix section, below, contains more information about this.
 
+#### Table of Contents
+- [Installation](#installation)
+    - [Using install.sh](#using-installsh)
+    - [Using cloud-init](#using-cloud-init)
+- [Applying Security Patches and Updates](#applying-security-patches-and-updates)
+- [Overview](#overview)
+    - [Why use Sangoma OS?](#why-use-sangoma-os)
+    - [Why use Ubuntu?](#why-use-ubuntu)
+    - [Compatibility Matrix](#compatibility-matrix)
+    - [Security Patching Matrix](#security-patching-matrix)
+
 ---
 
 ## Installation
