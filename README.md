@@ -51,11 +51,13 @@ sudo bash install.sh
 
 ### Using cloud-init
 
-Oracle Public Cloud provides a place to paste cloud-init.yaml files in their dashboard, when creating a new virtual machine.
+All cloud providers provide the ability to configure virtual machines via cloud-init in their dashboard, via command line tools, or both. For example, Oracle Cloud Infrastructure's dashboard looks like this when provisiong a new virtual machine:
 
 ![add cloud-init to Oracle Cloud](https://miro.medium.com/max/1100/1*dfBpaXvB2YRDRQVBInFn5w.png)
 
-All cloud providers provide comparable experiences either in their dashboard, via command line tools, or both.
+You can paste the Ubuntu Jammy [cloud-init.yaml](./jammy/cloud-init.yaml) configuration file in that text area.
+
+Beyond public cloud, cloud-init configuration files are a subset of Juju configuration files, if you happen to be using Juju to automate your application deployment and lifecycle. Cloud-init files can be passed to Multipass virtual machine instances, and even to LXD containers.
 
 ---
 
