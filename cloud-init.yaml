@@ -1,0 +1,194 @@
+## template: jinja
+#cloud-config
+
+# The following variables are used to set some user specific configuration values in this file
+vars:
+  DOMAIN: rajanpatel.com
+  HOSTNAME: voip
+  # https://support.google.com/accounts/answer/185833?hl=en
+  GMAIL_USERNAME: youremail@gmail.com
+  GMAIL_PASSWORD: your_app_password
+
+# This section specifies files that should be written to the system
+write_files:
+  # Postfix uses sasl_passwd for authentication
+  - path: /etc/postfix/sasl_passwd
+    permissions: "0400"
+    content: |
+      [smtp.gmail.com]:587 $GMAIL_USERNAME:$GMAIL_PASSWORD
+  # The freepbpx.service file to control FreePBX through systemctl
+  - path: /etc/systemd/system/freepbx.service
+    content: |
+      [Unit]
+      Description=FreePBX VoIP Server
+      After=mariadb.service
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      ExecStart=/usr/sbin/fwconsole start -q
+      ExecStop=/usr/sbin/fwconsole stop -q
+      [Install]
+      WantedBy=multi-user.target
+
+apt:  
+  conf: |
+    APT {
+      Get {
+        Assume-Yes 'true';
+        Fix-Broken 'true';
+      }
+    }
+{% if v1.distro_release == 'jammy' -%}
+  # This section specifies additional apt sources (PPAs)
+  sources:
+    php:
+      source: 'ppa:ondrej/php'
+{%- endif %}
+
+# run `apt update`
+package_update: true
+
+# run `apt upgrade`
+package_upgrade: true
+
+# reboot the system if required by presence of /var/run/reboot-required.
+package_reboot_if_required: true
+
+packages:
+{% if v1.distro_release == 'focal' -%}
+  - mariadb-server
+  - mariadb-client
+  - odbc-mariadb
+  - php-bcmath
+  - php-cli
+  - php-curl
+  - php-gd
+  - php-intl
+  - php-ldap
+  - php-mbstring
+  - php-mysql
+  - php-xml
+  - libapache2-mod-php
+  - libcodec2-dev
+  - libfftw3-dev
+  - libgmime-2.6-dev
+  - liblua5.2-dev
+  - libneon27-dev
+  - libsndfile1-dev
+  - python-dev-is-python2
+{%- endif %}
+{% if v1.distro_release == 'jammy' -%}
+  - software-properties-common
+  - php7.4-bcmath
+  - php7.4-cli
+  - php7.4-curl
+  - php7.4-gd
+  - php7.4-intl
+  - php7.4-ldap
+  - php7.4-mbstring
+  - php7.4-mysql
+  - php7.4-xml
+  - libapache2-mod-php7.4
+  - libldap2-dev
+{%- endif %}
+  - mariadb-server
+  - mariadb-client
+  - odbc-mariadb
+  - apache2
+  - nodejs
+  - npm
+  - postfix
+  - curl
+  - dirmngr
+  - ffmpeg
+  - git
+  - lame
+  - libicu-dev
+  - mpg123
+  - sqlite3
+  - sox
+  - bison
+  - doxygen
+  - flex
+  - graphviz
+  - libcfg-dev
+  - libcorosync-common-dev
+  - libcpg-dev
+  - libjack-jackd2-dev
+  - libosptk-dev
+  - pkgconf
+  - subversion
+  - xmlstarlet
+runcmd:
+  # Set the time zone to America/New_York
+  - timedatectl set-timezone America/New_York
+  # Flush iptables rules and save the current configuration
+  - iptables -F && netfilter-persistent save
+  # Allocate 2GB of space for a swap file
+  - fallocate -l 2G /swapfile
+  # Set permission of the swap file to be readable and writable only by the owner  
+  - chmod 600 /swapfile
+  # Create a Linux swap area on the file
+  - mkswap /swapfile
+  # Enable the swap file
+  - swapon /swapfile
+  # Add the swap file to the /etc/fstab file if it is not already there
+  - grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || sudo sed -i -e "\$a/swapfile none swap sw 0 0" /etc/fstab
+  # Enable source code repositories in the sources.list file and update the package list
+  - sed -i '/deb-src/s/^# //' /etc/apt/sources.list && apt update
+  # Install build dependencies for Asterisk
+  - DEBIAN_FRONTEND=noninteractive apt-get -y build-dep asterisk
+  # Add a [MySQL] section to the /etc/odbcinst.ini file
+  - sudo bash -c "echo [MySQL] >> /etc/odbcinst.ini"
+  # Add a Description line to the [MySQL] section of the /etc/odbcinst.ini file
+  - sudo bash -c "echo Description = ODBC for MySQL (MariaDB) >> /etc/odbcinst.ini"
+  # Add a Driver line to the [MySQL] section of the /etc/odbcinst.ini file
+  - sudo bash -c "echo Driver = libmaodbc.so >> /etc/odbcinst.ini"
+  # Add a FileUsage line to the [MySQL] section of the /etc/odbcinst.ini file
+  - sudo bash -c "echo FileUsage = 1 >> /etc/odbcinst.ini"
+  # Download source files for Asterisk, move them to /usr/src, and clean up the directory
+  - cd /tmp && apt-get -y source asterisk && sudo mv asterisk*/ /usr/src
+  - cd $(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)
+  - make distclean
+  # Configure Asterisk with Jansson support
+  - ./configure --with-jansson-bundled
+  # Set up make options for Asterisk
+  - make menuselect.makeopts
+  # Enable certain modules and disable others in Asterisk
+  - menuselect/menuselect --enable app_macro --enable CORE-SOUNDS-EN-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-EN-ULAW --disable-category MENUSELECT_CDR --disable-category MENUSELECT_CEL --disable res_snmp --disable chan_dahdi menuselect.makeopts
+  # Create a user called 'asterisk' with no password and the comment "Asterisk User"
+  - adduser asterisk --disabled-password --gecos "Asterisk User"
+  # Install Asterisk, change the ownership of the /var/lib/asterisk directory, and clean up the source code
+  - make && make install && chown -R asterisk. /var/lib/asterisk
+  # Clone the FreePBX framework and create a modules.conf file
+  - cd /usr/src && git clone -b release/16.0 --single-branch https://github.com/freepbx/framework.git freepbx
+  - touch /etc/asterisk/modules.conf
+  # Install and start FreePBX, and download and install various modules
+  - cd /usr/src/freepbx
+  - ./start_asterisk start
+  - ./install -n
+  - fwconsole ma downloadinstall customappsreg featurecodeadmin framework pm2 recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail sipsettings logfiles dashboard music filestore backup
+  - fwconsole chown
+  - fwconsole reload
+  # Increase the maximum file upload size for PHP applications running on Apache
+  - sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/apache2/php.ini
+  # Increase the maximum amount of memory that PHP applications can use
+  - sed -i 's/\(^memory_limit = \).*/\1256M/' /etc/php/7.4/apache2/php.ini
+  # Set the user and group that Apache runs under to "asterisk"
+  - sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
+  # Allow Apache to process .htaccess files in web directories
+  - sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+  # Enable the Apache "rewrite" module
+  - a2enmod rewrite
+  # Restart the Apache web server
+  - systemctl restart apache2
+  # Delete the default Apache index page
+  - rm /var/www/html/index.html
+  # Update the MySQL socket location in the ODBC configuration file
+  - sed -i 's#Socket=/var/lib/mysql/mysql.sock#Socket=/var/run/mysqld/mysqld.sock#g' /etc/odbc.ini
+  # unnecessary steps, because a full system reboot is happening
+  # - fwconsole restart
+  # - systemctl daemon-reload
+  - systemctl enable freepbx
+  # Reboot the instance
+  - reboot
