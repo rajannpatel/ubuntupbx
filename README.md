@@ -85,7 +85,7 @@ mv $($ASTERISK_16_VERSION)/ /usr/src && cd $($ASTERISK_16_VERSION)
 make distclean
 ./configure --with-jansson-bundled
 make menuselect.makeopts
-menuselect/menuselect --enable app_macro --enable CORE-SOUNDS-EN-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-EN-ULAW --disable-category MENUSELECT_CDR --disable-ca>
+menuselect/menuselect --enable app_macro --enable CORE-SOUNDS-EN-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-EN-ULAW --disable-category MENUSELECT_CDR --disable-category MENUSELECT_CEL --disable res_snmp --disable chan_dahdi menuselect.makeopts
 rm -rf /usr/lib/asterisk/modules/*
 make && make install && chown -R asterisk. /var/lib/asterisk
 fwconsole ma install core
@@ -101,7 +101,7 @@ mv $($ASTERISK_18_VERSION)/ /usr/src && cd $($ASTERISK_18_VERSION)
 make distclean
 ./configure --with-jansson-bundled
 make menuselect.makeopts
-menuselect/menuselect --enable app_macro --enable CORE-SOUNDS-EN-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-EN-ULAW --disable-category MENUSELECT_CDR --disable-ca>
+menuselect/menuselect --enable app_macro --enable CORE-SOUNDS-EN-ULAW --enable MOH-OPSOUND-ULAW --enable EXTRA-SOUNDS-EN-ULAW --disable-category MENUSELECT_CDR --disable-category MENUSELECT_CEL --disable res_snmp --disable chan_dahdi menuselect.makeopts
 rm -rf /usr/lib/asterisk/modules/*
 make && make install && chown -R asterisk. /var/lib/asterisk
 fwconsole ma install core
