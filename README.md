@@ -63,6 +63,8 @@ Beyond public cloud, cloud-init configuration files are a subset of Juju configu
 
 ### Applying Security Patches and Updates
 
+#### Upgrading
+
 Take a backup before attempting to upgrade. It is possible to do this using the FreePBX Backup module.
 
 The following commands should be run as root.
@@ -112,6 +114,14 @@ And third, update all the FreePBX modules:
 
 ```console
 fwconsole ma updateall && fwconsole reload
+```
+
+#### Restoring
+
+When restoring from backup, the restoration process may fail. Set permissions and re-run the restore:
+
+```console
+fwconsole chown
 ```
 
 ---
