@@ -4,7 +4,7 @@ HOSTNAME=voip
 # https://support.google.com/accounts/answer/185833?hl=en
 GMAIL_USERNAME=youremail@gmail.com
 GMAIL_PASSWORD=your_app_password
-sudo bash -c 'cat <<EOF > /etc/systemd/system/freepbx.service
+bash -c 'cat <<EOF > /etc/systemd/system/freepbx.service
 [Unit]
 Description=FreePBX VoIP Server
 After=mariadb.service

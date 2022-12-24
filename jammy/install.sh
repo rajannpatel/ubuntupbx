@@ -3,7 +3,7 @@ DOMAIN=rajanpatel.com
 HOSTNAME=voip
 GMAIL_USERNAME=rajannpatel@gmail.com
 GMAIL_PASSWORD=mypassword
-sudo bash -c 'cat <<EOF > /etc/systemd/system/freepbx.service
+bash -c 'cat <<EOF > /etc/systemd/system/freepbx.service
 [Unit]
 Description=FreePBX VoIP Server
 After=mariadb.service
