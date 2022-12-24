@@ -2,7 +2,7 @@
 
 This project contains a collection of cloud-init.yaml and bash scripts which can be used configure and install FreePBX and Asterisk on Ubuntu in any cloud, virtual machine, or bare metal environment.
 
-Our goal is to install as much software as possible from Canonical, instead of other sources. All the software except FreePBX 16 can be installed from Canonical's universe repository when deploying on Ubuntu 20.04, making it the favorite for FreePBX deployments today.
+Our goal is to install as much software as possible from Canonical, instead of other sources.
 
 Ubuntu 22.04 is the only option for deploying to ARM64 machines, due to a software bug resulting in the odbc-mariadb package not being available for ARM64 machines running Ubuntu 20.04. The Compatibility Matrix section, below, contains more information about this.
 
@@ -134,7 +134,7 @@ Users interested in only the open source aspects of FreePBX and Asterisk have th
 
 FreePBX 16 has a hard requirement on PHP 7.4 and Node.js 10. PHP 7.4 went end-of-life in November 2022, and Node.js 10 went end-of-life in April 2021. Asterisk 16 will reach end-of-life in October 2023, and Asterisk 18 reaches end-of-life in October 2025.
 
-Anybody running Ubuntu 20.04 with an Ubuntu Pro subscription (free, or paid) will get security updates for software installed from the "main" and "universe" repositories until April 2030. Even though the stewards of PHP, Node.js, Asterisk and others have shifted focus to newer versions, you can rely on Canonical to provide security updates for PHP 7.4, Node 10.19, and Asterisk 16.2 until 2030. 
+Anybody running Ubuntu 20.04 with an Ubuntu Pro subscription (free, or paid) will get security updates for software installed from the "main" and "universe" repositories until April 2030. Even though the stewards of PHP, Asterisk and others have shifted focus to newer versions, you can rely on Canonical to provide security updates for PHP 7.4 and Asterisk 16.2 until 2030. 
 
 > “Since we first launched Ubuntu LTS, with five years free security coverage for the main OS, our enterprise customers have asked us to cover more and more of the wider open-source landscape under private commercial agreements. Today, we are excited to offer the benefits of all of that work, free of charge, to anyone in the world, with a free personal Ubuntu Pro subscription”
 > - Mark Shuttleworth, CEO of Canonical.
@@ -150,7 +150,7 @@ Due to a [software bug involving hardcoded paths](https://bugs.debian.org/942412
 
 ### Security Patching Matrix
 
-Ubuntu 22.04 ships with PHP 8.1 and Node.js 18.10, FreePBX 16 is unable to run on PHP 8.1, and requires PHP 7.4 to be installed from elsewhere. While only Node.js 10 is officially supported, FreePBX 16 did not produce any errors during the installation phase when using Node.js 18.10.
+Ubuntu 22.04 ships with PHP 8.1 and Node.js 12.22, FreePBX 16 is unable to run on PHP 8.1, and requires PHP 7.4 to be installed from elsewhere. While only Node.js 10 is officially supported, FreePBX 16 did not produce any errors during the installation phase when using Node.js 18.10.
 
 Ondřej Surý is a Debian developer whose Ubuntu PPA is a reliable source for alternative PHP versions. It's worth noting, Ondřej Surý becomes your source for PHP 7.4 security updates if you choose to install their PHP 7.4 package on your machine.
 
@@ -162,5 +162,5 @@ Canonical has an 18-year track record of timely security updates for the main Ub
 |               | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
 |---            |---                    |---                      |
 |PHP  	        | 7.4 from universe     | 7.4 from ppa:ondrej/php |
-|Node.js  	    | 10.19 from universe   | 12.22 from universe, or<br>10.x ppa:chris-lea/node.js |
+|Node.js  	    | 12.x ppa:chris-lea/node.js   | 12.22 from universe     |
 |Asterisk       | 16.2 from universe    | 18.10 from universe     |
