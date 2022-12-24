@@ -16,7 +16,7 @@ write_files:
     permissions: "0400"
     content: |
       [smtp.gmail.com]:587 $GMAIL_USERNAME:$GMAIL_PASSWORD
-  # The freepbpx.service file to control FreePBX through systemctl
+  # The freebpx.service file to control FreePBX through systemctl
   - path: /etc/systemd/system/freepbx.service
     content: |
       [Unit]
