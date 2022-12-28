@@ -160,11 +160,11 @@ Due to a [software bug involving hardcoded paths](https://bugs.debian.org/942412
 
 ### Security Patching Matrix
 
-Ubuntu 22.04 ships with PHP 8.1 and Node.js 12.22, FreePBX 16 is unable to run on PHP 8.1, and requires PHP 7.4 to be installed from elsewhere. While only Node.js 10 is officially supported, FreePBX 16 did not produce any errors during the installation phase when using Node.js 18.10.
+Ubuntu 22.04 ships with PHP 8.1 and Node.js 12.22, FreePBX 16 is unable to run on PHP 8.1, and requires PHP 7.4 to be installed from elsewhere. FreePBX 16 does produce error messages during operation when using Node.js 18.10, so it is recommended to use Node.js 12.
 
 Ondřej Surý is a Debian developer whose Ubuntu PPA is a reliable source for alternative PHP versions. It's worth noting, Ondřej Surý becomes your source for PHP 7.4 security updates if you choose to install their PHP 7.4 package on your machine.
 
-Chris Lea is an Engineering Manager at Salesforce, whose Ubuntu PPA is a reliable source for Node.js Linux builds. Similarly, it's worth noting Chris Lea becomes your source for Node.js security updates if you choose to install Node.js from their PPA.
+The Node.js snap can be installed at version 12. Alternatively, Chris Lea is an Engineering Manager at Salesforce, whose Ubuntu PPA is a reliable source for Node.js Linux builds. It's worth noting OpenJS Foundation (iojs) when installing via Snap, or Chris Lea when installing via PPA, become your source for Node.js security updates if you choose to install Node.js from the snap or the Nodesource PPA. The snap has the benefit of automatically applying security patches to Node.js version 12, out of the box.
 
 Canonical has an 18-year track record of timely security updates for the main Ubuntu OS, with critical CVEs patched in less than 24 hours on average. Ubuntu Pro expands this coverage to include software installed from the universe repository. Patches are applied for critical, high, and selected medium CVEs, with many zero-day vulnerabilities fixed under embargo for release the moment the CVE is public.
 
@@ -172,5 +172,5 @@ Canonical has an 18-year track record of timely security updates for the main Ub
 |               | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
 |---            |---                    |---                      |
 |PHP  	        | 7.4 from universe     | 7.4 from ppa:ondrej/php |
-|Node.js  	    | 12.x ppa:chris-lea/node.js   | 12.22 from universe     |
+|Node.js  	    | 12.x from snap by OpenJS Foundation (iojs)   | 12.22 from universe     |
 |Asterisk       | 16.2 from universe    | 18.10 from universe     |
