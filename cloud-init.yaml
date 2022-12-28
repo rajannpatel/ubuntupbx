@@ -45,6 +45,12 @@ apt:
       source: 'ppa:ondrej/php'
 {%- endif %}
 
+{% if v1.distro_release == 'focal' -%}
+snap:
+ commands:
+   - ['install', 'node', '--channel=12/stable',  '--classic']
+{%- endif %}
+
 # run `apt update`
 package_update: true
 
