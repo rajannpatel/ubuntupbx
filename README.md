@@ -29,7 +29,7 @@ Please familiarize yourselves the contents of the cloud-init.yaml file or instal
 
 | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
 |---                    |---                      |
-| cloud-init.yaml - todo     | [cloud-init.yaml](./jammy/cloud-init.yaml) |
+| [cloud-init.yaml](./focal/cloud-init.yaml)     | [cloud-init.yaml](./jammy/cloud-init.yaml) |
 | [install.sh](./focal/install.sh)   | [install.sh](./jammy/install.sh) |
 
 ### Using install.sh
