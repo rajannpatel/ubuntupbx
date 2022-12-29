@@ -153,10 +153,10 @@ Anybody running Ubuntu 20.04 with an Ubuntu Pro subscription (free, or paid) wil
 
 Due to a [software bug involving hardcoded paths](https://bugs.debian.org/942412) to some architecture specific libraries, the odbc-mariadb software package in Ubuntu 20.04 can only install on AMD64/i386 (x86/x86_64) architectures. The fix for ARM64 (aarch64) support in the odbc-mariadb package arrived in Ubuntu 22.04, and is not backported into Ubuntu 20.04.
 
-|               | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> | architecture&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4e0399a1-chip.svg" height="16" align="right"> |
+|               | architecture&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4e0399a1-chip.svg" height="16" align="right">  |  Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
 |---            |---            |---            |---            |
-|odbc-mariadb  	| 3.1.4         | 3.1.15 	    | amd64      	|
-|odbc-mariadb  	| not available | 3.1.15 	    | arm64      	|
+|odbc-mariadb  	| amd64      	| 3.1.4         | 3.1.15 	    |
+|odbc-mariadb  	| arm64      	| not available | 3.1.15 	    |
 
 ### Security Patching Matrix
 
