@@ -96,13 +96,13 @@ packages:
   - php7.4-xml
   - libapache2-mod-php7.4
   - libldap2-dev
+  - nodejs
+  - npm
 {%- endif %}
   - mariadb-server
   - mariadb-client
   - odbc-mariadb
   - apache2
-  - nodejs
-  - npm
   - postfix
   - curl
   - dirmngr
@@ -145,13 +145,13 @@ runcmd:
   # Install build dependencies for Asterisk
   - DEBIAN_FRONTEND=noninteractive apt-get -y build-dep asterisk
   # Add a [MySQL] section to the /etc/odbcinst.ini file
-  - sudo bash -c "echo [MySQL] >> /etc/odbcinst.ini"
+  - bash -c "echo [MySQL] >> /etc/odbcinst.ini"
   # Add a Description line to the [MySQL] section of the /etc/odbcinst.ini file
-  - sudo bash -c "echo Description = ODBC for MySQL (MariaDB) >> /etc/odbcinst.ini"
+  - bash -c "echo Description = ODBC for MySQL (MariaDB) >> /etc/odbcinst.ini"
   # Add a Driver line to the [MySQL] section of the /etc/odbcinst.ini file
-  - sudo bash -c "echo Driver = libmaodbc.so >> /etc/odbcinst.ini"
+  - bash -c "echo Driver = libmaodbc.so >> /etc/odbcinst.ini"
   # Add a FileUsage line to the [MySQL] section of the /etc/odbcinst.ini file
-  - sudo bash -c "echo FileUsage = 1 >> /etc/odbcinst.ini"
+  - bash -c "echo FileUsage = 1 >> /etc/odbcinst.ini"
   # Download source files for Asterisk, move them to /usr/src, and clean up the directory
   - cd /tmp && apt-get -y source asterisk && sudo mv asterisk*/ /usr/src
   - cd $(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)

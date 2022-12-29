@@ -109,21 +109,21 @@ runcmd:
   # Enable the swap file
   - swapon /swapfile
   # Add the swap file to the /etc/fstab file if it is not already there
-  - grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || sudo sed -i -e "\$a/swapfile none swap sw 0 0" /etc/fstab
+  - grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || sed -i -e "\$a/swapfile none swap sw 0 0" /etc/fstab
   # Enable source code repositories in the sources.list file and update the package list
   - sed -i '/deb-src/s/^# //' /etc/apt/sources.list && apt update
   # Install build dependencies for Asterisk
   - DEBIAN_FRONTEND=noninteractive apt-get -y build-dep asterisk
   # Add a [MySQL] section to the /etc/odbcinst.ini file
-  - sudo bash -c "echo [MySQL] >> /etc/odbcinst.ini"
+  - bash -c "echo [MySQL] >> /etc/odbcinst.ini"
   # Add a Description line to the [MySQL] section of the /etc/odbcinst.ini file
-  - sudo bash -c "echo Description = ODBC for MySQL (MariaDB) >> /etc/odbcinst.ini"
+  - bash -c "echo Description = ODBC for MySQL (MariaDB) >> /etc/odbcinst.ini"
   # Add a Driver line to the [MySQL] section of the /etc/odbcinst.ini file
-  - sudo bash -c "echo Driver = libmaodbc.so >> /etc/odbcinst.ini"
+  - bash -c "echo Driver = libmaodbc.so >> /etc/odbcinst.ini"
   # Add a FileUsage line to the [MySQL] section of the /etc/odbcinst.ini file
-  - sudo bash -c "echo FileUsage = 1 >> /etc/odbcinst.ini"
+  - bash -c "echo FileUsage = 1 >> /etc/odbcinst.ini"
   # Download source files for Asterisk, move them to /usr/src, and clean up the directory
-  - cd /tmp && apt-get -y source asterisk && sudo mv asterisk*/ /usr/src
+  - cd /tmp && apt-get -y source asterisk && mv asterisk*/ /usr/src
   - cd $(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)
   - make distclean
   # Configure Asterisk with Jansson support
