@@ -20,7 +20,9 @@ apt update
 DEBIAN_FRONTEND=noninteractive apt upgrade -y
 DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server mariadb-client odbc-mariadb
 DEBIAN_FRONTEND=noninteractive apt-get install -y php-{bcmath,cli,curl,gd,intl,ldap,mbstring,mysql,xml} apache2
-snap install node --channel=12/stable --classic
+curl -sL https://deb.nodesource.com/setup_12.x -o /tmp/nodesource_setup.sh
+bash /tmp/nodesource_setup.sh
+DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs npm
 DEBIAN_FRONTEND=noninteractive apt-get install -y libapache2-mod-php
 debconf-set-selections <<< "postfix postfix/mailname string $DOMAIN"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
