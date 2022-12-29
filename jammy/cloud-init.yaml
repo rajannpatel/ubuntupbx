@@ -124,7 +124,7 @@ runcmd:
   - bash -c "echo FileUsage = 1 >> /etc/odbcinst.ini"
   # Download source files for Asterisk, move them to /usr/src, and clean up the directory
   - cd /tmp && apt-get -y source asterisk && mv asterisk*/ /usr/src
-  - cd $(printf "%s"$'\n' /usr/src/asterisk* | sort -Vr | head -n1)
+  - cd /usr/src/asterisk*
   - make distclean
   # Configure Asterisk with Jansson support
   - ./configure --with-jansson-bundled
