@@ -166,5 +166,7 @@ runcmd:
   # - fwconsole restart
   # - systemctl daemon-reload
   - systemctl enable freepbx
-  # Reboot the instance
-  - reboot
+
+# Reboot the instance
+power_state:
+  mode: reboot
