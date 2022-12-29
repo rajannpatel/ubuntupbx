@@ -80,7 +80,6 @@ packages:
   - odbc-mariadb
   - apache2
   - nodejs
-  - npm
   - postfix
   - curl
   - dirmngr
