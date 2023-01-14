@@ -36,7 +36,7 @@ Please familiarize yourselves the contents of the cloud-init.yaml file or instal
 
 1. Clone the rajannpatel/ubuntupbx git repository
 ```console
-git clone --depth 1 git@github.com:rajannpatel/ubuntupbx.git
+git clone --depth 1 https://github.com/rajannpatel/ubuntupbx.git
 ```
 
 2. change to the directory with files intended for your version of Ubuntu
