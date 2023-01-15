@@ -1,5 +1,5 @@
 #!/bin/bash
-DOMAIN=rajanpatel.com
+DOMAIN=yourdomain.com
 HOSTNAME=voip
 # https://support.google.com/accounts/answer/185833?hl=en
 GMAIL_USERNAME=youremail@gmail.com

@@ -1,11 +1,9 @@
-## this file is a work in progress, do not use
-
 ## template: jinja
 #cloud-config
 
 # The following variables are used to set some user specific configuration values in this file
 vars:
-  DOMAIN: rajanpatel.com
+  DOMAIN: yourdomain.com
   HOSTNAME: voip
   # https://support.google.com/accounts/answer/185833?hl=en
   GMAIL_USERNAME: youremail@gmail.com
@@ -42,17 +40,17 @@ apt:
     }
   # This section specifies additional apt sources (PPAs)
   sources:
-{% if v1.distro_release == 'jammy' -%}
+{% if v1.distro_release == 'jammy' %}
     php:
       source: 'ppa:ondrej/php'
-{%- endif %}
-{% if v1.distro_release == 'focal' -%}
+{% endif %}
+{% if v1.distro_release == 'focal' %}
     nodejs:
       source: deb [signed-by=$KEY_FILE] https://deb.nodesource.com/node_12.x $RELEASE main
       # keyid determined via: wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --with-fingerprint --with-colons | awk -F: '/^fpr/ { print $10 }'
       # keyid also confirmed at: https://github.com/nodesource/distributions/blob/master/README.md#manual-installation
       keyid: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
-{%- endif %}
+{% endif %}
 
 # run `apt update`
 package_update: true
@@ -64,7 +62,7 @@ package_upgrade: true
 package_reboot_if_required: true
 
 packages:
-{% if v1.distro_release == 'focal' -%}
+{% if v1.distro_release == 'focal' %}
   - mariadb-server
   - mariadb-client
   - odbc-mariadb
@@ -85,8 +83,8 @@ packages:
   - libneon27-dev
   - libsndfile1-dev
   - python-dev-is-python2
-{%- endif %}
-{% if v1.distro_release == 'jammy' -%}
+{% endif %}
+{% if v1.distro_release == 'jammy' %}
   - software-properties-common
   - php7.4-bcmath
   - php7.4-cli
@@ -99,15 +97,13 @@ packages:
   - php7.4-xml
   - libapache2-mod-php7.4
   - libldap2-dev
-  - nodejs
   - npm
-{%- endif %}
+{% endif %}
   - mariadb-server
   - mariadb-client
   - odbc-mariadb
   - apache2
   - nodejs
-  - npm
   - postfix
   - curl
   - dirmngr
@@ -178,7 +174,7 @@ runcmd:
   - cd /usr/src/freepbx
   - ./start_asterisk start
   - ./install -n
-  - fwconsole ma downloadinstall customappsreg featurecodeadmin framework pm2 recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail sipsettings logfiles dashboard music filestore backup
+  - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail sipsettings logfiles dashboard music filestore backup
   - fwconsole chown
   - fwconsole reload
   # Increase the maximum file upload size for PHP applications running on Apache

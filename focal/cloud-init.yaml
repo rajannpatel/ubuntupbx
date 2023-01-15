@@ -2,7 +2,7 @@
 
 # The following variables are used to set some user specific configuration values in this file
 vars:
-  DOMAIN: responsiveweb.com
+  DOMAIN: yourdomain.com
   HOSTNAME: voip
   # https://support.google.com/accounts/answer/185833?hl=en
   GMAIL_USERNAME: youremail@gmail.com
