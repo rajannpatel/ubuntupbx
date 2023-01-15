@@ -150,7 +150,7 @@ runcmd:
   - cd /usr/src/freepbx
   - ./start_asterisk start
   - ./install -n
-  - fwconsole ma downloadinstall customappsreg featurecodeadmin framework pm2 recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail sipsettings logfiles dashboard music filestore backup
+  - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail sipsettings logfiles dashboard music filestore backup
   - fwconsole chown
   - fwconsole reload
   # Increase the maximum file upload size for PHP applications running on Apache

@@ -56,7 +56,7 @@ touch /etc/asterisk/modules.conf
 cd /usr/src/freepbx
 ./start_asterisk start
 ./install -n
-fwconsole ma downloadinstall customappsreg featurecodeadmin framework pm2 recordings soundlang calendar callrecording conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo cel voicemail sipsettings logfiles dashboard music filestore backup
+fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar callrecording conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo cel voicemail sipsettings logfiles dashboard music filestore backup
 fwconsole chown
 fwconsole reload
 sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.4/apache2/php.ini
