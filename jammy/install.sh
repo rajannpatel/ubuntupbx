@@ -1,10 +1,11 @@
 #!/bin/bash
+# Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
+TOKEN=''
 DOMAIN=yourdomain.com
 SENDGRID_API_KEY=your-api-key
 GMAIL_USERNAME=username@gmail.com
 GMAIL_PASSWORD=yourpassword
 # toggle to decide if sendgrid or gmail configs will be applied
-
 bash -c 'cat <<EOF > /etc/systemd/system/freepbx.service
 [Unit]
 Description=FreePBX VoIP Server
@@ -19,12 +20,12 @@ WantedBy=multi-user.target
 EOF'
 apt update
 DEBIAN_FRONTEND=noninteractive apt upgrade -y
+[ -n "$TOKEN" ] && pro attach $TOKEN && pro enable livepatch
 DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server mariadb-client odbc-mariadb
 DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common
 add-apt-repository -y ppa:ondrej/php
 DEBIAN_FRONTEND=noninteractive apt-get install -y php7.4-{bcmath,cli,curl,gd,intl,ldap,mbstring,mysql,xml} apache2 nodejs npm
 DEBIAN_FRONTEND=noninteractive apt-get install -y libapache2-mod-php7.4
-
 debconf-set-selections <<< "postfix postfix/mailname string $DOMAIN"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 DEBIAN_FRONTEND=noninteractive apt-get install -y postfix

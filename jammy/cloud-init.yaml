@@ -1,5 +1,12 @@
 #cloud-config
 
+# Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
+{% set TOKEN = '' %}
+
+# TIMEZONE: default value is fine
+# As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
+{% set TIMEZONE = 'America/New_York' %}
+
 # The following variables are used to set some user specific configuration values in this file
 vars:
   DOMAIN: yourdomain.com
@@ -96,8 +103,6 @@ packages:
   - subversion
   - xmlstarlet
 runcmd:
-  # Set the time zone to America/New_York
-  - timedatectl set-timezone America/New_York
   # Flush iptables rules and save the current configuration
   - iptables -F && netfilter-persistent save
   # Allocate 2GB of space for a swap file
@@ -170,3 +175,14 @@ runcmd:
 # Reboot the instance
 power_state:
   mode: reboot
+
+ubuntu_advantage:
+{% if TOKEN %}
+  token: {{ TOKEN }}
+{% endif %}
+  enable:
+  - livepatch
+
+{% if "/" in TIMEZONE %}
+timezone: {{ TIMEZONE }}
+{% endif %}

@@ -1,4 +1,6 @@
 #!/bin/bash
+# Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
+TOKEN=''
 DOMAIN=yourdomain.com
 HOSTNAME=voip
 # https://support.google.com/accounts/answer/185833?hl=en
@@ -18,6 +20,7 @@ WantedBy=multi-user.target
 EOF'
 apt update
 DEBIAN_FRONTEND=noninteractive apt upgrade -y
+[ -n "$TOKEN" ] && pro attach $TOKEN && pro enable livepatch
 DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server mariadb-client odbc-mariadb
 DEBIAN_FRONTEND=noninteractive apt-get install -y php-{bcmath,cli,curl,gd,intl,ldap,mbstring,mysql,xml} apache2
 curl -sL https://deb.nodesource.com/setup_12.x -o /tmp/nodesource_setup.sh
