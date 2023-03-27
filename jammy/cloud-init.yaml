@@ -3,30 +3,56 @@
 # Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
 {% set TOKEN = '' %}
 
+# SMTP credentials
+# sendgrid example: substitute `YOUR-API-KEY-HERE` with your API KEY, https://app.sendgrid.com/settings/api_keys
+# {% set SMTP_HOST = 'smtp.sendgrid.net' %}
+# {% set SMTP_PORT = '587' %}
+# {% set SMTP_USERNAME = 'apikey' %}
+# {% set SMTP_PASSWORD = 'YOUR-API-KEY-HERE' %}
+# {% set SMTP_USE_TLS = ''}
+
+# google mail / gmail example: substitute YOUREMAIL@GMAIL.COM and YOUR-APP-PASSWORD from: https://myaccount.google.com/apppasswords
+# {% set SMTP_HOST = 'smtp.gmail.com' %}
+# {% set SMTP_PORT = '587' %}
+# {% set SMTP_USERNAME = 'YOUREMAIL@GMAIL.COM' %}
+# {% set SMTP_PASSWORD = 'YOUR-APP-PASSWORD' %}
+# {% set SMTP_USE_TLS = 'yes'}
+
+# HOSTNAME: subdomain of FQDN (e.g. `server` for `server.yourdomain.com`)
+{% set HOSTNAME = '' %}
+
+# FQDN (e.g. `yourdomain.com` or `server.yourdomain.com`)
+{% set FQDN = '' %}
+
+{% set PRETTY_HOSTNAME = "My PBX Server" %}
+
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
 {% set TIMEZONE = 'America/New_York' %}
 
-# The following variables are used to set some user specific configuration values in this file
-vars:
-  DOMAIN: yourdomain.com
-  HOSTNAME: voip
-  # https://support.google.com/accounts/answer/185833?hl=en
-  GMAIL_USERNAME: youremail@gmail.com
-  GMAIL_PASSWORD: your_app_password
+# FQDN could be a subdomain, so we determine the domain programmatically 
+{% set parts = FQDN.split(".") %}
+{% if parts|length > 1 %}
+    {% set DOMAIN = parts[-2] + "." + parts[-1] %}
+{% else %}
+    {% set DOMAIN = FQDN %}
+{% endif %}
 
-# This section specifies files that should be written to the system
+hostname: {{ HOSTNAME }}
+fqdn: {{ FQDN }}
+pretty_hostname: {{ PRETTY_HOSTNAME }}
+
 write_files:
   # Postfix uses sasl_passwd for authentication
   - path: /etc/postfix/sasl_passwd
     permissions: "0400"
     content: |
-      [smtp.gmail.com]:587 $GMAIL_USERNAME:$GMAIL_PASSWORD
+      [{{ SMTP_HOST }}]:{{ SMTP_PORT }} {{ SMTP_USERNAME }}:{{ SMTP_PASSWORD }}
   # The freebpx.service file to control FreePBX through systemctl
   - path: /etc/systemd/system/freepbx.service
     content: |
       [Unit]
-      Description=FreePBX VoIP Server
+      Description={{ PRETTY_HOSTNAME }}
       After=mariadb.service
       [Service]
       Type=oneshot
@@ -117,6 +143,29 @@ runcmd:
   - grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || sed -i -e "\$a/swapfile none swap sw 0 0" /etc/fstab
   # Enable source code repositories in the sources.list file and update the package list
   - sed -i '/deb-src/s/^# //' /etc/apt/sources.list && apt update
+  # configure email
+{% if SMTP_HOST|lower == 'smtp.gmail.com' %}
+  - wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem -O /etc/postfix/thawte_Primary_Root_CA.pem
+  - chmod 400 /etc/postfix/thawte_Primary_Root_CA.pem
+  - postconf -e smtp_tls_CAfile=/etc/postfix/thawte_Primary_Root_CA.pem
+  - postconf -e smtp_use_tls=yes
+{% endif %}
+{% if SMTP_HOST %}
+  - postconf -e myhostname={{ FQDN }}
+  - postconf -e mydomain={{ DOMAIN }}
+  - postconf -e default_transport=smtp
+  - postconf -e relay_transport=smtp
+  - postconf -e relayhost=[{{ SMTP_HOST }}]:{{ SMTP_PORT }}
+  - postconf -e smtp_tls_security_level = encrypt
+  - postconf -e smtp_sasl_auth_enable = yes
+  - postconf -e smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+  - postconf -e header_size_limit = 4096000
+  - postconf -e smtp_sasl_security_options = noanonymous
+  - postmap /etc/postfix/sasl_passwd
+  - rm /etc/postfix/sasl_passwd
+  - chmod 600 /etc/postfix/sasl_passwd.db
+  - /etc/init.d/postfix restart
+{% endif %}
   # Install build dependencies for Asterisk
   - DEBIAN_FRONTEND=noninteractive apt-get -y build-dep asterisk
   # Add a [MySQL] section to the /etc/odbcinst.ini file
@@ -171,6 +220,9 @@ runcmd:
   # - fwconsole restart
   # - systemctl daemon-reload
   - systemctl enable freepbx
+  # remove sensitive information
+  - echo "Cloud-init completed successfully"
+  - cloud-init clean
 
 # Reboot the instance
 power_state:

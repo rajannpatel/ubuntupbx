@@ -1,14 +1,21 @@
 #!/bin/bash
 # Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
 TOKEN=''
-DOMAIN=yourdomain.com
+FQDN=voip.yourdomain.com
 HOSTNAME=voip
-# https://support.google.com/accounts/answer/185833?hl=en
-GMAIL_USERNAME=youremail@gmail.com
-GMAIL_PASSWORD=your_app_password
+DOMAIN=yourdomain.com
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=username@gmail.com
+SMTP_PASSWORD=yourpassword
+PRETTY_HOSTNAME="My PBX Server"
+sudo hostnamectl set-hostname "$FQDN" --static
+sudo hostnamectl set-hostname "$FQDN" --transient
+sudo hostnamectl set-hostname "$HOSTNAME"
+sudo hostnamectl set-hostname "$PRETTY_HOSTNAME" --pretty
 bash -c 'cat <<EOF > /etc/systemd/system/freepbx.service
 [Unit]
-Description=FreePBX VoIP Server
+Description=$PRETTY_HOSTNAME
 After=mariadb.service
 [Service]
 Type=oneshot
@@ -30,6 +37,28 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y libapache2-mod-php
 debconf-set-selections <<< "postfix postfix/mailname string $DOMAIN"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
+if [[ "${SMTP_HOST,,}" == "smtp.gmail.com" ]]; then
+  wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem -O /etc/postfix/thawte_Primary_Root_CA.pem
+  chmod 400 /etc/postfix/thawte_Primary_Root_CA.pem
+  postconf -e smtp_tls_CAfile=/etc/postfix/thawte_Primary_Root_CA.pem
+  postconf -e smtp_use_tls=yes
+fi
+if [[ -n "${SMTP_HOST}" ]]; then
+  postconf -e myhostname="${FQDN}"
+  postconf -e mydomain="${DOMAIN}"
+  postconf -e default_transport=smtp
+  postconf -e relay_transport=smtp
+  postconf -e relayhost="[$SMTP_HOST]:${SMTP_PORT}"
+  postconf -e smtp_tls_security_level=encrypt
+  postconf -e smtp_sasl_auth_enable=yes
+  postconf -e smtp_sasl_password_maps=hash:/etc/postfix/sasl_passwd
+  postconf -e header_size_limit=4096000
+  postconf -e smtp_sasl_security_options=noanonymous
+  postmap /etc/postfix/sasl_passwd
+  rm /etc/postfix/sasl_passwd
+  chmod 600 /etc/postfix/sasl_passwd.db
+  /etc/init.d/postfix restart
+fi
 DEBIAN_FRONTEND=noninteractive apt-get install -y curl dirmngr ffmpeg git lame libicu-dev mpg123 sqlite3 sox
 # `/usr/src/asterisk-18*/contrib/scripts/install_prereq test` identifies these packages
 DEBIAN_FRONTEND=noninteractive apt-get install -y bison doxygen flex graphviz libcfg-dev libcodec2-dev libcorosync-common-dev libcpg-dev libfftw3-dev libgmime-2.6-dev libjack-jackd2-dev liblua5.2-dev libneon27-dev libosptk-dev libsndfile1-dev pkgconf python-dev-is-python2 subversion xmlstarlet
