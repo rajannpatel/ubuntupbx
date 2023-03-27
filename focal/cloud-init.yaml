@@ -142,8 +142,9 @@ packages:
   - subversion
   - xmlstarlet
 runcmd:
-  # Flush iptables rules and save the current configuration
+{% if platform == 'oracle' %}
   - iptables -F && netfilter-persistent save
+{% endif %}
   # Allocate 2GB of space for a swap file
   - fallocate -l 2G /swapfile
   # Set permission of the swap file to be readable and writable only by the owner  
