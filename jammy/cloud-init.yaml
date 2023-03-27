@@ -9,14 +9,17 @@
 # {% set SMTP_PORT = '587' %}
 # {% set SMTP_USERNAME = 'apikey' %}
 # {% set SMTP_PASSWORD = 'YOUR-API-KEY-HERE' %}
-# {% set SMTP_USE_TLS = ''}
 
 # google mail / gmail example: substitute YOUREMAIL@GMAIL.COM and YOUR-APP-PASSWORD from: https://myaccount.google.com/apppasswords
 # {% set SMTP_HOST = 'smtp.gmail.com' %}
 # {% set SMTP_PORT = '587' %}
 # {% set SMTP_USERNAME = 'YOUREMAIL@GMAIL.COM' %}
 # {% set SMTP_PASSWORD = 'YOUR-APP-PASSWORD' %}
-# {% set SMTP_USE_TLS = 'yes'}
+
+{% set SMTP_HOST = '' %}
+{% set SMTP_PORT = '' %}
+{% set SMTP_USERNAME = '' %}
+{% set SMTP_PASSWORD = '' %}
 
 # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.yourdomain.com`)
 {% set HOSTNAME = '' %}
