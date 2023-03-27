@@ -51,13 +51,31 @@ sudo bash install.sh
 
 ### Using cloud-init
 
-All cloud providers provide the ability to configure virtual machines via cloud-init in their dashboard, via command line tools, or both. For example, Oracle Cloud Infrastructure's dashboard looks like this when provisiong a new virtual machine:
+All cloud providers provide the ability to configure virtual machines via cloud-init in their dashboard, via command line tools, or both. 
+
+#### Oracle Cloud Infrastructure
+
+Oracle Cloud Infrastructure's dashboard looks like this when provisiong a new virtual machine:
 
 ![add cloud-init to Oracle Cloud](https://miro.medium.com/max/1100/1*dfBpaXvB2YRDRQVBInFn5w.png)
 
-You can paste the Ubuntu Jammy [cloud-init.yaml](./jammy/cloud-init.yaml) configuration file in that text area.
+You can paste the [cloud-init.yaml](./cloud-init.yaml) configuration file in that text area.
 
-Beyond public cloud, cloud-init configuration files are a subset of Juju configuration files, if you happen to be using Juju to automate your application deployment and lifecycle. Cloud-init files can be passed to Multipass virtual machine instances, and even to LXD containers.
+#### Google Cloud Platform
+
+Google Cloud Platform's dashboard looks like this when provisioning a virtual machine:
+
+![Expand the Management, security, disks, networking, sole tenancy section](https://blog.woohoosvcs.com/wp-content/uploads/2019/11/GCE-FindAutomation.jpg)
+
+Click "Add item" under Management
+
+![add a user-data key](https://blog.woohoosvcs.com/wp-content/uploads/2019/11/GCE-Automation.jpg)
+
+You can paste the [cloud-init.yaml](./cloud-init.yaml) configuration file in that text area.
+
+---
+
+Beyond public cloud, cloud-init configuration files are a subset of Juju configuration files, if you happen to be using Juju to automate your application deployment and lifecycle. Cloud-init files can be passed to Multipass and LXD virtual machine instances and containers.
 
 ---
 
