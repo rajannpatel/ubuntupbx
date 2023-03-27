@@ -36,6 +36,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y libapache2-mod-php7.4
 debconf-set-selections <<< "postfix postfix/mailname string $DOMAIN"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
+echo "[$SMTP_HOST]:$SMTP_PORT $SMTP_USERNAME:$SMTP_PASSWORD" > /etc/postfix/sasl_passwd
 if [[ "${SMTP_HOST,,}" == "smtp.gmail.com" ]]; then
   wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem -O /etc/postfix/thawte_Primary_Root_CA.pem
   chmod 400 /etc/postfix/thawte_Primary_Root_CA.pem
