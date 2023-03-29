@@ -255,8 +255,6 @@ runcmd:
   # - fwconsole restart
   # - systemctl daemon-reload
   - systemctl enable freepbx
-  - echo "Cloud-init completed successfully"
-  - cloud-init clean
 
 # Reboot the instance
 power_state:

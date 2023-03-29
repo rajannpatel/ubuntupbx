@@ -225,8 +225,6 @@ runcmd:
   # - systemctl daemon-reload
   - systemctl enable freepbx
   # remove sensitive information
-  - echo "Cloud-init completed successfully"
-  - cloud-init clean
 
 # Reboot the instance
 power_state:
