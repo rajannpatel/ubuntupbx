@@ -6,6 +6,7 @@ HOSTNAME=voip
 DOMAIN=yourdomain.com
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
+SMTP_USE_TLS=yes
 SMTP_USERNAME=username@gmail.com
 SMTP_PASSWORD=yourpassword
 PRETTY_HOSTNAME="My PBX Server"
@@ -37,7 +38,7 @@ debconf-set-selections <<< "postfix postfix/mailname string $DOMAIN"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
 echo "[$SMTP_HOST]:$SMTP_PORT $SMTP_USERNAME:$SMTP_PASSWORD" > /etc/postfix/sasl_passwd
-if [[ "${SMTP_HOST,,}" == "smtp.gmail.com" ]]; then
+if [[ "${SMTP_USE_TLS,,}" == 'yes' ]]; then
   wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem -O /etc/postfix/thawte_Primary_Root_CA.pem
   chmod 400 /etc/postfix/thawte_Primary_Root_CA.pem
   postconf -e smtp_tls_CAfile=/etc/postfix/thawte_Primary_Root_CA.pem

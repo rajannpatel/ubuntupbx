@@ -21,6 +21,10 @@
 {% set SMTP_USERNAME = '' %}
 {% set SMTP_PASSWORD = '' %}
 
+# SMTP_USE_TLS is `yes` if TLS is needed
+# Google (SMTP_HOST = smtp.google.com) requires TLS, Sendgrid (SMTP_HOST = smtp.sendgrid.net) does not
+{% set SMTP_USE_TLS = 'yes' %}
+
 # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.yourdomain.com`)
 {% set HOSTNAME = '' %}
 
@@ -155,7 +159,7 @@ runcmd:
   # Enable source code repositories in the sources.list file and update the package list
   - sed -i '/deb-src/s/^# //' /etc/apt/sources.list && apt update
   # configure email
-{% if SMTP_HOST|lower == 'smtp.gmail.com' %}
+{% if SMTP_USE_TLS|lower == 'yes' %}
   - wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem -O /etc/postfix/thawte_Primary_Root_CA.pem
   - chmod 400 /etc/postfix/thawte_Primary_Root_CA.pem
   - postconf -e smtp_tls_CAfile=/etc/postfix/thawte_Primary_Root_CA.pem
