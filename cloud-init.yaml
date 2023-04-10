@@ -23,7 +23,7 @@
 {% set SMTP_PASSWORD = '' %}
 
 # SMTP_USE_TLS is `yes` if TLS is needed
-# Google (SMTP_HOST = smtp.google.com) requires TLS, Sendgrid (SMTP_HOST = smtp.sendgrid.net) does not
+# Google (SMTP_HOST=smtp.google.com SMTP_PORT=587) and Sendgrid (SMTP_HOST=smtp.sendgrid.net SMTP_PORT=465) customers should use TLS
 {% set SMTP_USE_TLS = 'yes' %}
 
 # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.yourdomain.com`)
