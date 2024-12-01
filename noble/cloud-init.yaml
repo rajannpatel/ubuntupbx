@@ -1,6 +1,9 @@
 ## template: jinja
 #cloud-config
 
+# SET OUR VARIABLES
+# =================
+
 # Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
 {% set TOKEN = '' %}
 
@@ -22,17 +25,25 @@
 {% set SMTP_USERNAME = '' %}
 {% set SMTP_PASSWORD = '' %}
 
-# HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
-{% set HOSTNAME = 'voip' %}
+# YOUR_EMAIL address for daily crontab notifications
+{% set YOUR_EMAIL = '' %}
 
+# # Cloudflare API credentials used by certbot
+# {% set DNS_CLOUDFLARE_API_TOKEN = '' %}
+
+# HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
 # FQDN (e.g. `example.com` or `server.example.com`)
-{% set FQDN = 'example.com' %}
+{% set HOSTNAME = 'voip' %}
+{% set FQDN = 'voip.example.com' %}
 
 {% set PRETTY_HOSTNAME = "My PBX Server" %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
 {% set TIMEZONE = 'America/New_York' %}
+
+# =========================
+# END OF SETTING VARIABLES
 
 # FQDN could be a subdomain, so we determine the domain programmatically 
 {% set parts = FQDN.split(".") %}
@@ -60,6 +71,12 @@ write_files:
     permissions: "0400"
     content: |
       [{{ SMTP_HOST }}]:{{ SMTP_PORT }} {{ SMTP_USERNAME }}:{{ SMTP_PASSWORD }}
+  # {% if DNS_CLOUDFLARE_API_TOKEN %}
+  # - path: /root/cloudflare.ini
+  #   permissions: "0400"
+  #   content: |
+  #     dns_cloudflare_api_token = {{ DNS_CLOUDFLARE_API_TOKEN }}
+  # {% endif %}
   # The freebpx.service file to control FreePBX through systemctl
   - path: /etc/systemd/system/freepbx.service
     permissions: "0644"
@@ -105,6 +122,12 @@ apt:
   sources:
     php:
       source: 'ppa:ondrej/php'
+
+{% if DNS_CLOUDFLARE_API_TOKEN %}
+snap:
+ commands:
+   - ['install', 'certbot', '--classic', '--channel', 'latest/stable']
+{% endif %}
 
 # run `apt update`
 package_update: true
@@ -162,7 +185,10 @@ runcmd:
   - ufw disable
   - apt remove ufw -y
   - apt purge ufw -y
-  # Allocate 2GB of space for a swap file
+  {% if platform == 'oracle' %} # If running on Oracle Cloud, delete the iptables configuration
+  - iptables -F && netfilter-persistent save
+  {% endif %}
+  # fallocate -l 2G of space for swap file
   - fallocate -l 2G /swapfile
   # Set permission of the swap file to be readable and writable only by the owner  
   - chmod 600 /swapfile
@@ -172,6 +198,9 @@ runcmd:
   - swapon /swapfile
   # Add the swap file to the /etc/fstab file if it is not already there
   - grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || sed -i -e "\$a/swapfile none swap sw 0 0" /etc/fstab
+  # {% if DNS_CLOUDFLARE_API_TOKEN %}
+  # - certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/cloudflare.ini -d $(hostname --long)
+  # {% endif %}
   {% if SMTP_HOST %}
   - postconf -e myhostname="{{ FQDN }}"
   - postconf -e mydomain="{{ DOMAIN }}"
@@ -222,8 +251,13 @@ runcmd:
   - fwconsole reload
   - fwconsole restart
   - systemctl enable freepbx
-  # - crontab -l | { cat; echo "MAILTO="YOUREMAIL@GMAIL.COM"; } | crontab -
+  {% if YOUR_EMAIL %}
+  - crontab -l | { cat; echo "MAILTO="{{ YOUR_EMAIL }}"; } | crontab -
+  {% endif %}
   - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor -type f -size 44c -delete"; } | crontab -
   - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} \; 2>/dev/null"; } | crontab -
   - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} \; 2>/dev/null"; } | crontab -
   - crontab -l | { cat; echo "@daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete"; } | crontab -
+  # - optimize DB and avoid bloat: https://stackoverflow.com/questions/30635603/what-does-table-does-not-support-optimize-doing-recreate-analyze-instead-me
+  - crontab -l | { cat; echo "@daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cdr;'"; } | crontab -
+  - crontab -l | { cat; echo "@daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL 1 DAY);  optimize table cel;'"; } | crontab -
