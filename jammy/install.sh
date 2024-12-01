@@ -102,4 +102,33 @@ sed -i 's#Socket=/var/lib/mysql/mysql.sock#Socket=/var/run/mysqld/mysqld.sock#g'
 fwconsole restart
 systemctl daemon-reload
 systemctl enable freepbx
+# Define the logrotate configuration
+LOGROTATE_CONFIG="/etc/logrotate.d/asterisk"
+CONFIG_CONTENT=$(cat <<EOF
+/var/log/asterisk/debug /var/log/asterisk/messages /var/log/asterisk/full /var/log/asterisk/*_log {
+    weekly
+    missingok
+    rotate 4
+    sharedscripts
+    postrotate
+        /usr/sbin/invoke-rc.d asterisk logger-reload > /dev/null 2> /dev/null
+    endscript
+}
+EOF
+)
+
+# Check if the logrotate configuration file already exists
+if [ -e "$LOGROTATE_CONFIG" ]; then
+    echo "Logrotate configuration for Asterisk already exists at $LOGROTATE_CONFIG"
+else
+    # Write the configuration to the file
+    echo "$CONFIG_CONTENT" | sudo tee "$LOGROTATE_CONFIG" > /dev/null
+    echo "Logrotate configuration added at $LOGROTATE_CONFIG"
+fi
+
+# Test the logrotate configuration
+echo "Testing logrotate configuration..."
+sudo logrotate -v -f "$LOGROTATE_CONFIG"
+
+echo "Logrotate configuration completed!"
 reboot
