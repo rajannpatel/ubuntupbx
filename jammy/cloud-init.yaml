@@ -142,6 +142,7 @@ packages:
   - pkgconf
   - subversion
   - xmlstarlet
+
 runcmd:
 {% if platform == 'oracle' %}
   - iptables -F && netfilter-persistent save
