@@ -1,0 +1,225 @@
+## template: jinja
+#cloud-config
+
+# Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
+{% set TOKEN = '' %}
+
+# SMTP credentials
+# sendgrid example: substitute `YOUR-API-KEY-HERE` with your API KEY, https://app.sendgrid.com/settings/api_keys
+# {% set SMTP_HOST = 'smtp.sendgrid.net' %}
+# {% set SMTP_PORT = '587' %}
+# {% set SMTP_USERNAME = 'apikey' %}
+# {% set SMTP_PASSWORD = 'YOUR-API-KEY-HERE' %}
+
+# google mail / gmail example: substitute YOUREMAIL@GMAIL.COM and YOUR-APP-PASSWORD from: https://myaccount.google.com/apppasswords
+# {% set SMTP_HOST = 'smtp.gmail.com' %}
+# {% set SMTP_PORT = '587' %}
+# {% set SMTP_USERNAME = 'YOUREMAIL@GMAIL.COM' %}
+# {% set SMTP_PASSWORD = 'YOUR-APP-PASSWORD' %}
+
+{% set SMTP_HOST = '' %}
+{% set SMTP_PORT = '' %}
+{% set SMTP_USERNAME = '' %}
+{% set SMTP_PASSWORD = '' %}
+
+# HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
+{% set HOSTNAME = 'voip' %}
+
+# FQDN (e.g. `example.com` or `server.example.com`)
+{% set FQDN = 'example.com' %}
+
+{% set PRETTY_HOSTNAME = "My PBX Server" %}
+
+# TIMEZONE: default value is fine
+# As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
+{% set TIMEZONE = 'America/New_York' %}
+
+# FQDN could be a subdomain, so we determine the domain programmatically 
+{% set parts = FQDN.split(".") %}
+{% if parts|length > 1 %}
+    {% set DOMAIN = parts[-2] + "." + parts[-1] %}
+{% else %}
+    {% set DOMAIN = FQDN %}
+{% endif %}
+
+hostname: {{ HOSTNAME }}
+fqdn: {{ FQDN }}
+pretty_hostname: {{ PRETTY_HOSTNAME }}
+
+users:
+  - name: asterisk
+    gecos: "Asterisk User"
+    groups: users
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+    lock_passwd: true
+
+write_files:
+  # Postfix uses sasl_passwd for authentication
+  - path: /etc/postfix/sasl_passwd
+    permissions: "0400"
+    content: |
+      [{{ SMTP_HOST }}]:{{ SMTP_PORT }} {{ SMTP_USERNAME }}:{{ SMTP_PASSWORD }}
+  # The freebpx.service file to control FreePBX through systemctl
+  - path: /etc/systemd/system/freepbx.service
+    permissions: "0644"
+    content: |
+      [Unit]
+      Description={{ PRETTY_HOSTNAME }}
+      After=mariadb.service
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      ExecStart=/usr/sbin/fwconsole start -q
+      ExecStop=/usr/sbin/fwconsole stop -q
+      [Install]
+      WantedBy=multi-user.target
+  - path: /etc/odbcinst.ini
+    permissions: "0644"
+    content: |
+      [MySQL]
+      Description = ODBC for MySQL (MariaDB)
+      Driver = /usr/lib/x86_64-linux-gnu/odbc/libmaodbc.so
+      FileUsage = 1
+  - path: /etc/odbc.ini
+    permissions: "0644"
+    content: |
+      [MySQL-asteriskcdrdb]
+      Description = MySQL connection to 'asteriskcdrdb' database
+      Driver = MySQL
+      Server = server_ip
+      Database = asteriskcdrdb
+      Port = 3306
+      Socket = /var/run/mysqld/mysqld.sock
+      Option = 3
+
+apt:  
+  conf: |
+    APT {
+      Get {
+        Assume-Yes 'true';
+        Fix-Broken 'true';
+      }
+    }
+  # This section specifies additional apt sources (PPAs)
+  sources:
+    php:
+      source: 'ppa:ondrej/php'
+
+# run `apt update`
+package_update: true
+
+# run `apt upgrade`
+package_upgrade: true
+
+# reboot the system if required by presence of /var/run/reboot-required.
+# commented out due to premature reboot bug: https://github.com/canonical/cloud-init/issues/5849
+# package_reboot_if_required: true
+
+# Instead, we reboot the instance upon completion of cloud-init always
+power_state:
+  mode: reboot
+
+ubuntu_pro:
+{% if TOKEN %}
+  token: {{ TOKEN }}
+{% endif %}
+  enable: [livepatch]
+
+{% if "/" in TIMEZONE %}
+timezone: {{ TIMEZONE }}
+{% endif %}
+
+packages:
+  - postfix
+  - apache2
+  - mariadb-server
+  - mariadb-client
+  - sqlite3
+  - odbc-mariadb
+  - unixodbc
+  - php8.2
+  - php8.2-curl
+  - php8.2-cli
+  - php8.2-common
+  - php8.2-mysql
+  - php8.2-gd
+  - php8.2-mbstring
+  - php8.2-intl
+  - php8.2-xml
+  - php-pear
+  - php-soap
+  - php8.2-common
+  - nodejs
+  - npm
+  - lame
+  - ffmpeg
+  - mpg123
+  - sox
+  - asterisk
+
+runcmd:
+  # use the public cloud firewall rules
+  - ufw disable
+  - apt remove ufw -y
+  - apt purge ufw -y
+  # Allocate 2GB of space for a swap file
+  - fallocate -l 2G /swapfile
+  # Set permission of the swap file to be readable and writable only by the owner  
+  - chmod 600 /swapfile
+  # Create a Linux swap area on the file
+  - mkswap /swapfile
+  # Enable the swap file
+  - swapon /swapfile
+  # Add the swap file to the /etc/fstab file if it is not already there
+  - grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || sed -i -e "\$a/swapfile none swap sw 0 0" /etc/fstab
+  {% if SMTP_HOST %}
+  - postconf -e myhostname="{{ FQDN }}"
+  - postconf -e mydomain="{{ DOMAIN }}"
+  - postconf -e myorigin="{{ DOMAIN }}"
+  - postconf -e masquerade_domains="{{ DOMAIN }}"
+  - postconf -e mydestination=localhost
+  - postconf -e default_transport=smtp
+  - postconf -e relay_transport=smtp
+  - postconf -e relayhost="[{{ SMTP_HOST }}]:{{ SMTP_PORT }}"
+  - postconf -e smtp_sasl_auth_enable=yes
+  - postconf -e smtp_sasl_password_maps=hash:/etc/postfix/sasl_passwd
+  - postconf -e header_size_limit=4096000
+  - postconf -e smtp_sasl_security_options=noanonymous
+  - postconf -e smtp_sasl_tls_security_options=noanonymous
+  - postconf -e smtp_tls_security_level=encrypt
+  - postconf -e smtp_use_tls=yes
+  - postmap /etc/postfix/sasl_passwd
+  - rm /etc/postfix/sasl_passwd
+  - systemctl restart postfix.service
+  {% endif %}
+  - chown -R asterisk:asterisk /etc/asterisk
+  - chown -R asterisk:asterisk /var/{lib,log,spool}/asterisk
+  - chown -R asterisk:asterisk /usr/lib64/asterisk
+  - sed -i 's|#AST_USER|AST_USER|' /etc/default/asterisk
+  - sed -i 's|#AST_GROUP|AST_GROUP|' /etc/default/asterisk
+  - sed -i 's|;runuser|runuser|' /etc/asterisk/asterisk.conf
+  - sed -i 's|;rungroup|rungroup|' /etc/asterisk/asterisk.conf
+  - ldconfig
+  - apt -y purge php8.1 php8.3
+  - rm -rf /etc/php/8.1 /etc/php/8.3
+  - a2enmod php8.2
+  - update-alternatives --set php /usr/bin/php8.2
+  - sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/8.2/apache2/php.ini
+  - sed -i 's/\(emory_limit = \).*/\1256M/' /etc/php/8.2/apache2/php.ini
+  - sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
+  - sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+  - a2enmod rewrite
+  - rm /var/www/html/index.html
+  - systemctl restart apache2
+  - systemctl stop asterisk
+  - killall asterisk
+  # idempotently and atomically noload 3 voicemail modules which are incompatible with freepbx
+  - for module in res_pjsip_send_to_voicemail.so app_voicemail_imap.so app_voicemail_odbc.so; do grep -qx "noload => $module" /etc/asterisk/modules.conf || sed -i "/\[modules\]/a noload => $module" /etc/asterisk/modules.conf; done
+  - cd /usr/src && wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf freepbx-17.0-latest.tgz
+  - cd /usr/src/freepbx && ./start_asterisk start && ./install -n
+  - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
+  - fwconsole chown
+  - fwconsole reload
+  - fwconsole restart
+  - systemctl enable freepbx
