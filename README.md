@@ -25,10 +25,10 @@ It is generally considered to be a security risk to curl and run a shell script 
 
 Please familiarize yourselves the contents of the cloud-init.yaml file or install.sh files in this project before using them. You only need to use either the cloud-init.yaml file or the install.sh. Downloading and running install.sh may be the more familiar path for some of you, but cloud-init.yaml is the fastest one.
 
-| Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
-|---                    |---                      |
-| [cloud-init.yaml](./focal/cloud-init.yaml)     | [cloud-init.yaml](./jammy/cloud-init.yaml) |
-| [install.sh](./focal/install.sh)   | [install.sh](./jammy/install.sh) |
+| Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> | Ubuntu 24.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/c204526c-24.04%20LTS%20Noble%20Numbat%20Circle,%20centered.svg" height="16" align="right"> |
+|---                    |---                      |---                      |
+| [cloud-init.yaml](./focal/cloud-init.yaml)     | [cloud-init.yaml](./jammy/cloud-init.yaml) | [cloud-init.yaml](./noble/cloud-init.yaml) |
+| [install.sh](./focal/install.sh)   | [install.sh](./jammy/install.sh) | |
 
 ### Using install.sh
 
