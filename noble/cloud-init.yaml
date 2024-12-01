@@ -135,7 +135,6 @@ packages:
   - apache2
   - mariadb-server
   - mariadb-client
-  - sqlite3
   - odbc-mariadb
   - unixodbc
   - php8.2
