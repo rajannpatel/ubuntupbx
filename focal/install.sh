@@ -1,12 +1,11 @@
 #!/bin/bash
 # Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
 TOKEN=''
-FQDN=voip.yourdomain.com
+FQDN=voip.example.com
 HOSTNAME=voip
-DOMAIN=yourdomain.com
+DOMAIN=example.com
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
-SMTP_USE_TLS=yes
 SMTP_USERNAME=username@gmail.com
 SMTP_PASSWORD=yourpassword
 PRETTY_HOSTNAME="My PBX Server"
@@ -39,13 +38,13 @@ debconf-set-selections <<< "postfix postfix/mailname string $DOMAIN"
 debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
 echo "[$SMTP_HOST]:$SMTP_PORT $SMTP_USERNAME:$SMTP_PASSWORD" > /etc/postfix/sasl_passwd
-if [[ "${SMTP_USE_TLS,,}" == 'yes' ]]; then
-  wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem -O /etc/postfix/thawte_Primary_Root_CA.pem
-  chmod 400 /etc/postfix/thawte_Primary_Root_CA.pem
-  postconf -e smtp_tls_CAfile=/etc/postfix/thawte_Primary_Root_CA.pem
-  postconf -e smtp_use_tls=yes
-fi
 if [[ -n "${SMTP_HOST}" ]]; then
+  postconf -e myorigin="${DOMAIN}"
+  postconf -e masquerade_domains="${DOMAIN}"
+  postconf -e mydestination=localhost
+  postconf -e smtp_sasl_tls_security_options=noanonymous
+  postconf -e smtp_tls_security_level=encrypt
+  postconf -e smtp_use_tls=yes
   postconf -e myhostname="${FQDN}"
   postconf -e mydomain="${DOMAIN}"
   postconf -e default_transport=smtp
@@ -59,7 +58,7 @@ if [[ -n "${SMTP_HOST}" ]]; then
   postmap /etc/postfix/sasl_passwd
   rm /etc/postfix/sasl_passwd
   chmod 600 /etc/postfix/sasl_passwd.db
-  /etc/init.d/postfix restart
+  systemctl restart postfix.service
 fi
 DEBIAN_FRONTEND=noninteractive apt-get install -y curl dirmngr ffmpeg git lame libicu-dev mpg123 sqlite3 sox
 # `/usr/src/asterisk-18*/contrib/scripts/install_prereq test` identifies these packages

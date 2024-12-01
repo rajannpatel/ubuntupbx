@@ -21,14 +21,10 @@
 {% set SMTP_USERNAME = '' %}
 {% set SMTP_PASSWORD = '' %}
 
-# SMTP_USE_TLS is `yes` if TLS is needed
-# Google (SMTP_HOST=smtp.google.com SMTP_PORT=587) and Sendgrid (SMTP_HOST=smtp.sendgrid.net SMTP_PORT=465) customers should use TLS
-{% set SMTP_USE_TLS = 'yes' %}
-
-# HOSTNAME: subdomain of FQDN (e.g. `server` for `server.yourdomain.com`)
+# HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
 {% set HOSTNAME = '' %}
 
-# FQDN (e.g. `yourdomain.com` or `server.yourdomain.com`)
+# FQDN (e.g. `example.com` or `server.example.com`)
 {% set FQDN = '' %}
 
 {% set PRETTY_HOSTNAME = "My PBX Server" %}
@@ -159,27 +155,25 @@ runcmd:
   # Enable source code repositories in the sources.list file and update the package list
   - sed -i '/deb-src/s/^# //' /etc/apt/sources.list && apt update
   # configure email
-{% if SMTP_USE_TLS|lower == 'yes' %}
-  - wget https://www.thawte.com/roots/thawte_Primary_Root_CA.pem -O /etc/postfix/thawte_Primary_Root_CA.pem
-  - chmod 400 /etc/postfix/thawte_Primary_Root_CA.pem
-  - postconf -e smtp_tls_CAfile=/etc/postfix/thawte_Primary_Root_CA.pem
-  - postconf -e smtp_use_tls=yes
-{% endif %}
 {% if SMTP_HOST %}
-  - postconf -e myhostname={{ FQDN }}
-  - postconf -e mydomain={{ DOMAIN }}
+  - postconf -e myhostname="{{ FQDN }}"
+  - postconf -e mydomain="{{ DOMAIN }}"
+  - postconf -e myorigin="{{ DOMAIN }}"
+  - postconf -e masquerade_domains="{{ DOMAIN }}"
+  - postconf -e mydestination=localhost
   - postconf -e default_transport=smtp
   - postconf -e relay_transport=smtp
-  - postconf -e relayhost=[{{ SMTP_HOST }}]:{{ SMTP_PORT }}
-  - postconf -e smtp_tls_security_level = encrypt
-  - postconf -e smtp_sasl_auth_enable = yes
-  - postconf -e smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
-  - postconf -e header_size_limit = 4096000
-  - postconf -e smtp_sasl_security_options = noanonymous
+  - postconf -e relayhost="[{{ SMTP_HOST }}]:{{ SMTP_PORT }}"
+  - postconf -e smtp_sasl_auth_enable=yes
+  - postconf -e smtp_sasl_password_maps=hash:/etc/postfix/sasl_passwd
+  - postconf -e header_size_limit=4096000
+  - postconf -e smtp_sasl_security_options=noanonymous
+  - postconf -e smtp_sasl_tls_security_options=noanonymous
+  - postconf -e smtp_tls_security_level=encrypt
+  - postconf -e smtp_use_tls=yes
   - postmap /etc/postfix/sasl_passwd
   - rm /etc/postfix/sasl_passwd
-  - chmod 600 /etc/postfix/sasl_passwd.db
-  - /etc/init.d/postfix restart
+  - systemctl restart postfix.service
 {% endif %}
   # Install build dependencies for Asterisk
   - DEBIAN_FRONTEND=noninteractive apt-get -y build-dep asterisk
@@ -240,12 +234,11 @@ runcmd:
 power_state:
   mode: reboot
 
-ubuntu_advantage:
+ubuntu_pro:
 {% if TOKEN %}
   token: {{ TOKEN }}
 {% endif %}
-  enable:
-  - livepatch
+  enable: [livepatch]
 
 {% if "/" in TIMEZONE %}
 timezone: {{ TIMEZONE }}
