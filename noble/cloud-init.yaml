@@ -252,7 +252,7 @@ runcmd:
   - fwconsole restart
   - systemctl enable freepbx
   {% if YOUR_EMAIL %}
-  - crontab -l | { cat; echo "MAILTO="{{ YOUR_EMAIL }}"; } | crontab -
+  - crontab -l | { cat; echo "MAILTO={{ YOUR_EMAIL }}"; } | crontab -
   {% endif %}
   - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor -type f -size 44c -delete"; } | crontab -
   - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} \; 2>/dev/null"; } | crontab -

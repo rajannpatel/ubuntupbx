@@ -133,7 +133,7 @@ sudo logrotate -v -f "$LOGROTATE_CONFIG"
 
 echo "Logrotate configuration completed!"
 
-# crontab -l | { cat; echo "MAILTO="YOUREMAIL@GMAIL.COM"; } | crontab -
+# crontab -l | { cat; echo "MAILTO=YOUREMAIL@GMAIL.COM"; } | crontab -
 crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor -type f -size 44c -delete"; } | crontab -
 crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} \; 2>/dev/null"; } | crontab -
 crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} \; 2>/dev/null"; } | crontab -
