@@ -25,11 +25,8 @@
 {% set SMTP_USERNAME = '' %}
 {% set SMTP_PASSWORD = '' %}
 
-# YOUR_EMAIL address for daily crontab notifications
-{% set YOUR_EMAIL = '' %}
-
-# # Cloudflare API credentials used by certbot
-# {% set DNS_CLOUDFLARE_API_TOKEN = '' %}
+# CRONTAB_EMAIL address for daily crontab notifications
+{% set CRONTAB_EMAIL = 'youremail@example.com' %}
 
 # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
 # FQDN (e.g. `example.com` or `server.example.com`)
@@ -48,9 +45,9 @@
 # FQDN could be a subdomain, so we determine the domain programmatically 
 {% set parts = FQDN.split(".") %}
 {% if parts|length > 1 %}
-    {% set DOMAIN = parts[-2] + "." + parts[-1] %}
+  {% set DOMAIN = parts[-2] + "." + parts[-1] %}
 {% else %}
-    {% set DOMAIN = FQDN %}
+  {% set DOMAIN = FQDN %}
 {% endif %}
 
 hostname: {{ HOSTNAME }}
@@ -66,18 +63,12 @@ users:
     lock_passwd: true
 
 write_files:
-  # Postfix uses sasl_passwd for authentication
+# Postfix uses sasl_passwd for authentication
   - path: /etc/postfix/sasl_passwd
     permissions: "0400"
     content: |
       [{{ SMTP_HOST }}]:{{ SMTP_PORT }} {{ SMTP_USERNAME }}:{{ SMTP_PASSWORD }}
-  # {% if DNS_CLOUDFLARE_API_TOKEN %}
-  # - path: /root/cloudflare.ini
-  #   permissions: "0400"
-  #   content: |
-  #     dns_cloudflare_api_token = {{ DNS_CLOUDFLARE_API_TOKEN }}
-  # {% endif %}
-  # The freebpx.service file to control FreePBX through systemctl
+# The freebpx.service file to control FreePBX through systemctl
   - path: /etc/systemd/system/freepbx.service
     permissions: "0644"
     content: |
@@ -114,6 +105,14 @@ write_files:
     content: |
       #!/bin/bash
       for module in res_pjsip_send_to_voicemail.so app_voicemail_imap.so app_voicemail_odbc.so; do grep -qx "noload => $module" /etc/asterisk/modules.conf || sed -i "/\[modules\]/a noload => $module" /etc/asterisk/modules.conf; done
+  - path: /tmp/rootcron
+    content: |
+      @daily find /var/spool/asterisk/monitor -type f -size 44c -delete
+      @daily find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} \; 2>/dev/null
+      @daily find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} \; 2>/dev/null
+      @daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete
+      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cdr;'
+      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL 1 DAY);  optimize table cel;'
 
 apt:  
   conf: |
@@ -127,12 +126,6 @@ apt:
   sources:
     php:
       source: 'ppa:ondrej/php'
-
-{% if DNS_CLOUDFLARE_API_TOKEN %}
-snap:
- commands:
-   - ['install', 'certbot', '--classic', '--channel', 'latest/stable']
-{% endif %}
 
 # run `apt update`
 package_update: true
@@ -186,27 +179,24 @@ packages:
   - asterisk
 
 runcmd:
-  # use the public cloud firewall rules
+# use the public cloud firewall rules
   - ufw disable
   - apt remove ufw -y
   - apt purge ufw -y
-  {% if platform == 'oracle' %} # If running on Oracle Cloud, delete the iptables configuration
+{% if platform == 'oracle' %} # If running on Oracle Cloud, delete the iptables configuration
   - iptables -F && netfilter-persistent save
-  {% endif %}
-  # fallocate -l 2G of space for swap file
-  - fallocate -l 2G /swapfile
-  # Set permission of the swap file to be readable and writable only by the owner  
+{% endif %}
+# fallocate -l 4G of space for swap file
+  - fallocate -l 4G /swapfile
+# Set permission of the swap file to be readable and writable only by the owner  
   - chmod 600 /swapfile
-  # Create a Linux swap area on the file
+# Create a Linux swap area on the file
   - mkswap /swapfile
-  # Enable the swap file
+# Enable the swap file
   - swapon /swapfile
-  # Add the swap file to the /etc/fstab file if it is not already there
+# Add the swap file to the /etc/fstab file if it is not already there
   - grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || sed -i -e "\$a/swapfile none swap sw 0 0" /etc/fstab
-  # {% if DNS_CLOUDFLARE_API_TOKEN %}
-  # - certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/cloudflare.ini -d $(hostname --long)
-  # {% endif %}
-  {% if SMTP_HOST %}
+{% if SMTP_HOST %}
   - postconf -e myhostname="{{ FQDN }}"
   - postconf -e mydomain="{{ DOMAIN }}"
   - postconf -e myorigin="{{ DOMAIN }}"
@@ -225,7 +215,7 @@ runcmd:
   - postmap /etc/postfix/sasl_passwd
   - rm /etc/postfix/sasl_passwd
   - systemctl restart postfix.service
-  {% endif %}
+{% endif %}
   - chown -R asterisk:asterisk /etc/asterisk
   - chown -R asterisk:asterisk /var/{lib,log,spool}/asterisk
   - chown -R asterisk:asterisk /usr/lib64/asterisk
@@ -246,9 +236,6 @@ runcmd:
   - rm /var/www/html/index.html
   - systemctl restart apache2
   - systemctl stop asterisk
-  - killall asterisk
-  # idempotently and atomically noload 3 voicemail modules which are incompatible with freepbx
-  - /tmp/asterisk-voicemail-config.sh
   - cd /usr/src && wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf freepbx-17.0-latest.tgz
   - cd /usr/src/freepbx && ./start_asterisk start && ./install -n
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
@@ -256,13 +243,9 @@ runcmd:
   - fwconsole reload
   - fwconsole restart
   - systemctl enable freepbx
-  {% if YOUR_EMAIL %}
-  - crontab -l | { cat; echo "MAILTO={{ YOUR_EMAIL }}"; } | crontab -
-  {% endif %}
-  - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor -type f -size 44c -delete"; } | crontab -
-  - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} \; 2>/dev/null"; } | crontab -
-  - crontab -l | { cat; echo "@daily find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} \; 2>/dev/null"; } | crontab -
-  - crontab -l | { cat; echo "@daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete"; } | crontab -
-  # - optimize DB and avoid bloat: https://stackoverflow.com/questions/30635603/what-does-table-does-not-support-optimize-doing-recreate-analyze-instead-me
-  - crontab -l | { cat; echo "@daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cdr;'"; } | crontab -
-  - crontab -l | { cat; echo "@daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL 1 DAY);  optimize table cel;'"; } | crontab -
+{% if CRONTAB_EMAIL %}
+  - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /tmp/rootcron
+{% endif %}
+  - crontab /tmp/rootcron
+# idempotently and atomically noload 3 voicemail modules which are incompatible with freepbx
+  - /tmp/asterisk-voicemail-config.sh
