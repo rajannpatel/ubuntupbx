@@ -109,6 +109,11 @@ write_files:
       Port = 3306
       Socket = /var/run/mysqld/mysqld.sock
       Option = 3
+  - path: /tmp/asterisk-voicemail-config.sh
+    permissions: '0700'
+    content: |
+      #!/bin/bash
+      for module in res_pjsip_send_to_voicemail.so app_voicemail_imap.so app_voicemail_odbc.so; do grep -qx "noload => $module" /etc/asterisk/modules.conf || sed -i "/\[modules\]/a noload => $module" /etc/asterisk/modules.conf; done
 
 apt:  
   conf: |
@@ -243,7 +248,7 @@ runcmd:
   - systemctl stop asterisk
   - killall asterisk
   # idempotently and atomically noload 3 voicemail modules which are incompatible with freepbx
-  - for module in res_pjsip_send_to_voicemail.so app_voicemail_imap.so app_voicemail_odbc.so; do grep -qx "noload => $module" /etc/asterisk/modules.conf || sed -i "/\[modules\]/a noload => $module" /etc/asterisk/modules.conf; done
+  - /tmp/asterisk-voicemail-config.sh
   - cd /usr/src && wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf freepbx-17.0-latest.tgz
   - cd /usr/src/freepbx && ./start_asterisk start && ./install -n
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
