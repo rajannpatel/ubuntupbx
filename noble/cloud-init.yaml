@@ -95,16 +95,11 @@ write_files:
       [MySQL-asteriskcdrdb]
       Description = MySQL connection to 'asteriskcdrdb' database
       Driver = MySQL
-      Server = server_ip
+      Server = localhost
       Database = asteriskcdrdb
       Port = 3306
       Socket = /var/run/mysqld/mysqld.sock
       Option = 3
-  - path: /tmp/asterisk-voicemail-config.sh
-    permissions: '0700'
-    content: |
-      #!/bin/bash
-      for module in res_pjsip_send_to_voicemail.so app_voicemail_imap.so app_voicemail_odbc.so; do grep -qx "noload => $module" /etc/asterisk/modules.conf || sed -i "/\[modules\]/a noload => $module" /etc/asterisk/modules.conf; done
   - path: /tmp/rootcron
     content: |
       @daily find /var/spool/asterisk/monitor -type f -size 44c -delete
@@ -133,19 +128,11 @@ package_update: true
 # run `apt upgrade`
 package_upgrade: true
 
-# reboot the system if required by presence of /var/run/reboot-required.
-# commented out due to premature reboot bug: https://github.com/canonical/cloud-init/issues/5849
-# package_reboot_if_required: true
-
-# Instead, we reboot the instance upon completion of cloud-init always
-power_state:
-  mode: reboot
-
 ubuntu_pro:
 {% if TOKEN %}
   token: {{ TOKEN }}
 {% endif %}
-  enable: [livepatch]
+  enable: [livepatch, esm-apps, esm-infra]
 
 {% if "/" in TIMEZONE %}
 timezone: {{ TIMEZONE }}
@@ -236,6 +223,8 @@ runcmd:
   - rm /var/www/html/index.html
   - systemctl restart apache2
   - systemctl stop asterisk
+# Asterisk and FreePBX use /var/lib/asterisk/sounds/en/custom and not the `custom -> ../../../local/share/asterisk/sounds` symlink in /usr/share/asterisk/sounds/
+  - rm -rf /usr/share/asterisk/sounds/custom && ln -s /var/lib/asterisk/sounds/en/custom /usr/share/asterisk/sounds/custom
   - cd /usr/src && wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf freepbx-17.0-latest.tgz
   - cd /usr/src/freepbx && ./start_asterisk start && ./install -n
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
@@ -247,5 +236,9 @@ runcmd:
   - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /tmp/rootcron
 {% endif %}
   - crontab /tmp/rootcron
-# idempotently and atomically noload 3 voicemail modules which are incompatible with freepbx
-  - /tmp/asterisk-voicemail-config.sh
+  - install -d -o asterisk -g asterisk /home/asterisk/backup
+# NOW REMOVE THESE ASTERISK MODULES from the FreePBX Dashboard
+# FREEPBX > ADMIN > ASTERISK MODULES:
+# res_pjsip_send_to_voicemail.so
+# app_voicemail_imap.so
+# app_voicemail_odbc.so
