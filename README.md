@@ -1,10 +1,8 @@
 # Ubuntu PBX
 
-This project contains a collection of cloud-init.yaml and bash scripts which can be used configure and install FreePBX and Asterisk on Ubuntu in any cloud, virtual machine, or bare metal environment.
+This project contains a collection of cloud-init.yaml (and equivalent bash scripts) which can be used configure and install FreePBX and Asterisk on Ubuntu in any cloud, virtual machine, or bare metal environment.
 
 Our goal is to install as much software as possible from Canonical, instead of other sources.
-
-Ubuntu 22.04 is the only option for deploying to ARM64 machines, due to a software bug resulting in the odbc-mariadb package not being available for ARM64 machines running Ubuntu 20.04. The Compatibility Matrix section, below, contains more information about this.
 
 #### Table of Contents
 - [Installation](#installation)
@@ -27,12 +25,14 @@ It is generally considered to be a security risk to curl and run a shell script 
 
 Please familiarize yourselves the contents of the cloud-init.yaml file or install.sh files in this project before using them. You only need to use either the cloud-init.yaml file or the install.sh. Downloading and running install.sh may be the more familiar path for some of you, but cloud-init.yaml is the fastest one.
 
-| Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
-|---                    |---                      |
-| [cloud-init.yaml](./focal/cloud-init.yaml)     | [cloud-init.yaml](./jammy/cloud-init.yaml) |
-| [install.sh](./focal/install.sh)   | [install.sh](./jammy/install.sh) |
+| Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> | Ubuntu 24.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/c204526c-24.04%20LTS%20Noble%20Numbat%20Circle,%20centered.svg" height="16" align="right"> |
+|---                    |---                      |---                      |
+| [cloud-init.yaml](./focal/cloud-init.yaml)     | [cloud-init.yaml](./jammy/cloud-init.yaml) | [cloud-init.yaml](./noble/cloud-init.yaml) |
+| [install.sh](./focal/install.sh)   | [install.sh](./jammy/install.sh) | |
 
 ### Using install.sh
+
+An install.sh file is missing for Ubuntu 24.04 Noble, at the time of this writing. These files are available for Ubuntu 22.04 and Ubuntu 20.04 deployments.
 
 1. Clone the rajannpatel/ubuntupbx git repository
 ```console
@@ -176,7 +176,11 @@ Due to a [software bug involving hardcoded paths](https://bugs.debian.org/942412
 |odbc-mariadb  	| amd64      	| 3.1.4         | 3.1.15 	    |
 |odbc-mariadb  	| arm64      	| not available | 3.1.15 	    |
 
+Ubuntu 20.04 will not deploy to ARM64 machines, due to a software bug resulting in the odbc-mariadb package not being available for the ARM64 architecture.
+
 ### Security Patching Matrix
+
+Ubuntu 24.04 ships with PHP 8.3 and Node.js 18.19, FreePBX 17 is unable to run on PHP 8.3, and requires PHP 8.2 to be installed from elsewhere. FreePBX 17 does not produce error messages during operation when using Node.js 18.19.
 
 Ubuntu 22.04 ships with PHP 8.1 and Node.js 12.22, FreePBX 16 is unable to run on PHP 8.1, and requires PHP 7.4 to be installed from elsewhere. FreePBX 16 does produce error messages during operation when using Node.js 18.10, so it is recommended to use Node.js 12.
 
@@ -187,8 +191,8 @@ The Node.js snap can be installed at version 12, but PM2 is unable to work when 
 Canonical has an 18-year track record of timely security updates for the main Ubuntu OS, with critical CVEs patched in less than 24 hours on average. Ubuntu Pro expands this coverage to include software installed from the universe repository. Patches are applied for critical, high, and selected medium CVEs, with many zero-day vulnerabilities fixed under embargo for release the moment the CVE is public.
 
 #### Where FreePBX dependencies can be installed from:
-|               | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> |
-|---            |---                    |---                      |
-|PHP  	        | 7.4 from universe     | 7.4 from ppa:ondrej/php |
-|Node.js  	    | 12.x from deb.nodesource.com   | 12.22 from universe     |
-|Asterisk       | 16.2 from universe    | 18.10 from universe     |
+|               | Ubuntu 20.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/28e0ebb7-Focal-Fossa-gradient-outline.svg" height="16" align="right"> | Ubuntu 22.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/4d42e36c-Jammy+Jellyfish+RGB.svg" height="16" align="right"> | Ubuntu 24.04&nbsp;&nbsp;&nbsp;<img src="https://assets.ubuntu.com/v1/c204526c-24.04%20LTS%20Noble%20Numbat%20Circle,%20centered.svg" height="16" align="right"> |
+|---            |---                    |---                      |---                      |
+|PHP  	        | 7.4 from universe     | 7.4 from ppa:ondrej/php | 8.2 from ppa:ondrej/php |
+|Node.js  	    | 12.x from deb.nodesource.com   | 12.22 from universe     | 18.19 from universe     |
+|Asterisk       | 16.2 from universe    | 18.10 from universe     | 20.6 from universe     |
