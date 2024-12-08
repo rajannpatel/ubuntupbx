@@ -63,12 +63,10 @@ users:
     lock_passwd: true
 
 write_files:
-# Postfix uses sasl_passwd for authentication
   - path: /etc/postfix/sasl_passwd
     permissions: "0400"
     content: |
       [{{ SMTP_HOST }}]:{{ SMTP_PORT }} {{ SMTP_USERNAME }}:{{ SMTP_PASSWORD }}
-# The freebpx.service file to control FreePBX through systemctl
   - path: /etc/systemd/system/freepbx.service
     permissions: "0644"
     content: |
@@ -87,20 +85,10 @@ write_files:
     content: |
       [MySQL]
       Description = ODBC for MySQL (MariaDB)
-      Driver = /usr/lib/x86_64-linux-gnu/odbc/libmaodbc.so
+      Driver = libmaodbc.so
       FileUsage = 1
-  - path: /etc/odbc.ini
+  - path: /root/schedule.txt
     permissions: "0644"
-    content: |
-      [MySQL-asteriskcdrdb]
-      Description = MySQL connection to 'asteriskcdrdb' database
-      Driver = MySQL
-      Server = localhost
-      Database = asteriskcdrdb
-      Port = 3306
-      Socket = /var/run/mysqld/mysqld.sock
-      Option = 3
-  - path: /tmp/rootcron
     content: |
       @daily find /var/spool/asterisk/monitor -type f -size 44c -delete
       @daily find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} \; 2>/dev/null
@@ -224,21 +212,16 @@ runcmd:
   - systemctl restart apache2
   - systemctl stop asterisk
 # Asterisk and FreePBX use /var/lib/asterisk/sounds/en/custom and not the `custom -> ../../../local/share/asterisk/sounds` symlink in /usr/share/asterisk/sounds/
-  - rm -rf /usr/share/asterisk/sounds/custom && ln -s /var/lib/asterisk/sounds/en/custom /usr/share/asterisk/sounds/custom
+  - rm -rf /usr/share/asterisk/sounds/custom; ln -s /var/lib/asterisk/sounds/en/custom /usr/share/asterisk/sounds/custom
   - cd /usr/src && wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf freepbx-17.0-latest.tgz
-  - cd /usr/src/freepbx && ./start_asterisk start && ./install -n
-  - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
-  - fwconsole chown
-  - fwconsole reload
-  - fwconsole restart
+  - cd /usr/src/freepbx; echo 'start asterisk'; ./start_asterisk start; echo 'asterisk started, start install'; ./install -n; echo 'install completed';
+# FreePBX is unaware of Ubuntu Noble's new mysql socket location
+  - sed -i 's|Socket=/var/lib/mysql/mysql.sock|Socket=/run/mysqld/mysqld.sock|' /etc/odbc.ini
+  - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings; echo 'fwconsole modules installed, chowning'; fwconsole chown; echo 'fwconsole chowned, reloading'; fwconsole reload; echo 'fwconsole reloaded, restarting'; fwconsole restart
   - systemctl enable freepbx
 {% if CRONTAB_EMAIL %}
-  - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /tmp/rootcron
+  - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /root/schedule.txt
 {% endif %}
-  - crontab /tmp/rootcron
+  - crontab /root/schedule.txt
   - install -d -o asterisk -g asterisk /home/asterisk/backup
-# NOW REMOVE THESE ASTERISK MODULES from the FreePBX Dashboard
-# FREEPBX > ADMIN > ASTERISK MODULES:
-# res_pjsip_send_to_voicemail.so
-# app_voicemail_imap.so
-# app_voicemail_odbc.so
+  - echo "cloud-init RUNCMD COMPLETED AT $(date)"
