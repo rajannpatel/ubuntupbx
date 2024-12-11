@@ -63,12 +63,10 @@ users:
     lock_passwd: true
 
 write_files:
-# Postfix uses sasl_passwd for authentication
   - path: /etc/postfix/sasl_passwd
     permissions: "0400"
     content: |
       [{{ SMTP_HOST }}]:{{ SMTP_PORT }} {{ SMTP_USERNAME }}:{{ SMTP_PASSWORD }}
-# The freebpx.service file to control FreePBX through systemctl
   - path: /etc/systemd/system/freepbx.service
     permissions: "0644"
     content: |
@@ -87,27 +85,17 @@ write_files:
     content: |
       [MySQL]
       Description = ODBC for MySQL (MariaDB)
-      Driver = /usr/lib/x86_64-linux-gnu/odbc/libmaodbc.so
+      Driver = libmaodbc.so
       FileUsage = 1
-  - path: /etc/odbc.ini
+  - path: /root/schedule.txt
     permissions: "0644"
-    content: |
-      [MySQL-asteriskcdrdb]
-      Description = MySQL connection to 'asteriskcdrdb' database
-      Driver = MySQL
-      Server = localhost
-      Database = asteriskcdrdb
-      Port = 3306
-      Socket = /var/run/mysqld/mysqld.sock
-      Option = 3
-  - path: /tmp/rootcron
     content: |
       @daily find /var/spool/asterisk/monitor -type f -size 44c -delete
       @daily find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} \; 2>/dev/null
       @daily find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} \; 2>/dev/null
       @daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete
       @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cdr;'
-      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL 1 DAY);  optimize table cel;'
+      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cel;'
 
 apt:  
   conf: |
@@ -127,6 +115,9 @@ package_update: true
 
 # run `apt upgrade`
 package_upgrade: true
+
+# reboot the system if required by presence of /var/run/reboot-required.
+package_reboot_if_required: true
 
 ubuntu_pro:
 {% if TOKEN %}
@@ -164,17 +155,20 @@ packages:
   - mpg123
   - sox
   - asterisk
+  - asterisk-mp3
+  - asterisk-moh-opsound-wav
+  - asterisk-moh-opsound-gsm
+  - asterisk-moh-opsound-g722
 
 runcmd:
-# use the public cloud firewall rules
+# public cloud and LXD images have ufw
   - ufw disable
   - apt remove ufw -y
   - apt purge ufw -y
-{% if platform == 'oracle' %} # If running on Oracle Cloud, delete the iptables configuration
-  - iptables -F && netfilter-persistent save
-{% endif %}
-# fallocate -l 4G of space for swap file
-  - fallocate -l 4G /swapfile
+# Oracle uses iptables
+  - iptables -L | grep -q -v '^Chain' && iptables -F && netfilter-persistent save || echo "No iptables rules found; skipping commands."
+# fallocate -l 2G of space for swap file
+  - fallocate -l 2G /swapfile
 # Set permission of the swap file to be readable and writable only by the owner  
   - chmod 600 /swapfile
 # Create a Linux swap area on the file
@@ -224,21 +218,25 @@ runcmd:
   - systemctl restart apache2
   - systemctl stop asterisk
 # Asterisk and FreePBX use /var/lib/asterisk/sounds/en/custom and not the `custom -> ../../../local/share/asterisk/sounds` symlink in /usr/share/asterisk/sounds/
-  - rm -rf /usr/share/asterisk/sounds/custom && ln -s /var/lib/asterisk/sounds/en/custom /usr/share/asterisk/sounds/custom
+  - rm -rf /usr/share/asterisk/sounds/custom; ln -s /var/lib/asterisk/sounds/en/custom /usr/share/asterisk/sounds/custom
+# FreePBX expects default MOH files in /var/lib/asterisk/moh/default, but Ubuntu's deb package places them in /usr/share/asterisk/moh/
+  - ln -s /usr/share/asterisk/moh /var/lib/asterisk/moh/asterisk-moh-opsound
+  - chown -R asterisk:asterisk /usr/share/asterisk/moh && chown -R asterisk:asterisk /var/lib/asterisk/moh/
   - cd /usr/src && wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf freepbx-17.0-latest.tgz
-  - cd /usr/src/freepbx && ./start_asterisk start && ./install -n
+  - cd /usr/src/freepbx && ./start_asterisk start
+  - while asterisk -rx 'core show version' 2>&1 | grep -Eq '(Unable to connect to remote asterisk|No such command)'; do echo 'Waiting for Asterisk core to be available'; sleep 2; done && cd /usr/src/freepbx && ./install -n
+# FreePBX is unaware of Ubuntu Noble's new mysql socket location
+  - sed -i 's|Socket=/var/lib/mysql/mysql.sock|Socket=/run/mysqld/mysqld.sock|' /etc/odbc.ini
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
-  - fwconsole chown
-  - fwconsole reload
-  - fwconsole restart
   - systemctl enable freepbx
 {% if CRONTAB_EMAIL %}
-  - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /tmp/rootcron
+  - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /root/schedule.txt
 {% endif %}
-  - crontab /tmp/rootcron
-  - install -d -o asterisk -g asterisk /home/asterisk/backup
-# NOW REMOVE THESE ASTERISK MODULES from the FreePBX Dashboard
-# FREEPBX > ADMIN > ASTERISK MODULES:
-# res_pjsip_send_to_voicemail.so
-# app_voicemail_imap.so
-# app_voicemail_odbc.so
+  - crontab /root/schedule.txt && rm /root/schedule.txt
+  - wget -P /var/spool/asterisk/backup/ https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/noble/ubuntupbx.core.backup.tar.gz
+  - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.core.backup.tar.gz'
+  - echo "DELETE FROM ampusers;" | fwconsole mysql
+  - echo "DELETE FROM kvstore_OOBE;" | fwconsole mysql
+  - fwconsole chown
+  - fwconsole restart
+  - echo "cloud-init RUNCMD COMPLETED AT $(date)"
