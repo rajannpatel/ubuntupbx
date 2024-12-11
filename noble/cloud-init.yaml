@@ -117,12 +117,7 @@ package_update: true
 package_upgrade: true
 
 # reboot the system if required by presence of /var/run/reboot-required.
-# commented out due to premature reboot bug: https://github.com/canonical/cloud-init/issues/5849
-# package_reboot_if_required: true
-
-# Instead, we reboot the instance upon completion of cloud-init always
-# power_state:
-#   mode: reboot
+package_reboot_if_required: true
 
 ubuntu_pro:
 {% if TOKEN %}
