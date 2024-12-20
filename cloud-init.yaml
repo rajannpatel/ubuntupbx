@@ -203,7 +203,7 @@ runcmd:
   - sed -i 's|;runuser|runuser|' /etc/asterisk/asterisk.conf
   - sed -i 's|;rungroup|rungroup|' /etc/asterisk/asterisk.conf
   - ldconfig
-  - apt -y purge php8.1 php8.3
+  - apt-get -y purge php8.3
   - rm -rf /etc/php/8.1 /etc/php/8.3
   - a2enmod php8.2
   - update-alternatives --set php /usr/bin/php8.2
