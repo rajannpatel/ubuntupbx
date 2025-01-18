@@ -137,7 +137,31 @@ This guide assumes you are running the following commands in a Linux environment
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-10. Allow your "pbx" virtual machine to receive incoming UDP and TCP connections from providers and your devices.
+10. Allow HTTP access to the FreePBX web interface from your current IPv4 IP address:
+
+    ```bash
+    gcloud compute firewall-rules create allow-management-http \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
+        --rules="http:80" \
+        --description="FreePBX Web Portal"
+    ```
+
+11. Allow your "pbx" virtual machine to receive incoming UDP connections from your devices. This command assumes your ATAs or Softphones are at your IP address. Replace or add additional IP addresses after `$(wget -qO- http://checkip.amazonaws.com)` in a comma and space separated format.
+
+    ```bash
+    gcloud compute firewall-rules create allow-telnyx-sip \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
+        --rules="udp:5060" \
+        --description="ATA and Softphone SIP Signaling"
+    ```
+
+12. Allow your "pbx" virtual machine to receive incoming UDP and TCP connections from providers.
 
     ```bash
     gcloud compute firewall-rules create allow-asterisk-rtp \
@@ -173,11 +197,11 @@ This guide assumes you are running the following commands in a Linux environment
         --description="Flowroute TCP and UDP SIP Signaling"
     ```
 
-11. Observe the progress of your installation by tailing the `/var/log/cloud-init-output.log` file on the virtual machine:
+13. Observe the progress of your installation by tailing the `/var/log/cloud-init-output.log` file on the virtual machine:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-12. If you are a first time gcloud CLI user, you’ll be prompted for a passphrase twice. This password can be left blank, press **Enter** twice to proceed:
+14. If you are a first time gcloud CLI user, you’ll be prompted for a passphrase twice. This password can be left blank, press **Enter** twice to proceed:
     
     > ```text
     > WARNING: The private SSH key file for gcloud does not exist.
@@ -189,7 +213,7 @@ This guide assumes you are running the following commands in a Linux environment
     > Enter same passphrase again:
     > ```
     
-13. A reboot may be required during the cloud-init process. If a reboot is required, you’ll receive the following output:
+15. A reboot may be required during the cloud-init process. If a reboot is required, you’ll receive the following output:
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
@@ -197,17 +221,17 @@ This guide assumes you are running the following commands in a Linux environment
     
     If the `IMAGE_FAMILY` specified earlier contained all the security patches, this reboot step may not occur.
     
-14. Repeat the following code if a reboot was necessary to continue observing the progress of the installation:
+16. Repeat the following code if a reboot was necessary to continue observing the progress of the installation:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-15. Wait until the cloud-init process is complete. When it's complete, you’ll receive two lines similar to this:
+17. Wait until the cloud-init process is complete. When it's complete, you’ll receive two lines similar to this:
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
     
-16. Press `CTRL + C` to terminate the tail process in your terminal window.
+18. Press `CTRL + C` to terminate the tail process in your terminal window.
 
 ## How to delete everything, if you wish to start over
 
