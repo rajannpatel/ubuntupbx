@@ -137,7 +137,7 @@ This guide assumes you are running the following commands in a Linux environment
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-10. Allow your "pbx" virtual machine to receive incoming UDP and TCP connections from providers and your devices.
+10. Allow your "pbx" virtual machine to receive incoming UDP and TCP connections from providers and your devices. This is an example command, do not expose your PBX to the world (0.0.0.0/0) on port 5060.
 
     ```bash
     gcloud compute firewall-rules create allow-udp-5060 \
@@ -145,7 +145,7 @@ This guide assumes you are running the following commands in a Linux environment
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges=0.0.0.0/0 \
-        --rules=udp:51515 \
+        --rules=udp:5060 \
         --description="Allow UDP traffic on port 51515 for pbx"
     ```
 
