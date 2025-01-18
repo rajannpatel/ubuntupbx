@@ -48,7 +48,7 @@ All cloud providers provide the ability to configure virtual machines via cloud-
 
 ### Provisioning via the gcloud command line utility
 
-- **TODO**
+- [How to install and configure FreePBX and Asterisk on Google Cloud with Google's gcloud utility, and cloud-init.](./deploy-to-gcp.md)
 
 ### Provisioning via the GCP Dashboard
 
