@@ -137,16 +137,48 @@ This guide assumes you are running the following commands in a Linux environment
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-10. Allow your "pbx" virtual machine to receive incoming UDP and TCP connections from providers and your devices. This is an example command, do not expose your PBX to the world (0.0.0.0/0) on port 5060.
+10. Allow your "pbx" virtual machine to receive incoming UDP and TCP connections from providers and your devices.
+
+    #### Telnyx
 
     ```bash
-    gcloud compute firewall-rules create allow-udp-5060 \
+    gcloud compute firewall-rules create allow-telnyx-sip \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges=0.0.0.0/0 \
-        --rules=udp:5060 \
-        --description="Allow UDP traffic on port 51515 for pbx"
+        --source-ranges="192.76.120.10, 64.16.250.10, 185.246.41.140, 185.246.41.141, 103.115.244.145, 103.115.244.146, 192.76.120.31, 64.16.250.13" \
+        --rules="udp:5060, tcp:5060, tls:5061" \
+        --description="Telnyx TCP, UDP, and TLS SIP Signaling"
+    ```
+    ```bash
+    gcloud compute firewall-rules create allow-telnyx-rtp \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="36.255.198.128/25, 50.114.136.128/25, 50.114.144.0/21, 64.16.226.0/24, 64.16.227.0/24, 64.16.228.0/24, 64.16.229.0/24, 64.16.230.0/24, 64.16.248.0/24, 64.16.249.0/24, 103.115.244.128/25, 185.246.41.128/25" \
+        --rules="udp:16384-32768" \
+        --description="Telnyx UDP RTP Media traffic"
+    ```
+
+    ### Flowroute
+
+    ```bash
+    gcloud compute firewall-rules create allow-flowroute-sip \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="34.210.91.112/28, 34.226.36.32/28, 16.163.86.112/30, 3.0.5.12/30, 3.8.37.20/30, 3.71.103.56/30, 18.228.70.48/30" \
+        --rules="udp:5060, tcp:5060, udp:5160, tcp:5160" \
+        --description="Flowroute TCP and UDP SIP Signaling"
+    ```
+    ```bash
+    gcloud compute firewall-rules create allow-flowroute-rtp \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="0.0.0.0/0" \
+        --rules="udp:16384-32768" \
+        --description="Flowroute UDP RTP Direct Media traffic"
     ```
 
 11. Observe the progress of your installation by tailing the `/var/log/cloud-init-output.log` file on the virtual machine:
