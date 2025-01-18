@@ -28,7 +28,7 @@ The cloud-init.yaml configurations are opinionated, and strive to:
 - compile nothing from source; rather install via Ubuntu's apt or snap package managers
 - keep the installation and configuration as lean as possible
 - prevent the disk from becoming full through normal long-term usage of Asterisk and FreePBX
-- enable automated security and bugfix updates over time for Asterisk, FreePBX, and Ubuntu
+- **TODO** enable automated security and bugfix updates over time for Asterisk, FreePBX, and Ubuntu
 - be resilient against race conditions when installing on low-compute-power shared-core VMs, such as Google's f1-micro.
 - pre-configure the FreePBX Core Module to:
   - unload Asterisk modules which are not suitable for containerized or virtual machine deployments
