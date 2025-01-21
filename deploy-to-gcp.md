@@ -78,7 +78,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
 
        curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init.yaml
 
-8. Open the file in an editor to change configurations specified between lines 4 and 42. Setting `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) is required for security updates to Asterisk, Asterisk's dependencies, and some FreePBX dependencies. [Livepatch](https://ubuntu.com/security/livepatch) will be enabled by this cloud-init.yaml file if a Pro Token is set.
+8. Open the file in an editor to change configurations specified between lines 4 and 43. Setting `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) is required for security updates to Asterisk, Asterisk's dependencies, and some FreePBX dependencies. [Livepatch](https://ubuntu.com/security/livepatch) will be enabled by this cloud-init.yaml file if a Pro Token is set.
 
     ```markdown
     # SET OUR VARIABLES
@@ -119,6 +119,9 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
     {% set TIMEZONE = 'America/New_York' %}
 
+    # TIME TO REBOOT FOR SECURITY AND BUGFIX PATCHES IN XX:XX FORMAT
+    {% set SECURITY_REBOOT_TIME = "03:00" %}
+
     # =========================
     # END OF SETTING VARIABLES
     ```
@@ -154,7 +157,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
-        --rules="http:80" \
+        --rules="tcp:80" \
         --description="FreePBX Web Portal"
     ```
 
