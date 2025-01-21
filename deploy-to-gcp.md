@@ -195,8 +195,8 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="192.76.120.10,64.16.250.10,185.246.41.140,185.246.41.141,103.115.244.145,103.115.244.146,192.76.120.31,64.16.250.13" \
-        --rules="udp:5060,tcp:5060,tls:5061" \
-        --description="Telnyx TCP, UDP, and TLS SIP Signaling"
+        --rules="udp:5060,tcp:5060-5061" \
+        --description="Telnyx UDP, TCP, and TCP with TLS Signaling"
     ```
 
     #### Flowroute
