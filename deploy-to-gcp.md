@@ -1,8 +1,10 @@
-# Deploy an Ubuntu PBX to Google Public Cloud's always free tier
+# Install FreePBX 17 on Ubuntu 24.04 with all open-source dependencies installed from Ubuntu's official repositories.
+
+There is no charge to use Google Cloud's Compute Engine up to their specified free usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS. 
 
 ## Install and configure the gcloud CLI
 
-This guide assumes the following commands are executed in a Linux environment. In Windows or macOS [Multipass](https://multipass.run/install) provides an instant Linux virtual machine.
+This guide assumes the following commands are executed in a Linux environment. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand.
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
