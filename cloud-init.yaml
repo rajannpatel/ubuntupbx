@@ -39,6 +39,9 @@
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
 {% set TIMEZONE = 'America/New_York' %}
 
+# TIME TO REBOOT FOR SECURITY AND BUGFIX PATCHES IN XX:XX FORMAT
+{% set SECURITY_REBOOT_TIME = "03:00" %}
+
 # =========================
 # END OF SETTING VARIABLES
 
@@ -95,26 +98,19 @@ write_files:
       @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cdr;'
       @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cel;'
 
-apt:  
-  conf: |
-    APT {
-      Get {
-        Assume-Yes 'true';
-        Fix-Broken 'true';
-      }
-    }
-  # This section specifies additional apt sources (PPAs)
+apt:
+  conf: |+
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Download-Upgradeable-Packages "1";
+      APT::Periodic::AutocleanInterval "7";
+      APT::Periodic::Unattended-Upgrade "1";
   sources:
     php:
       source: 'ppa:ondrej/php'
 
-# run `apt update`
+# `apt update && apt upgrade -y` and reboot if /var/run/reboot-required while provisioning
 package_update: true
-
-# run `apt upgrade`
 package_upgrade: true
-
-# reboot the system if required by presence of /var/run/reboot-required.
 package_reboot_if_required: true
 
 ubuntu_pro:
@@ -159,6 +155,14 @@ packages:
   - asterisk-moh-opsound-g722
 
 runcmd:
+  - sed -i "s/^#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
+  - needrestart -r a
+  - sed -i 's|^//\s*Unattended-Upgrade::Remove-Unused-Kernel-Packages\s*".*";|Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
+  - sed -i 's|^//\s*Unattended-Upgrade::Remove-New-Unused-Dependencies\s*".*";|Unattended-Upgrade::Remove-New-Unused-Dependencies "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
+  - sed -i 's|^//\s*Unattended-Upgrade::Remove-Unused-Dependencies\s*".*";|Unattended-Upgrade::Remove-Unused-Dependencies "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
+  - sed -i 's|^//\s*Unattended-Upgrade::Automatic-Reboot\s*".*";|Unattended-Upgrade::Automatic-Reboot "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
+  - sed -i 's|^//\s*Unattended-Upgrade::Automatic-Reboot-WithUsers\s*".*";|Unattended-Upgrade::Automatic-Reboot-WithUsers "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
+  - sed -i 's|^//\s*Unattended-Upgrade::Automatic-Reboot-Time\s*".*";|Unattended-Upgrade::Automatic-Reboot-Time "{{ SECURITY_REBOOT_TIME }}";|' /etc/apt/apt.conf.d/50unattended-upgrades
 # public cloud and LXD images have ufw
   - ufw disable
   - apt remove ufw -y
