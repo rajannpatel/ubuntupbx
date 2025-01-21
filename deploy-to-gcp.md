@@ -4,7 +4,7 @@ There is no charge to use Google Cloud's Compute Engine up to their specified fr
 
 ## Install and configure the gcloud CLI
 
-This guide assumes the following commands are executed in a Linux environment. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand.
+The following commands must be executed in a Linux terminal. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand.
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
@@ -196,7 +196,7 @@ This guide assumes the following commands are executed in a Linux environment. O
         --description="Telnyx TCP, UDP, and TLS SIP Signaling"
     ```
 
-    ### Flowroute
+    #### Flowroute
 
     ```bash
     gcloud compute firewall-rules create allow-flowroute-sip \
@@ -242,7 +242,7 @@ This guide assumes the following commands are executed in a Linux environment. O
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-## How to delete everything
+## How to undo the previous steps, and delete everything
 
 The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
 
@@ -266,7 +266,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     
        gcloud compute firewall-rules list
 
-6. To delete the firewall rules we created earlier:
+6. Delete the firewall rules we created earlier:
 
        gcloud compute firewall-rules delete allow-management-http
        gcloud compute firewall-rules delete allow-devices-sip
