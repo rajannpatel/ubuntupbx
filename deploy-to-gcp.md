@@ -140,15 +140,6 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-> **NOTE:**
-> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written in slash notation, separated with a comma and a space. Example:
-> 
-> ```
-> 192.178.0.0/15, 142.251.47.238
-> ```
-> 
-> For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
-
 10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`:
 
     ```bash
@@ -194,7 +185,14 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="192.76.120.10, 64.16.250.10, 185.246.41.140, 185.246.41.141, 103.115.244.145, 103.115.244.146, 192.76.120.31, 64.16.250.13" \
+        --source-ranges="192.76.120.10/32" \
+        --source-ranges="64.16.250.10/32" \
+        --source-ranges="185.246.41.140/32" \
+        --source-ranges="185.246.41.141/32" \
+        --source-ranges="103.115.244.145/32" \
+        --source-ranges="103.115.244.146/32" \
+        --source-ranges="192.76.120.31/32" \
+        --source-ranges="64.16.250.13/32" \
         --rules="udp:5060-5060" \
         --rules="tcp:5060-5060" \
         --rules="tcp:5061-5061" \
