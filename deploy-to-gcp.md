@@ -206,8 +206,17 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="34.210.91.112/28, 34.226.36.32/28, 16.163.86.112/30, 3.0.5.12/30, 3.8.37.20/30, 3.71.103.56/30, 18.228.70.48/30" \
-        --rules="udp:5060, tcp:5060, udp:5160, tcp:5160" \
+        --source-ranges="34.210.91.112/28" \
+        --source-ranges="34.226.36.32/28" \
+        --source-ranges="16.163.86.112/30" \
+        --source-ranges="3.0.5.12/30" \
+        --source-ranges="3.8.37.20/30" \
+        --source-ranges="3.71.103.56/30" \
+        --source-ranges="18.228.70.48/30" \
+        --rules="udp:5060-5060" \
+        --rules="tcp:5060-5060" \
+        --rules="udp:5160-5160" \
+        --rules="tcp:5160-5160" \
         --description="Flowroute TCP and UDP SIP Signaling"
     ```
 
