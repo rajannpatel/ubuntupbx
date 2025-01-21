@@ -140,6 +140,15 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
+> **NOTE:**
+> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written in slash notation, separated with a comma and a space. Example:
+> 
+> ```
+> 192.178.0.0/15, 142.251.47.238
+> ```
+> 
+> For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
+
 10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`:
 
     ```bash
@@ -185,17 +194,8 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="192.76.120.10/32" \
-        --source-ranges="64.16.250.10/32" \
-        --source-ranges="185.246.41.140/32" \
-        --source-ranges="185.246.41.141/32" \
-        --source-ranges="103.115.244.145/32" \
-        --source-ranges="103.115.244.146/32" \
-        --source-ranges="192.76.120.31/32" \
-        --source-ranges="64.16.250.13/32" \
-        --rules="udp:5060-5060" \
-        --rules="tcp:5060-5060" \
-        --rules="tcp:5061-5061" \
+        --source-ranges="192.76.120.10,64.16.250.10,185.246.41.140,185.246.41.141,103.115.244.145,103.115.244.146,192.76.120.31,64.16.250.13" \
+        --rules="udp:5060,tcp:5060,tls:5061" \
         --description="Telnyx TCP, UDP, and TLS SIP Signaling"
     ```
 
@@ -206,17 +206,8 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="34.210.91.112/28" \
-        --source-ranges="34.226.36.32/28" \
-        --source-ranges="16.163.86.112/30" \
-        --source-ranges="3.0.5.12/30" \
-        --source-ranges="3.8.37.20/30" \
-        --source-ranges="3.71.103.56/30" \
-        --source-ranges="18.228.70.48/30" \
-        --rules="udp:5060-5060" \
-        --rules="tcp:5060-5060" \
-        --rules="udp:5160-5160" \
-        --rules="tcp:5160-5160" \
+        --source-ranges="34.210.91.112/28,34.226.36.32/28,16.163.86.112/30,3.0.5.12/30,3.8.37.20/30,3.71.103.56/30,18.228.70.48/30" \
+        --rules="udp:5060,tcp:5060,udp:5160,tcp:5160" \
         --description="Flowroute TCP and UDP SIP Signaling"
     ```
 
