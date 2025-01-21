@@ -111,7 +111,9 @@ apt:
 # `apt update && apt upgrade -y` and reboot if /var/run/reboot-required while provisioning
 package_update: true
 package_upgrade: true
-package_reboot_if_required: true
+# https://github.com/canonical/cloud-init/issues/5849
+# https://bugs.launchpad.net/ubuntu/+source/cloud-init/+bug/2094208
+# package_reboot_if_required: true
 
 ubuntu_pro:
 {% if TOKEN %}
