@@ -244,3 +244,4 @@ runcmd:
   - fwconsole chown
   - fwconsole restart
   - echo "cloud-init RUNCMD COMPLETED AT $(date)"
+  - reboot
