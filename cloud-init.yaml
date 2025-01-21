@@ -165,8 +165,8 @@ runcmd:
   - sed -i 's|^//\s*Unattended-Upgrade::Automatic-Reboot-Time\s*".*";|Unattended-Upgrade::Automatic-Reboot-Time "{{ SECURITY_REBOOT_TIME }}";|' /etc/apt/apt.conf.d/50unattended-upgrades
 # public cloud and LXD images have ufw
   - ufw disable
-  - apt remove ufw -y
-  - apt purge ufw -y
+  - apt-get remove ufw -y
+  - apt-get purge ufw -y
 # Oracle uses iptables
   - iptables -L | grep -q -v '^Chain' && iptables -F && netfilter-persistent save || echo "No iptables rules found; skipping commands."
 # fallocate -l 2G of space for swap file
