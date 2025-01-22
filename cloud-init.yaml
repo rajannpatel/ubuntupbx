@@ -237,7 +237,7 @@ runcmd:
   - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /root/schedule.txt
 {% endif %}
   - crontab /root/schedule.txt && rm /root/schedule.txt
-  - wget -P /var/spool/asterisk/backup/ https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/noble/ubuntupbx.core.backup.tar.gz
+  - wget -P /var/spool/asterisk/backup/ https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz
   - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.core.backup.tar.gz'
   - echo "DELETE FROM ampusers;" | fwconsole mysql
   - echo "DELETE FROM kvstore_OOBE;" | fwconsole mysql
