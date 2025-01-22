@@ -178,7 +178,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     #### Flowroute
 
     ```bash
-    gcloud compute firewall-rules create allow-asterisk-rtp \
+    gcloud compute firewall-rules create allow-flowroute-rtp \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -192,7 +192,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     #### Telnyx
 
     ```bash
-    gcloud compute firewall-rules create allow-asterisk-rtp \
+    gcloud compute firewall-rules create allow-telnyx-rtp \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
