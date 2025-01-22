@@ -141,7 +141,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     ```
 
 > **NOTE:**
-> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written in slash notation, separated with by commas. Example:
+> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written in slash notation, separated by commas. Example:
 > 
 > ```
 > 192.178.0.0/15,142.251.47.238
