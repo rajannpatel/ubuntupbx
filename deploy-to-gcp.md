@@ -141,10 +141,10 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     ```
 
 > **NOTE:**
-> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written in slash notation, separated with a comma and a space. Example:
+> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written in slash notation, separated with by commas. Example:
 > 
 > ```
-> 192.178.0.0/15, 142.251.47.238
+> 192.178.0.0/15,142.251.47.238
 > ```
 > 
 > For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
@@ -175,6 +175,8 @@ The following commands must be executed in a Linux terminal. On Windows and macO
 
 12. Allow RTP media streams over the default UDP port ranges. Flowroute uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee. Telnyx proxies all the RTP media streams through their Equinix network to provide observability into the quality of the RTP streams. Direct peering is available between Telnyx and customer datacenters, or to customers' networks in any major public cloud. When restricting `--source-ranges` to Telnyx's media gateways, be mindful that softphones and ATAs also establish RTP connections, and need to be included in this `--source-ranges` list.
 
+    #### Flowroute
+
     ```bash
     gcloud compute firewall-rules create allow-asterisk-rtp \
         --direction=INGRESS \
@@ -182,22 +184,24 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --target-tags=pbx \
         --source-ranges="0.0.0.0/0" \
         --rules="udp:10000-20000" \
-        --description="Asterisk RTP media streams"
+        --description="Incoming RTP media streams from Flowroute"
     ```
 
-13. Allow SIP signaling for outbound calls to a VoIP provider, these commands configure the Google Cloud firewall to allow outbound calls with Telnyx and Flowroute. 
+    The Flowroute incoming RTP media streams is permissive enough, by allowing incoming RTP media traffic from any IP address in the world, that the following Telnyx-specific incoming network traffic rule does not need to be created:
 
     #### Telnyx
 
     ```bash
-    gcloud compute firewall-rules create allow-telnyx-sip \
+    gcloud compute firewall-rules create allow-asterisk-rtp \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="192.76.120.10,64.16.250.10,185.246.41.140,185.246.41.141,103.115.244.145,103.115.244.146,192.76.120.31,64.16.250.13" \
-        --rules="udp:5060,tcp:5060-5061" \
-        --description="Telnyx UDP, TCP, and TCP with TLS Signaling"
+        --source-ranges="36.255.198.128/25,50.114.136.128/25,50.114.144.0/21,64.16.226.0/24,64.16.227.0/24,64.16.228.0/24,64.16.229.0/24,64.16.230.0/24,64.16.248.0/24,64.16.249.0/24,103.115.244.128/25,185.246.41.128/25" \
+        --rules="udp:10000-20000" \
+        --description="Incoming RTP media streams from Telnyx"
     ```
+
+13. Allow SIP signaling for outbound calls to a VoIP provider, these commands configure the Google Cloud firewall to allow outbound calls with Flowroute and Telnyx.
 
     #### Flowroute
 
@@ -209,6 +213,18 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --source-ranges="34.210.91.112/28,34.226.36.32/28,16.163.86.112/30,3.0.5.12/30,3.8.37.20/30,3.71.103.56/30,18.228.70.48/30" \
         --rules="udp:5060,tcp:5060,udp:5160,tcp:5160" \
         --description="Flowroute TCP and UDP SIP Signaling"
+    ```
+
+    #### Telnyx
+
+    ```bash
+    gcloud compute firewall-rules create allow-telnyx-sip \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="192.76.120.10,64.16.250.10,185.246.41.140,185.246.41.141,103.115.244.145,103.115.244.146,192.76.120.31,64.16.250.13" \
+        --rules="udp:5060,tcp:5060-5061" \
+        --description="Telnyx UDP, TCP, and TCP with TLS Signaling"
     ```
 
 13. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the virtual machine:
@@ -245,7 +261,11 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-## How to undo the previous steps, and delete everything
+18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the external IP address:
+
+        echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
+
+## Complete Removal: how to undo the previous steps, and delete everything
 
 The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
 
@@ -253,16 +273,18 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
 
        gcloud compute instances list
 
-2. Delete the "pbx" VM, it is assumed the `ZONE` variable is still set from Step 5:
+2. Delete the "pbx" VM, adjust `ZONE` to reflect what was specified in Step 5:
 
+       ZONE=us-east1-b
        gcloud compute instances delete pbx --zone $ZONE
 
 3. List all the static addresses:
     
        gcloud compute addresses list
 
-4. Delete the address named "pbx-external-ip", it is assumed the `REGION` variable is still set from Step 5:
+4. Delete the address named "pbx-external-ip", adjust `REGION` to reflect what was specified in Step 5:
 
+       REGION=us-east1
        gcloud compute addresses delete pbx-external-ip --region=$REGION
 
 5. List all firewall rules in this project:
