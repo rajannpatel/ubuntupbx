@@ -94,7 +94,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     # {% set SMTP_USERNAME = 'apikey' %}
     # {% set SMTP_PASSWORD = 'YOUR-API-KEY-HERE' %}
 
-    # google mail / gmail example: substitute YOUREMAIL@GMAIL.COM and YOUR-APP-PASSWORD from: https://myaccount.google.com/apppasswords
+    # gmail example: replace `YOUREMAIL@GMAIL.COM` with your email, get `YOUR-APP-PASSWORD` from: https://myaccount.google.com/apppasswords
     # {% set SMTP_HOST = 'smtp.gmail.com' %}
     # {% set SMTP_PORT = '587' %}
     # {% set SMTP_USERNAME = 'YOUREMAIL@GMAIL.COM' %}
@@ -108,6 +108,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     # CRONTAB_EMAIL address for daily crontab notifications
     {% set CRONTAB_EMAIL = 'youremail@example.com' %}
 
+    # HOSTNAME and FQDN are used by Postfix, and necessary for Sendgrid
     # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
     # FQDN (e.g. `example.com` or `server.example.com`)
     {% set HOSTNAME = 'voip' %}
@@ -126,7 +127,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     # END OF SETTING VARIABLES
     ```
 
-9. The following command launches an e2-micro virtual machine named "pbx":
+9. The following command launches a free tier e2-micro virtual machine named "pbx". Replace `e2-micro` in this command with another instance type if the free tier isn't desired:
     
     ```bash
     gcloud compute instances create pbx \
@@ -249,7 +250,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
     > ```
     
-    If the `IMAGE_FAMILY` specified earlier contained all the security patches, this reboot step may not occur.
+    If the **ubuntu-2404-lts-amd64** Ubuntu image in Google Cloud, specified in step 9 in the `--image-family` parameter, does not contain all the security patches published by Canonical in the last 24 hours, and `package_reboot_if_required: true` in cloud-init.yaml, a reboot may occur.
     
 16. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
     
@@ -261,13 +262,15 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the external IP address:
+18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the external IP address in a hyperlink printed in your terminal:
 
         echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
 
-## Complete Removal: how to undo the previous steps, and delete everything
+## How to delete everything in Google Cloud
 
-The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
+**WARNING:** The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
+
+The following steps remove the "pbx" VM, its static IP address, its firewall rules, and its containing Google Cloud project.
 
 1. List all VMs in this project:
 

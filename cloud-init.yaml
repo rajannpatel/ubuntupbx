@@ -14,7 +14,7 @@
 # {% set SMTP_USERNAME = 'apikey' %}
 # {% set SMTP_PASSWORD = 'YOUR-API-KEY-HERE' %}
 
-# google mail / gmail example: substitute YOUREMAIL@GMAIL.COM and YOUR-APP-PASSWORD from: https://myaccount.google.com/apppasswords
+# gmail example: replace `YOUREMAIL@GMAIL.COM` with your email, get `YOUR-APP-PASSWORD` from: https://myaccount.google.com/apppasswords
 # {% set SMTP_HOST = 'smtp.gmail.com' %}
 # {% set SMTP_PORT = '587' %}
 # {% set SMTP_USERNAME = 'YOUREMAIL@GMAIL.COM' %}
@@ -28,6 +28,7 @@
 # CRONTAB_EMAIL address for daily crontab notifications
 {% set CRONTAB_EMAIL = 'youremail@example.com' %}
 
+# HOSTNAME and FQDN are used by Postfix, and necessary for Sendgrid
 # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
 # FQDN (e.g. `example.com` or `server.example.com`)
 {% set HOSTNAME = 'voip' %}
