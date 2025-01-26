@@ -114,7 +114,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     {% set HOSTNAME = 'voip' %}
     {% set FQDN = 'voip.example.com' %}
 
-    {% set PRETTY_HOSTNAME = "My PBX Server" %}
+    {% set HUMAN_READABLE_INSTANCE_NAME = "My PBX Server" %}
 
     # TIMEZONE: default value is fine
     # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.

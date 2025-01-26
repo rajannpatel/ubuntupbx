@@ -34,7 +34,7 @@
 {% set HOSTNAME = 'voip' %}
 {% set FQDN = 'voip.example.com' %}
 
-{% set PRETTY_HOSTNAME = "My PBX Server" %}
+{% set HUMAN_READABLE_INSTANCE_NAME = "My PBX Server" %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -56,7 +56,6 @@
 
 hostname: {{ HOSTNAME }}
 fqdn: {{ FQDN }}
-pretty_hostname: {{ PRETTY_HOSTNAME }}
 
 users:
   - name: asterisk
@@ -75,7 +74,7 @@ write_files:
     permissions: "0644"
     content: |
       [Unit]
-      Description={{ PRETTY_HOSTNAME }}
+      Description={{ HUMAN_READABLE_INSTANCE_NAME }}
       After=mariadb.service
       [Service]
       Type=oneshot
