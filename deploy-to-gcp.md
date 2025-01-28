@@ -63,7 +63,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     > us-east1-b                 us-east1                 UP
     > ```
 
-5. Only zones `us-west1`, `us-central1`, and `us-east1` in region `us-east` qualify for Google Cloud's free tier. Set the `ZONE` and `REGION` environment variables with one of the 3 free tier regions in the free tier `us-east1` zone, or select another zone and region combination from the `gcloud compute zones list` output:
+5. Only regions `us-west1`, `us-central1`, and `us-east1` in North America qualify for Google Cloud's free tier. Set the `ZONE` and `REGION` environment variables with one of the 3 free tier regions, and choose any zone in that region. The following zone and region can be used, or select another zone and region combination from the `gcloud compute zones list` output:
 
     ```bash
     ZONE=us-east1-b
@@ -142,7 +142,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
     ```
 
 > **NOTE:**
-> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written in slash notation, separated by commas. Example:
+> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas. Example:
 > 
 > ```
 > 192.178.0.0/15,142.251.47.238
@@ -150,7 +150,7 @@ The following commands must be executed in a Linux terminal. On Windows and macO
 > 
 > For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
 
-10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`:
+10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the virtual machine from `--source-ranges` IP(s):
 
     ```bash
     gcloud compute firewall-rules create allow-management-http \
@@ -158,51 +158,63 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
-        --rules="tcp:80" \
-        --description="FreePBX Web Portal"
+        --rules="tcp:80,icmp" \
+        --description="Access FreePBX via HTTP and ping"
     ```
 
-11. Allow incoming SIP registration from ATAs and softphones over the standard SIP port and protocl: 5060 UDP, from IPs specified in `--source-ranges`.
+11. Allow SIP registration and RTP & UDPTL media streams over the default UDP port ranges for ATAs and softphones from IPs specified in `--source-ranges`. The `$(wget -qO- http://checkip.amazonaws.com)` command assumes the machine where this command is run also shares the same Internet connection as the softphones and devices that will connect to this PBX.
 
     ```bash
-    gcloud compute firewall-rules create allow-devices-sip \
+    gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
-        --rules="udp:5060" \
-        --description="SIP signaling for ATA and Softphone"
+        --rules="udp:5060,udp:4000-4999,udp:10000-20000" \
+        --description="SIP signaling and RTP & UDPTL media for ATA and Softphone"
     ```
 
-12. Allow RTP media streams over the default UDP port ranges. Flowroute uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee. Telnyx proxies all the RTP media streams through their Equinix network to provide observability into the quality of the RTP streams. Direct peering is available between Telnyx and customer datacenters, or to customers' networks in any major public cloud. When restricting `--source-ranges` to Telnyx's media gateways, be mindful that softphones and ATAs also establish RTP connections, and need to be included in this `--source-ranges` list.
+12. Allow SIP registration and RTP and UDPTL media streams over Asterisk's configured UDP port ranges. [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound traffic from anywhere in the world. [Telnyx](https://telnyx.com) and [T38Fax](https://t38fax.com) proxy all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
     #### Flowroute
 
     ```bash
-    gcloud compute firewall-rules create allow-flowroute-rtp \
+    gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="0.0.0.0/0" \
-        --rules="udp:10000-20000" \
-        --description="Incoming RTP media streams from Flowroute"
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="Incoming RTP and UDPTL media streams from Flowroute"
     ```
 
-    The Flowroute incoming RTP media streams is permissive enough, by allowing incoming RTP media traffic from any IP address in the world, that the following Telnyx-specific incoming network traffic rule does not need to be created:
+    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world. It is so permissive that the following Telnyx-specific ingress rule is redundant:
 
     #### Telnyx
 
     ```bash
-    gcloud compute firewall-rules create allow-telnyx-rtp \
+    gcloud compute firewall-rules create allow-telnyx-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="36.255.198.128/25,50.114.136.128/25,50.114.144.0/21,64.16.226.0/24,64.16.227.0/24,64.16.228.0/24,64.16.229.0/24,64.16.230.0/24,64.16.248.0/24,64.16.249.0/24,103.115.244.128/25,185.246.41.128/25" \
-        --rules="udp:10000-20000" \
-        --description="Incoming RTP media streams from Telnyx"
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="Incoming RTP and UDPTL media streams from Telnyx"
     ```
 
-13. Allow SIP signaling for outbound calls to a VoIP provider, these commands configure the Google Cloud firewall to allow outbound calls with Flowroute and Telnyx.
+    #### T38Fax.com
+
+    ```bash
+    gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="Incoming RTP and UDPTL media streams from T38Fax"
+    ```
+
+13. Allow SIP signaling for outbound calls to a VoIP provider, these commands configure the Google Cloud firewall to allow outbound calls with Flowroute, Telnyx, and T38Fax.
 
     #### Flowroute
 
@@ -225,7 +237,19 @@ The following commands must be executed in a Linux terminal. On Windows and macO
         --target-tags=pbx \
         --source-ranges="192.76.120.10,64.16.250.10,185.246.41.140,185.246.41.141,103.115.244.145,103.115.244.146,192.76.120.31,64.16.250.13" \
         --rules="udp:5060,tcp:5060-5061" \
-        --description="Telnyx UDP, TCP, and TCP with TLS Signaling"
+        --description="Telnyx UDP, TCP, and TCP with TLS SIP Signaling"
+    ```
+
+    #### T38Fax.com
+
+    ```bash
+    gcloud compute firewall-rules create allow-t38fax-sip \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
+        --rules="udp:5060,udp:5080,tcp:5060,tcp:5080" \
+        --description="T38Fax UDP and TCP SIP Signaling"
     ```
 
 13. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the virtual machine:
@@ -276,7 +300,7 @@ The following steps remove the "pbx" VM, its static IP address, its firewall rul
 
        gcloud compute instances list
 
-2. Delete the "pbx" VM, adjust `ZONE` to reflect what was specified in Step 5:
+2. Delete the "pbx" VM, update `ZONE` if not set already, to reflect what was specified in Step 5:
 
        ZONE=us-east1-b
        gcloud compute instances delete pbx --zone $ZONE
@@ -285,7 +309,7 @@ The following steps remove the "pbx" VM, its static IP address, its firewall rul
     
        gcloud compute addresses list
 
-4. Delete the address named "pbx-external-ip", adjust `REGION` to reflect what was specified in Step 5:
+4. Delete the address named "pbx-external-ip", update `REGION` if not set already, to reflect what was specified in Step 5:
 
        REGION=us-east1
        gcloud compute addresses delete pbx-external-ip --region=$REGION
@@ -297,7 +321,10 @@ The following steps remove the "pbx" VM, its static IP address, its firewall rul
 6. Delete the firewall rules we created earlier:
 
        gcloud compute firewall-rules delete allow-management-http
-       gcloud compute firewall-rules delete allow-devices-sip
-       gcloud compute firewall-rules delete allow-asterisk-rtp
-       gcloud compute firewall-rules delete allow-telnyx-sip
+       gcloud compute firewall-rules delete allow-devices-sip-rtp-udptl
+       gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
+       gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
+       gcloud compute firewall-rules delete allow-t38fax-rtp-udptl
        gcloud compute firewall-rules delete allow-flowroute-sip
+       gcloud compute firewall-rules delete allow-telnyx-sip
+       gcloud compute firewall-rules delete allow-t38fax-sip
