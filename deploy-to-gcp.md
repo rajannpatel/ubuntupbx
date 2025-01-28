@@ -301,7 +301,7 @@ Upon completing these steps you will have:
 
 **WARNING:** The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
-The following steps remove the "pbx" VM, its static IP address, its firewall rules, and its containing Google Cloud project.
+The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
 
 1. List all VMs in this project:
 
