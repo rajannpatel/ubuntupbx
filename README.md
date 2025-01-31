@@ -2,14 +2,13 @@
 
 There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS. 
 
-The following commands must be executed in a Linux terminal. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand. On Ubuntu, you can launch a [LXC container for the google-cloud-cli](./lxc.md).
+The following commands must be executed in a Linux terminal. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand. On Ubuntu, you can launch a [LXC container for the google-cloud-cli](./lxc.md), to isolate that software from host machine.
 
-Upon completing these steps you will have:
+Once you have a Linux environment with a Google Cloud command line utility installed, following the steps below will result in:
 
-- a Linux environment with a Google Cloud command line utility to administer virtual machines
 - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) with T38 and ECM enabled.
-- 10 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6
-- security patching automations enabled
+- 10 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
+- the enablement of security patching automations in Ubuntu until the year 2034.
 
 ## Install and configure the gcloud CLI
 
