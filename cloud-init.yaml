@@ -7,16 +7,18 @@
 # Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
 {% set TOKEN = '' %}
 
-# SMTP credentials
-# sendgrid example: substitute `YOUR-API-KEY-HERE` with your API KEY, https://app.sendgrid.com/settings/api_keys
+# SMTP credentials (sendgrid and gmail example configurations)
+# sendgrid: https://console.cloud.google.com/marketplace/product/sendgrid-app/sendgrid-email
 # {% set SMTP_HOST = 'smtp.sendgrid.net' %}
 # {% set SMTP_PORT = '587' %}
 # {% set SMTP_USERNAME = 'apikey' %}
+# substitute `YOUR-API-KEY-HERE` below, with your API KEY, https://app.sendgrid.com/settings/api_keys
 # {% set SMTP_PASSWORD = 'YOUR-API-KEY-HERE' %}
 
-# gmail example: replace `YOUREMAIL@GMAIL.COM` with your email, get `YOUR-APP-PASSWORD` from: https://myaccount.google.com/apppasswords
+# gmail:
 # {% set SMTP_HOST = 'smtp.gmail.com' %}
 # {% set SMTP_PORT = '587' %}
+# replace `YOUREMAIL@GMAIL.COM` with your email, get `YOUR-APP-PASSWORD` from: https://myaccount.google.com/apppasswords
 # {% set SMTP_USERNAME = 'YOUREMAIL@GMAIL.COM' %}
 # {% set SMTP_PASSWORD = 'YOUR-APP-PASSWORD' %}
 

@@ -1,8 +1,8 @@
 # Install FreePBX 17 on Ubuntu 24.04 with all open-source dependencies installed from Ubuntu's official repositories.
 
-There is no charge to use Google Cloud's Compute Engine up to their specified free usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS. 
+There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS. 
 
-The following commands must be executed in a Linux terminal. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand.
+The following commands must be executed in a Linux terminal. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand. On Ubuntu, you can launch a [LXC container for the google-cloud-cli](./lxc.md).
 
 Upon completing these steps you will have:
 
@@ -94,16 +94,18 @@ Upon completing these steps you will have:
     # Ubuntu Pro token from: https://ubuntu.com/pro/dashboard (not needed for Ubuntu Pro instances on Azure, AWS, or Google Cloud)
     {% set TOKEN = '' %}
 
-    # SMTP credentials
-    # sendgrid example: substitute `YOUR-API-KEY-HERE` with your API KEY, https://app.sendgrid.com/settings/api_keys
+    # SMTP credentials (sendgrid and gmail example configurations)
+    # sendgrid: https://console.cloud.google.com/marketplace/product/sendgrid-app/sendgrid-email
     # {% set SMTP_HOST = 'smtp.sendgrid.net' %}
     # {% set SMTP_PORT = '587' %}
     # {% set SMTP_USERNAME = 'apikey' %}
+    # substitute `YOUR-API-KEY-HERE` below, with your API KEY, https://app.sendgrid.com/settings/api_keys
     # {% set SMTP_PASSWORD = 'YOUR-API-KEY-HERE' %}
 
-    # gmail example: replace `YOUREMAIL@GMAIL.COM` with your email, get `YOUR-APP-PASSWORD` from: https://myaccount.google.com/apppasswords
+    # gmail:
     # {% set SMTP_HOST = 'smtp.gmail.com' %}
     # {% set SMTP_PORT = '587' %}
+    # replace `YOUREMAIL@GMAIL.COM` with your email, get `YOUR-APP-PASSWORD` from: https://myaccount.google.com/apppasswords
     # {% set SMTP_USERNAME = 'YOUREMAIL@GMAIL.COM' %}
     # {% set SMTP_PASSWORD = 'YOUR-APP-PASSWORD' %}
 
@@ -142,7 +144,7 @@ Upon completing these steps you will have:
         --machine-type=e2-micro \
         --address=pbx-external-ip \
         --tags=pbx \
-        --boot-disk-size=20 \
+        --boot-disk-size=30 \
         --image-family=ubuntu-2404-lts-amd64 \
         --image-project=ubuntu-os-cloud \
         --metadata-from-file=user-data=cloud-init.yaml
@@ -296,6 +298,16 @@ Upon completing these steps you will have:
 18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the external IP address in a hyperlink printed in your terminal:
 
         echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
+
+19. Connect to the pbx virtual machine via SSH:
+
+        gcloud compute ssh pbx --zone $ZONE
+
+    Upon logging in via SSH, connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
+
+        sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
+
+20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
 ## How to delete everything in Google Cloud
 
