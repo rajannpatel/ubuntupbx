@@ -294,9 +294,9 @@ Once you have a Linux environment with a Google Cloud command line utility insta
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the external IP address in a hyperlink printed in your terminal:
+18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your virtual machine as a hyperlink, CTRL+Click to open:
 
-        echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
+        dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
 
 19. Connect to the pbx virtual machine via SSH:
 
