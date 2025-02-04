@@ -129,7 +129,7 @@ Once you have a Linux environment with a Google Cloud command line utility insta
     {% set TIMEZONE = 'America/New_York' %}
 
     # TIME TO REBOOT FOR SECURITY AND BUGFIX PATCHES IN XX:XX FORMAT
-    {% set SECURITY_REBOOT_TIME = "03:00" %}
+    {% set SECURITY_REBOOT_TIME = "04:30" %}
 
     # =========================
     # END OF SETTING VARIABLES
