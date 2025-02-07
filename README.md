@@ -236,7 +236,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
         --description="Incoming RTP and UDPTL media streams from Telnyx"
     ```
 
-    #### T38Fax.com
+    #### T38Fax
 
     ```bash
     gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
@@ -274,7 +274,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
         --description="Telnyx SIP Signaling"
     ```
 
-    #### T38Fax.com
+    #### T38Fax
 
     ```bash
     gcloud compute firewall-rules create allow-t38fax-sip \
