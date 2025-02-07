@@ -208,7 +208,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
         --description="SIP signaling and RTP & UDPTL media for ATA and Softphone"
     ```
 
-12. Allow SIP registration and RTP and UDPTL media streams over Asterisk's configured UDP port ranges. [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound traffic from anywhere in the world. [Telnyx](https://telnyx.com) and [T38Fax](https://t38fax.com) proxy all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+12. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges. [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound traffic from anywhere in the world. [Telnyx](https://telnyx.com) and [T38Fax](https://t38fax.com) proxy all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
     #### Flowroute
 
