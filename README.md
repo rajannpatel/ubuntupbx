@@ -22,11 +22,7 @@ On Linux, you can launch a [LXD container for the google-cloud-cli](./lxd.md) fo
 
 <img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
 
-Use Multipass or LXD to create a Linux environment, and connect to its shell.
-
-<img alt="Install" width="50" src="./images/icons8-software-installer-100.png" />
-
-### Install dependencies from Ubuntu repositories
+Use Multipass or LXD to create a Linux environment for use as your cloud-deployment workspace, and connect to its shell.
 
 Proceeding with this guide in your cloud-deployment workspace will result in:
 
