@@ -1,16 +1,32 @@
-# Install FreePBX 17 on Ubuntu 24.04 with all open-source dependencies installed from Ubuntu's official repositories.
+<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-copier-100.png" />
 
-There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS. 
+This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
 
-The following commands must be executed in a Linux terminal. On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand. On Ubuntu, you can launch a [LXD container for the google-cloud-cli](./lxd.md) for process isolation and general organization or your local workspace.
+Deploying FreePBX on a single Ubuntu virtual machine in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
 
-Once you have a Linux environment with a Google Cloud command line utility installed, following the steps below will result in:
+There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
 
-- FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) with T38 and ECM enabled.
-- 10 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
+## Set up a cloud-deployment workspace on Windows, macOS, or Linux
+
+<img style="float:right;padding-left:10px" alt="Windows" width="25" src="./images/icons8-windows-client-100.png" /><img style="float:right;padding-left:10px" alt="macOS" width="25" src="./images/icons8-mac-client-100.png" /><img style="float:right;padding-left:10px" alt="Linux" width="25" src="./images/icons8-linux-server-100.png" />
+
+On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand. On Ubuntu, you can launch a [LXD container for the google-cloud-cli](./lxd.md) for process isolation and general organization or your local workspace.
+
+<img style="float:right;padding-left:10px" alt="Container or VM" width="25" src="./images/icons8-thin-client-100.png" />
+
+Use Multipass or LXD to create a Linux environment with the Google Cloud command line utility installed.
+
+## Install dependencies from Ubuntu repositories. <img style="float:right;padding-left:10px" alt="Install" width="25" src="./images/icons8-software-installer-100.png" />
+
+Install FreePBX 17 on Ubuntu 24.04, with all open-source dependencies installed from Ubuntu's official repositories.
+
+Following the steps below will result in:
+
+- FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
+- 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
 - the enablement of security patching automations in Ubuntu until the year 2034.
 
-## Install and configure the gcloud CLI
+## Install and configure the gcloud CLI <img style="float:right;padding-left:10px" alt="Terminal" width="25" src="./images/icons8-terminal-100.png" />
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
@@ -35,7 +51,7 @@ Once you have a Linux environment with a Google Cloud command line utility insta
     > $ gcloud config set project PROJECT_ID
     > ```
 
-## Provision resources and deploy
+## Provision resources and deploy <img style="float:right;padding-left:10px" alt="Cloud" width="25" src="./images/icons8-upload-to-cloud-100.png" />
 
 1. List the projects in the Google Cloud account:
     
@@ -149,7 +165,7 @@ Once you have a Linux environment with a Google Cloud command line utility insta
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-> **NOTE:**
+> **info:**<br><img style="float:right;padding-left:10px;" alt="Delete" width="25" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas. Example:
 > 
 > ```
@@ -308,9 +324,10 @@ Once you have a Linux environment with a Google Cloud command line utility insta
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-## How to delete everything in Google Cloud
+## How to delete everything in Google Cloud <img style="float:right;padding-left:10px;" alt="Delete" width="25" src="./images/icons8-delete-100.png" />
 
-**WARNING:** The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
+> **warning!**<br><img style="float:right;padding-left:10px;" alt="Delete" width="25" src="./images/icons8-warning-100.png" />
+The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
 The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
 
@@ -346,3 +363,5 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
        gcloud compute firewall-rules delete allow-flowroute-sip
        gcloud compute firewall-rules delete allow-telnyx-sip
        gcloud compute firewall-rules delete allow-t38fax-sip
+
+<small>icons by [icons8](https://icons8.com)</small>
