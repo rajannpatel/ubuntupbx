@@ -1,3 +1,5 @@
+##### Install FreePBX 17 on Ubuntu 24.04, with all open-source dependencies installed from Ubuntu's official repositories.
+
 <img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-copier-100.png" />
 
 This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
@@ -17,8 +19,6 @@ On Windows and macOS [Multipass](https://multipass.run/install) provides Linux v
 Use Multipass or LXD to create a Linux environment with the Google Cloud command line utility installed.
 
 ## Install dependencies from Ubuntu repositories. <img align="right" style="padding-left:10px" alt="Install" width="50" src="./images/icons8-software-installer-100.png" />
-
-Install FreePBX 17 on Ubuntu 24.04, with all open-source dependencies installed from Ubuntu's official repositories.
 
 Following the steps below will result in:
 
