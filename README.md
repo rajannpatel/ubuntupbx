@@ -222,7 +222,7 @@ Once you have a Linux environment with a Google Cloud command line utility insta
         --description="Incoming RTP and UDPTL media streams from T38Fax"
     ```
 
-13. Allow SIP signaling for outbound calls to a VoIP provider, these commands configure the Google Cloud firewall to allow outbound calls with Flowroute, Telnyx, and T38Fax.
+13. Allow SIP signaling for inbound calls from Flowroute, Telnyx, and T38Fax when using IP authentication for those SIP trunks.
 
     #### Flowroute
 
@@ -232,8 +232,8 @@ Once you have a Linux environment with a Google Cloud command line utility insta
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="34.210.91.112/28,34.226.36.32/28,16.163.86.112/30,3.0.5.12/30,3.8.37.20/30,3.71.103.56/30,18.228.70.48/30" \
-        --rules="udp:5060,tcp:5060,udp:5160,tcp:5160" \
-        --description="Flowroute TCP and UDP SIP Signaling"
+        --rules="udp:5060" \
+        --description="Flowroute SIP Signaling"
     ```
 
     #### Telnyx
@@ -244,8 +244,8 @@ Once you have a Linux environment with a Google Cloud command line utility insta
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="192.76.120.10,64.16.250.10,185.246.41.140,185.246.41.141,103.115.244.145,103.115.244.146,192.76.120.31,64.16.250.13" \
-        --rules="udp:5060,tcp:5060-5061" \
-        --description="Telnyx UDP, TCP, and TCP with TLS SIP Signaling"
+        --rules="udp:5060" \
+        --description="Telnyx SIP Signaling"
     ```
 
     #### T38Fax.com
@@ -256,8 +256,8 @@ Once you have a Linux environment with a Google Cloud command line utility insta
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
-        --rules="udp:5060,udp:5080,tcp:5060,tcp:5080" \
-        --description="T38Fax UDP and TCP SIP Signaling"
+        --rules="udp:5060" \
+        --description="T38Fax SIP Signaling"
     ```
 
 13. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the virtual machine:
