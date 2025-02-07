@@ -1,6 +1,6 @@
-##### Install FreePBX 17 on Ubuntu 24.04, with all open-source dependencies installed from Ubuntu's official repositories.
-
 <img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-copier-100.png" />
+
+### Install FreePBX 17 on Ubuntu 24.04, with all open-source dependencies installed from Ubuntu's official repositories.
 
 This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
 
