@@ -1,6 +1,6 @@
 # FreePBX + Asterisk + Ubuntu
 
-<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-copier-100.png" />
+<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
 
 ### Install FreePBX 17 on Ubuntu 24.04, with open-source dependencies installed from Ubuntu's official repositories.
 
@@ -10,25 +10,35 @@ Deploying FreePBX on a single Ubuntu virtual machine in Google Cloud is an ideal
 
 There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
 
-## Set up a cloud-deployment workspace on Windows, macOS, or Linux
+## <img align="left" alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" /> Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
-<img align="right" style="padding-left:10px" alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img align="right" style="padding-left:10px" alt="macOS" width="50" src="./images/icons8-mac-client-100.png" /><img align="right" style="padding-left:10px" alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
+<img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
-On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand. On Ubuntu, you can launch a [LXD container for the google-cloud-cli](./lxd.md) for process isolation and general organization or your local workspace.
+On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand.
 
-<img align="right" style="padding-left:10px" alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
+<img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
-Use Multipass or LXD to create a Linux environment with the Google Cloud command line utility installed.
+On Linux, you can launch a [LXD container for the google-cloud-cli](./lxd.md) for process isolation and general organization or your local workspace.
 
-## Install dependencies from Ubuntu repositories. <img align="right" style="padding-left:10px" alt="Install" width="50" src="./images/icons8-software-installer-100.png" />
+Use Multipass or LXD to create a Linux environment, and connect to its shell.
 
-Following the steps below will result in:
+<hr>
+
+<img alt="Install" width="50" src="./images/icons8-software-installer-100.png" />
+
+## Install dependencies from Ubuntu repositories.
+
+Proceeding with this guide in your cloud-deployment workspace will result in:
 
 - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
 - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
 - the enablement of security patching automations in Ubuntu until the year 2034.
 
-## Install and configure the gcloud CLI <img align="right" style="padding-left:10px" alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
+<hr>
+
+<img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
+
+## Install and configure the gcloud CLI
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
@@ -53,7 +63,11 @@ Following the steps below will result in:
     > $ gcloud config set project PROJECT_ID
     > ```
 
-## Provision resources and deploy <img align="right" style="padding-left:10px" alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
+<hr>
+
+<img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
+
+## Provision resources and deploy
 
 1. List the projects in the Google Cloud account:
     
@@ -167,7 +181,7 @@ Following the steps below will result in:
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-> **info:**<br><img align="right" style="padding-left:10px;" alt="Delete" width="50" src="./images/icons8-information-100.png" />
+> **info:**<br><img align="right" alt="Delete" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas. Example:
 > 
 > ```
@@ -326,9 +340,13 @@ Following the steps below will result in:
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-## How to delete everything in Google Cloud <img align="right" style="padding-left:10px;" alt="Delete" width="50" src="./images/icons8-delete-100.png" />
+<hr>
 
-> **warning!**<br><img align="right" style="padding-left:10px;" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
+<img alt="Delete" width="50" src="./images/icons8-delete-100.png" />
+
+## How to delete everything in Google Cloud
+
+> **warning!**<br><img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
 The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
 The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
@@ -366,4 +384,5 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
        gcloud compute firewall-rules delete allow-telnyx-sip
        gcloud compute firewall-rules delete allow-t38fax-sip
 
-<small>icons by [icons8](https://icons8.com)</small>
+<br><br><br><br>
+<a href="https://icons8.com"><img alt="icon credits" align="right" src="./images/icons.png"></a>
