@@ -187,7 +187,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
 10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the virtual machine from `--source-ranges` IP(s):
 
     ```bash
-    gcloud compute firewall-rules create allow-management-http \
+    gcloud compute firewall-rules create allow-management-http-icmp \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -369,7 +369,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
 
 6. Delete the firewall rules we created earlier:
 
-       gcloud compute firewall-rules delete allow-management-http
+       gcloud compute firewall-rules delete allow-management-http-icmp
        gcloud compute firewall-rules delete allow-devices-sip-rtp-udptl
        gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
        gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
