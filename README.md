@@ -222,7 +222,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
         --description="Incoming RTP and UDPTL media streams from Flowroute"
     ```
 
-    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world. It is so permissive that the following Telnyx-specific ingress rule is redundant:
+    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world. It is so permissive that the following Telnyx and T38Fax specific ingress rules are redundant, but included for below for completeness:
 
     #### Telnyx
 
