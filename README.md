@@ -26,6 +26,8 @@ On Linux, you can launch a [LXD container for the google-cloud-cli](./lxd.md) fo
 
 Use Multipass or LXD to create a Linux environment for use as your cloud-deployment workspace, and connect to its shell.
 
+<hr>
+
 Proceeding with this guide in your cloud-deployment workspace will result in:
 
 - **STEP 1:** the creation a virtual machine or container running on your computer, where the Google Cloud CLI is installed
@@ -41,7 +43,7 @@ Once you have deployed an Ubuntu virtual machine or container, you can proceed t
 
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
-## STEP 1: Install and configure the gcloud CLI in your cloud-deployment workspace
+## STEP 1:<br> Install and configure the gcloud CLI in your cloud-deployment workspace
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
