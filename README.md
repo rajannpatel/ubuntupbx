@@ -34,7 +34,9 @@ Instead of installing the Google Cloud CLI software directly on your Ubuntu work
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
-1. On Windows and macOS, install [Multipass](https://multipass.run/install) for Linux virtual machines on demand.
+On Windows and macOS, [Multipass](https://multipass.run/install) provides Linux virtual machines on demand.
+
+1. Install [Multipass](https://multipass.run/install)
 
 2. Launch a virtual machine named "cloud-deployment-workspace":
 
@@ -42,7 +44,7 @@ Instead of installing the Google Cloud CLI software directly on your Ubuntu work
 
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
-On Linux, [LXD](https://canonical.com/lxd/install) is a system container and virtual machine manager. It's built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
+On Linux, [LXD](https://canonical.com/lxd/install) is a system container and virtual machine manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
 1.  Install and initialize LXD
 
