@@ -27,7 +27,8 @@ This guide is broken down into 3 steps:
 
 <img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
 
-## STEP 1:<br> Set up a cloud-deployment workspace on Windows, macOS, or Linux
+## STEP 1:
+### Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
 Use Multipass or LXD to create a Linux environment for use as your cloud-deployment workspace, and connect to its shell.
 
@@ -43,7 +44,8 @@ On Linux, you can launch a [LXD container for the google-cloud-cli](./lxd.md) fo
 
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
-## STEP 2:<br> Install and configure the gcloud CLI in your cloud-deployment workspace
+## STEP 2:
+### Install and configure the gcloud CLI in your cloud-deployment workspace
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
@@ -72,7 +74,8 @@ On Linux, you can launch a [LXD container for the google-cloud-cli](./lxd.md) fo
 
 <img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
 
-## STEP 3: Provision resources and deploy an Ubuntu virtual machine on Google Cloud
+## STEP 3
+### Provision resources and deploy an Ubuntu virtual machine on Google Cloud
 
 1. List the projects in the Google Cloud account:
     
