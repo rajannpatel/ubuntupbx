@@ -30,15 +30,39 @@ This guide is broken down into 3 steps:
 ## STEP 1:
 ### Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
-Use Multipass or LXD to create a Linux environment for use as your cloud-deployment workspace, and connect to its shell.
+Instead of installing the Google Cloud CLI software directly on your Ubuntu workstation, use containers or virtual machines for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
-On Windows and macOS [Multipass](https://multipass.run/install) provides Linux virtual machines on demand.
+1. On Windows and macOS, install [Multipass](https://multipass.run/install) for Linux virtual machines on demand.
+
+2. Launch a virtual machine named "cloud-deployment-workspace":
+
+        multipass launch --name cloud-deployment-workspace
 
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
-On Linux, you can launch a [LXD container for the google-cloud-cli](./lxd.md) for process isolation and general organization or your local workspace.
+On Linux, [LXD](https://canonical.com/lxd/install) is a system container and virtual machine manager. It's built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
+
+1.  Install and initialize LXD
+
+        sudo apt install -y snapd
+        snap list lxd &> /dev/null && sudo snap refresh lxd --channel latest/stable || sudo snap install lxd --channel latest/stable
+        lxd init --auto
+
+
+2.  Launch a LXD container named **cloud-deployment-workspace** and map your user account on the host machine to the default **ubuntu** user account in the container:
+
+        lxc launch ubuntu:noble cloud-deployment-workspace -c raw.idmap="both 1000 1000"
+
+
+3.  Optional Step: mount your home directory into the container as a disk named "ubuntupbx-home", to conveniently access your files from within the container:
+
+        lxc config device add cloud-deployment-workspace ubuntupbx-home disk source=~/ path=/home/ubuntu
+
+4.  Enter the LXD container as the **ubuntu** user:
+
+        lxc exec cloud-deployment-workspace -- su -l ubuntu
 
 <hr>
 
