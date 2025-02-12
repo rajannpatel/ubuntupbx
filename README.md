@@ -28,15 +28,20 @@ Use Multipass or LXD to create a Linux environment for use as your cloud-deploym
 
 Proceeding with this guide in your cloud-deployment workspace will result in:
 
-- FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
-- 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
-- the enablement of security patching automations in Ubuntu until the year 2034.
+- **STEP 1:** the creation a virtual machine or container running on your computer, where the Google Cloud CLI is installed
+
+Once you have deployed an Ubuntu virtual machine or container, you can proceed to:
+
+- **STEP 2:** deploy an Ubuntu virtual machine on Google Cloud that will have:
+    - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
+    - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
+    - security patching automations enabled until the year 2034.
 
 <hr>
 
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
-## Install and configure the gcloud CLI
+## STEP 1: Install and configure the gcloud CLI in your cloud-deployment workspace
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
@@ -65,7 +70,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
 
 <img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
 
-## Provision resources and deploy
+## STEP 2: Provision resources and deploy an Ubuntu virtual machine on Google Cloud
 
 1. List the projects in the Google Cloud account:
     
@@ -114,7 +119,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
 
        curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init.yaml
 
-8. Open the file in an editor to change configurations specified between lines 4 and 43. Setting `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) is required for security updates to Asterisk, Asterisk's dependencies, and some FreePBX dependencies. [Livepatch](https://ubuntu.com/security/livepatch) will be enabled by this cloud-init.yaml file if a Pro Token is set.
+8. Open the file in an editor (like nano) to change configurations specified between lines 4 and 43. Setting `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) is required for security updates to Asterisk, Asterisk's dependencies, and some FreePBX dependencies. [Livepatch](https://ubuntu.com/security/livepatch) will be enabled by this cloud-init.yaml file if a Pro Token is set.
 
     ```markdown
     # SET OUR VARIABLES
@@ -338,7 +343,7 @@ Proceeding with this guide in your cloud-deployment workspace will result in:
 
 <img alt="Delete" width="50" src="./images/icons8-delete-100.png" />
 
-## How to delete everything in Google Cloud
+## **UNDO EVERYTHING:** How to delete everything in Google Cloud
 
 > **warning!**<br><img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
 The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
