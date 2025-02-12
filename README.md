@@ -16,12 +16,14 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 This guide is broken down into 3 steps:
 
-- **STEP 1:** <br>create an Ubuntu virtual machine or container running on your computer, which will be referred to as the "cloud-deployment workspace"
-- **STEP 2:** <br>install and configure Google Cloud CLI in the cloud-deployment workspace
-- **STEP 3:** <br>deploy an Ubuntu virtual machine on Google Cloud that will have:
+- **[STEP 1](#step-1):** <br>create an Ubuntu virtual machine or container running on your computer, which will be referred to as the "cloud-deployment workspace"
+- **[STEP 2](#step-2):** <br>install and configure Google Cloud CLI in the cloud-deployment workspace
+- **[STEP 3](#step-3):** <br>deploy an Ubuntu virtual machine on Google Cloud that will have:
     - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
+
+Proceed to [Step 1](#step-1).
 
 <hr>
 
@@ -46,7 +48,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux virtual
 
         multipass shell cloud-deployment-workspace
 
-Proceed to Step 2.
+Proceed to [Step 2](#step-2).
 
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
@@ -70,7 +72,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and virtual ma
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-Proceed to Step 2.
+Proceed to [Step 2](#step-2).
 
 <hr>
 
@@ -102,7 +104,7 @@ Proceed to Step 2.
     > $ gcloud config set project PROJECT_ID
     > ```
 
-Proceed to Step 3.
+Proceed to [Step 3](#step-3).
 
 <hr>
 
