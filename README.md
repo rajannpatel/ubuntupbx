@@ -42,6 +42,12 @@ On Windows and macOS, [Multipass](https://multipass.run/install) provides Linux 
 
         multipass launch --name cloud-deployment-workspace
 
+3. Enter the Multipass virtual machine as the **ubuntu** user:
+
+        multipass shell cloud-deployment-workspace
+
+Proceed to Step 2.
+
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
 On Linux, [LXD](https://canonical.com/lxd/install) is a system container and virtual machine manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
@@ -65,6 +71,8 @@ On Linux, [LXD](https://canonical.com/lxd/install) is a system container and vir
 4.  Enter the LXD container as the **ubuntu** user:
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
+
+Proceed to Step 2.
 
 <hr>
 
@@ -95,6 +103,8 @@ On Linux, [LXD](https://canonical.com/lxd/install) is a system container and vir
     > Your current project is [None].  You can change this setting by running:
     > $ gcloud config set project PROJECT_ID
     > ```
+
+Proceed to Step 3.
 
 <hr>
 
@@ -369,6 +379,8 @@ On Linux, [LXD](https://canonical.com/lxd/install) is a system container and vir
         sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
+
+Congratulations! You are done.
 
 <hr>
 
