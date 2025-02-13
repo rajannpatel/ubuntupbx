@@ -5,14 +5,24 @@
 
 This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
 
-Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
-
 > [!NOTE]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> #### Free for Everyone
-> Open source software dependencies of FreePBX (including Asterisk) installed from official Ubuntu LTS repositories get 12 years of security patches when free or paid [Ubuntu Pro](https://ubuntu.com/pro) is enabled, by [attaching an Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription). Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
-> <img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
-> There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
+> There is no charge ($0.00 per month) to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit.
+
+Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
+
+> [!TIP]
+> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
+> #### Get 12 years of security patches if you:
+> 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
+> 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
+
+<img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
+
+### Always Free
+
+- Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
+- Every Google Cloud account has an "always-free" tier. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
 
 <hr>
 
