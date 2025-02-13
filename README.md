@@ -56,7 +56,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
         multipass shell cloud-deployment-workspace
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; GO TO <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 #### Set up a cloud-deployment workspace on Linux
 
@@ -87,7 +87,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; GO TO <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 <hr>
 
@@ -119,7 +119,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     > $ gcloud config set project PROJECT_ID
     > ```
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;GO TO <a href="#step-2">STEP 2</a></sub><br><br>
+<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a></sub><br><br>
 
 <hr>
 
