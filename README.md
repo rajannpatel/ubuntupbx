@@ -258,8 +258,8 @@ These steps are performed in your cloud-deployment workspace:
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of 174.96.0.0/12. Verizon Wireless 5G Home Internet serves IPs from [75.192.0.0/10](https://search.arin.net/rdap/?query=75.192.0.0), Optimum Online's Altice Fiber serves IPs from [24.184.0.0/14](https://search.arin.net/rdap/?query=24.184.0.0), and Google Fiber serves IPs from [136.32.0.0/11](https://search.arin.net/rdap/?query=136.32.0.0). Adding an entire CIDR block to the source range ensures service isn't disrupted for users with a dynamic IP, and not a static IP, from their ISP.
 
-> [!WARNING]
-> <img align="right" alt="Warning Sign" width="50" src="./images/icons8-warning-100.png" />
+> [!CAUTION]
+> <img align="right" alt="Caution Sign" width="50" src="./images/icons8-caution-100.png" />
 > Allowing broad permissions to entire CIDR blocks of an ISP increases the attack surface of your FreePBX installation, monitoring SIP registrations with fail2ban and not allowing broad access to the management interface on TCP Port 80 is recommended.
 
 10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the VM from `--source-ranges` IP(s):
