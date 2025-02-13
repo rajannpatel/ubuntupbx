@@ -56,7 +56,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
         multipass shell cloud-deployment-workspace
 
-<br><br><sub>PROGRESS: GO TO <a href="#step-2">STEP 2</a></sub><br><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; GO TO <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 #### Set up a cloud-deployment workspace on Linux
 
@@ -87,7 +87,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-<br><sup>PROGRESS:</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp;<a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; GO TO <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 <hr>
 
@@ -119,7 +119,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     > $ gcloud config set project PROJECT_ID
     > ```
 
-<sub>PROGRESS</sub><br><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;GO TO <a href="#step-2">STEP 2</a></sub><br><br>
 
 <hr>
 
