@@ -8,7 +8,7 @@ This guide will show you how and where to deploy a long running FreePBX system c
 
 Open source software dependencies of FreePBX (including Asterisk) installed from official Ubuntu LTS repositories get 12 years of security patches when free or paid [Ubuntu Pro](https://ubuntu.com/pro) is enabled.
 
-Deploying FreePBX on a single Ubuntu virtual machine in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
+Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
 
 There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
 
@@ -19,12 +19,12 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
-- **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like virtual machines and firewalls can be provisioned and configured from here.
-    - Confine the Google Cloud CLI in an Ubuntu virtual machine or container, this VM or container becomes the cloud-deployment workspace.
+- **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like VMs and firewalls can be provisioned and configured from here.
+    - Confine the Google Cloud CLI in an Ubuntu VM or container, this VM or container becomes the cloud-deployment workspace.
 - **[STEP 2](#step-2)** <br>Install and configure Google Cloud CLI in the cloud-deployment workspace.
     - The Google Cloud CLI is available as a snap package with "classic confinement", meaning it doesn't have strict confinement and has broader system access.
-- **[STEP 3](#step-3)** <br>From within the cloud-deployment workspace, launch an Ubuntu virtual machine on Google Cloud that will have:
-    - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
+- **[STEP 3](#step-3)** <br>From within the cloud-deployment workspace, launch an Ubuntu VM on Google Cloud that will have:
+    - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS VM in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
 
@@ -37,21 +37,21 @@ Proceed to [Step 1](#step-1).
 ## STEP 1
 ### Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
-Instead of installing the Google Cloud CLI software directly on your computer, use containers or virtual machines for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
+Instead of installing the Google Cloud CLI software directly on your computer, use containers or VMs for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
 #### Set up a cloud-deployment workspace on Windows and macOS
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
-On Windows and macOS, [Multipass](https://multipass.run/) provides Linux virtual machines on demand.
+On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
 
 1. [Install Multipass](https://multipass.run/install)
 
-2. Launch a virtual machine named "cloud-deployment-workspace":
+2. Launch a VM named "cloud-deployment-workspace":
 
         multipass launch --name cloud-deployment-workspace
 
-3. Enter the Multipass virtual machine as the **ubuntu** user:
+3. Enter the Multipass VM as the **ubuntu** user:
 
         multipass shell cloud-deployment-workspace
 
@@ -61,7 +61,7 @@ Proceed to [Step 2](#step-2).
 
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
-On Linux, [LXD](https://canonical.com/lxd/) is a system container and virtual machine manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
+On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
 1.  [Install snapd](https://snapcraft.io/docs/installing-snapd) if your Linux doesn't already have the **snap** command line utility installed.
 
@@ -125,7 +125,7 @@ Proceed to [Step 3](#step-3).
 <img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
 
 ## STEP 3
-### Provision resources and deploy an Ubuntu virtual machine on Google Cloud
+### Provision resources and deploy an Ubuntu VM on Google Cloud
 
 1. List the projects in the Google Cloud account:
     
@@ -146,7 +146,7 @@ Proceed to [Step 3](#step-3).
     
        gcloud config set project $PROJECT_ID
     
-    This Project ID will contain the PBX virtual machine (VM).
+    This Project ID will contain the PBX VM.
     
 4. List the available cloud zones and cloud regions where VMs can be deployed:
 
@@ -225,7 +225,7 @@ Proceed to [Step 3](#step-3).
     # END OF SETTING VARIABLES
     ```
 
-9. The following command launches a free tier e2-micro virtual machine named "pbx". Replace `e2-micro` in this command with another instance type if the free tier isn't desired:
+9. The following command launches a free tier e2-micro VM named "pbx". Replace `e2-micro` in this command with another instance type if the free tier isn't desired:
     
     ```bash
     gcloud compute instances create pbx \
@@ -244,7 +244,7 @@ Proceed to [Step 3](#step-3).
 >
 > For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
 
-10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the virtual machine from `--source-ranges` IP(s):
+10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the VM from `--source-ranges` IP(s):
 
     ```bash
     gcloud compute firewall-rules create allow-management-http-icmp \
@@ -346,7 +346,7 @@ Proceed to [Step 3](#step-3).
         --description="T38Fax SIP Signaling"
     ```
 
-13. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the virtual machine:
+13. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the VM:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
@@ -380,11 +380,11 @@ Proceed to [Step 3](#step-3).
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your virtual machine as a hyperlink, CTRL+Click to open:
+18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, CTRL+Click to open:
 
         dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
 
-19. Connect to the pbx virtual machine via SSH:
+19. Connect to the pbx VM via SSH:
 
         gcloud compute ssh pbx --zone $ZONE
 
