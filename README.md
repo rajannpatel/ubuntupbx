@@ -226,7 +226,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     # END OF SETTING VARIABLES
     ```
 
-9. The following command launches a free tier e2-micro VM named "pbx". Replace `e2-micro` in this command with another instance type if the free tier isn't desired:
+9. The following command launches a free tier e2-micro VM named "pbx". Replace `e2-micro` in this command with [another instance type](https://cloud.google.com/compute/docs/machine-resource) if the free tier isn't desired:
     
     ```bash
     gcloud compute instances create pbx \
@@ -261,7 +261,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
         --target-tags=pbx \
         --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
         --rules="tcp:80,icmp" \
-        --description="Access FreePBX via HTTP and ping"
+        --description="Access FreePBX via web and ping"
     ```
 
 11. Allow SIP registration and RTP & UDPTL media streams over the default UDP port ranges for ATAs and softphones from IPs specified in `--source-ranges`. The `$(wget -qO- http://checkip.amazonaws.com)` command assumes the machine where this command is run also shares the same Internet connection as the softphones and devices that will connect to this PBX.
@@ -273,10 +273,10 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
         --target-tags=pbx \
         --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
         --rules="udp:5060,udp:4000-4999,udp:10000-20000" \
-        --description="SIP signaling and RTP & UDPTL media for ATA and Softphone"
+        --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
 
-12. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges. [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound traffic from anywhere in the world. [Telnyx](https://telnyx.com) and [T38Fax](https://t38fax.com) proxy all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+12. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges. [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound traffic from anywhere in the world. [BulkVS](https://bulkvs.com), [Telnyx](https://telnyx.com) and [T38Fax](https://t38fax.com) proxy all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
     #### Flowroute
 
@@ -287,10 +287,10 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
         --target-tags=pbx \
         --source-ranges="0.0.0.0/0" \
         --rules="udp:4000-4999,udp:10000-20000" \
-        --description="Incoming RTP and UDPTL media streams from Flowroute"
+        --description="Flowroute incoming RTP and UDPTL media streams"
     ```
 
-    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world. It is so permissive that the following Telnyx and T38Fax specific ingress rules are redundant, but included for below for completeness:
+    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world. It is so permissive that the following Telnyx, T38Fax, and BulkVS specific ingress rules are redundant, but they are included below for completeness:
 
     #### Telnyx
 
@@ -301,7 +301,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
         --target-tags=pbx \
         --source-ranges="36.255.198.128/25,50.114.136.128/25,50.114.144.0/21,64.16.226.0/24,64.16.227.0/24,64.16.228.0/24,64.16.229.0/24,64.16.230.0/24,64.16.248.0/24,64.16.249.0/24,103.115.244.128/25,185.246.41.128/25" \
         --rules="udp:4000-4999,udp:10000-20000" \
-        --description="Incoming RTP and UDPTL media streams from Telnyx"
+        --description="Telnyx incoming RTP and UDPTL media streams"
     ```
 
     #### T38Fax
@@ -313,10 +313,22 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
         --target-tags=pbx \
         --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
         --rules="udp:4000-4999,udp:10000-20000" \
-        --description="Incoming RTP and UDPTL media streams from T38Fax"
+        --description="T38Fax incoming RTP and UDPTL media streams"
     ```
 
-13. Allow SIP signaling for inbound calls from Flowroute, Telnyx, and T38Fax when using IP authentication for those SIP trunks.
+    #### BulkVS
+
+    ```bash
+    gcloud compute firewall-rules create allow-bulkvs-rtp-udptl \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="162.249.171.198,23.190.16.198,76.8.29.198" \
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="BulkVS incoming RTP and UDPTL media streams"
+    ```
+
+13. Allow SIP signaling for inbound calls from Flowroute, Telnyx, T38Fax, and BulkVS when using IP authentication for those SIP trunks.
 
     #### Flowroute
 
@@ -352,6 +364,18 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
         --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
         --rules="udp:5060" \
         --description="T38Fax SIP Signaling"
+    ```
+
+    #### BulkVS
+
+    ```bash
+    gcloud compute firewall-rules create allow-t38fax-sip \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="162.249.171.198,23.190.16.198,76.8.29.198" \
+        --rules="udp:5060" \
+        --description="BulkVS SIP Signaling"
     ```
 
 13. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the VM:
