@@ -7,9 +7,9 @@ This guide will show you how and where to deploy a long running FreePBX system c
 
 > [!NOTE]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> There is no charge ($0.00 per month) to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit.
+> It is free (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within specific [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits.
 
-Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
+Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this guide's deployment uses daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
