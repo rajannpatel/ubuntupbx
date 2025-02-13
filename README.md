@@ -19,11 +19,11 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
-- **[STEP 1](#step-1):** <br>Set up a cloud-deployment workspace, Google Cloud resources like virtual machines and firewalls can be provisioned and configured from here.
+- **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like virtual machines and firewalls can be provisioned and configured from here.
     - Confine the Google Cloud CLI in an Ubuntu virtual machine or container, this VM or container becomes the cloud-deployment workspace.
-- **[STEP 2](#step-2):** <br>Install and configure Google Cloud CLI in the cloud-deployment workspace.
+- **[STEP 2](#step-2)** <br>Install and configure Google Cloud CLI in the cloud-deployment workspace.
     - The Google Cloud CLI is available as a snap package with "classic confinement", meaning it doesn't have strict confinement and has broader system access.
-- **[STEP 3](#step-3):** <br>From within the cloud-deployment workspace, launch an Ubuntu virtual machine on Google Cloud that will have:
+- **[STEP 3](#step-3)** <br>From within the cloud-deployment workspace, launch an Ubuntu virtual machine on Google Cloud that will have:
     - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
