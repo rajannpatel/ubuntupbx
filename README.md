@@ -134,6 +134,8 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 ## STEP 3
 ### Provision resources and deploy an Ubuntu VM on Google Cloud
 
+These steps are performed in your cloud-deployment workspace:
+
 1. List the projects in the Google Cloud account:
     
        gcloud projects list
