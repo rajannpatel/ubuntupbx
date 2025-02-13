@@ -476,7 +476,7 @@ These steps are performed in your cloud-deployment workspace:
         @daily gcloud storage rsync /var/spool/asterisk/backup gs://example-bucket-name/backup --recursive
         @daily gcloud storage rsync /var/spool/asterisk/monitor gs://example-bucket-name/monitor --recursive
 
-    Use cloud storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, and object lifecycle policies can be enabled on the S3 bucket to delete backups from the S3 bucket on a schedule of your choosing.
+    Use Google Cloud Storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, because the backups are retained externally in a Google Cloud Storage S3 Bucket. Delete stale backups from the S3 bucket on a schedule of your choosing by setting a "maximum age" object lifecycle policy on the S3 bucket.
 
     Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
 
