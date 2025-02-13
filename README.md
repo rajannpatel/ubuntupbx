@@ -369,7 +369,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     #### BulkVS
 
     ```bash
-    gcloud compute firewall-rules create allow-t38fax-sip \
+    gcloud compute firewall-rules create allow-bulkvs-sip \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -470,9 +470,11 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
        gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
        gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
        gcloud compute firewall-rules delete allow-t38fax-rtp-udptl
+       gcloud compute firewall-rules delete allow-bulkvs-rtp-udptl
        gcloud compute firewall-rules delete allow-flowroute-sip
        gcloud compute firewall-rules delete allow-telnyx-sip
        gcloud compute firewall-rules delete allow-t38fax-sip
+       gcloud compute firewall-rules delete allow-bulkvs-sip
 
 <br><br><br><br>
 <a href="https://icons8.com"><img alt="icon credits" align="right" src="./images/icons.png"></a>
