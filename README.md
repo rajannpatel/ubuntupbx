@@ -1,7 +1,6 @@
-# FreePBX + Asterisk + Ubuntu
-
 <img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
 
+# FreePBX + Asterisk + Ubuntu
 ### Install FreePBX 17 on Ubuntu 24.04 LTS, with open-source dependencies installed from Ubuntu's official repositories.
 
 This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
