@@ -39,7 +39,7 @@ Proceed to [Step 1](#step-1).
 
 Instead of installing the Google Cloud CLI software directly on your computer, use containers or virtual machines for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
-#### Windows and macOS
+#### Set up a cloud-deployment workspace on Windows and macOS
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
@@ -57,7 +57,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux virtual
 
 Proceed to [Step 2](#step-2).
 
-#### Linux
+#### Set up a cloud-deployment workspace on Linux
 
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
