@@ -408,11 +408,11 @@ These steps are performed in your cloud-deployment workspace:
         --description="BulkVS SIP Signaling"
     ```
 
-13. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the VM:
+14. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the VM:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-14. First time gcloud CLI users will be prompted for a passphrase twice. This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
+15. First time gcloud CLI users will be prompted for a passphrase twice. This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
     
     > ```text
     > WARNING: The private SSH key file for gcloud does not exist.
@@ -424,29 +424,29 @@ These steps are performed in your cloud-deployment workspace:
     > Enter same passphrase again:
     > ```
     
-15. A reboot may be required during the cloud-init process. The following output indicates a reboot will be performed:
+16. A reboot may be required during the cloud-init process. The following output indicates a reboot will be performed:
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
     > ```
     
     If the **ubuntu-2404-lts-amd64** Ubuntu image in Google Cloud, specified in step 9 in the `--image-family` parameter, does not contain all the security patches published by Canonical in the last 24 hours, and `package_reboot_if_required: true` in cloud-init.yaml, a reboot may occur.
-    
-16. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
+  
+17. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-17. Press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process when it stops producing new output, and prints a `finished at` line:
+18. Press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process when it stops producing new output, and prints a `finished at` line:
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
+19. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
 
         dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
 
-19. Connect to the pbx VM via SSH:
+20. Connect to the pbx VM via SSH:
 
         gcloud compute ssh pbx --zone $ZONE
 
@@ -471,11 +471,7 @@ These steps are performed in your cloud-deployment workspace:
 
     Use cloud storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, and object lifecycle policies can be enabled on the S3 bucket to delete backups from the S3 bucket on a schedule of your choosing.
 
-20. Connect to the pbx VM via SSH:
-
-        gcloud compute ssh pbx --zone $ZONE
-
-    Upon logging in via SSH, connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
+    Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
 
         sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
 
