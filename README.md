@@ -69,17 +69,20 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and virtual ma
 2.  [Install LXD](https://canonical.com/lxd/install) and initialize it
 
         snap list lxd &> /dev/null && sudo snap refresh lxd --channel latest/stable || sudo snap install lxd --channel latest/stable
+
+3.  Initialize LXD with sensible default, out-of-the-box configurations
+
         lxd init --auto
 
-3.  Launch a LXD container named **cloud-deployment-workspace** and map your user account on the host machine to the default **ubuntu** user account in the container:
+4.  Launch a LXD container named **cloud-deployment-workspace** and map your user account on the host machine to the default **ubuntu** user account in the container:
 
         lxc launch ubuntu:noble cloud-deployment-workspace -c raw.idmap="both 1000 1000"
 
-4.  Optional Step: mount your home directory into the container as a disk named "ubuntupbx-home", to conveniently access your files from within the container:
+5.  Optional Step: mount your home directory into the container as a disk named "ubuntupbx-home", to conveniently access your files from within the container:
 
         lxc config device add cloud-deployment-workspace ubuntupbx-home disk source=~/ path=/home/ubuntu
 
-5.  Enter the LXD container as the **ubuntu** user:
+6.  Enter the LXD container as the **ubuntu** user:
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
