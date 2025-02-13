@@ -402,9 +402,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-- [x] Step 1 [x] Step 2
-- [x] STEP 2
-- [x] STEP 3: Congratulations! You are done. :tada:
+<img alt="Step 1: Done" width="16" align="left" src="./images/icons8-unchecked-radio-button-100.png" /><p align="left">step 1</p><img alt="Step 2: Done" width="16" align="left" src="./images/icons8-unchecked-radio-button-100.png" /><p align="left">step 2</p>
 
 <hr>
 
@@ -413,7 +411,8 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 ## **HOW DO I UNDO?**
 ### How to delete things in Google Cloud
 
-> [!WARNING] <img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
+> [!WARNING]
+> <img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
 > The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
 The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
