@@ -3,7 +3,7 @@
 # FreePBX + Asterisk + Ubuntu
 ### Install FreePBX 17 on Ubuntu 24.04 LTS, with open-source dependencies installed from Ubuntu's official repositories.
 
-This guide will show you how and where to deploy a long running FreePBX system cost-effectively, securely, and reliably.
+Deploy a long running FreePBX system cost-effectively, securely, and reliably.
 
 #### Cost-effectively
 
