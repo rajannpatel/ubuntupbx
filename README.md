@@ -6,6 +6,7 @@
 This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
 
 > [!IMPORTANT]
+> <img align="right" alt="Info Balloon" width="50" src="./images/icons8-info-100.png" />
 > Open source software dependencies of FreePBX (including Asterisk) installed from official Ubuntu LTS repositories get 12 years of security patches when free or paid [Ubuntu Pro](https://ubuntu.com/pro) is enabled.
 
 Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
@@ -246,15 +247,17 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     ```
 
 > [!NOTE]
-> <img align="right" alt="Delete" width="50" src="./images/icons8-information-100.png" />
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces). For example: `192.178.0.0/15,142.251.47.238`
 >
 > For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
 
 > [!TIP]
+> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of 174.96.0.0/12. Verizon Wireless 5G Home Internet serves IPs from [75.192.0.0/10](https://search.arin.net/rdap/?query=75.192.0.0), Optimum Online's Altice Fiber serves IPs from [24.184.0.0/14](https://search.arin.net/rdap/?query=24.184.0.0), and Google Fiber serves IPs from [136.32.0.0/11](https://search.arin.net/rdap/?query=136.32.0.0). Adding an entire CIDR block to the source range ensures service isn't disrupted for users with a dynamic IP, and not a static IP, from their ISP.
 
 > [!WARNING]
+> <img align="right" alt="Warning Sign" width="50" src="./images/icons8-warning-100.png" />
 > Allowing broad permissions to entire CIDR blocks of an ISP increases the attack surface of your FreePBX installation, monitoring SIP registrations with fail2ban and not allowing broad access to the management interface on TCP Port 80 is recommended.
 
 10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the VM from `--source-ranges` IP(s):
@@ -441,7 +444,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 ### How to delete things in Google Cloud
 
 > [!WARNING]
-> <img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
+> <img align="right" alt="Warning Sign" width="50" src="./images/icons8-warning-100.png" />
 > The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
 The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
