@@ -272,7 +272,18 @@ These steps are performed in your cloud-deployment workspace:
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces). For example: `192.178.0.0/15,142.251.47.238`
 >
-> For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Replace `$(wget -qO- http://checkip.amazonaws.com)` with the correct IP address(es) and/or IP address ranges written in slash notation, as needed.
+> For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Replace the value of `--source-ranges` with the correct IP address(es) and/or IP address ranges written in slash notation, as needed.
+
+    ```diff
+    gcloud compute firewall-rules create allow-management-http-icmp \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+    @@   --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
+        --rules="tcp:80,icmp" \
+        --description="Access FreePBX via web and ping"
+    ```
+
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
@@ -291,24 +302,24 @@ These steps are performed in your cloud-deployment workspace:
 
 10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the VM from `--source-ranges` IP(s):
 
-    ```bash
+    ```diff
     gcloud compute firewall-rules create allow-management-http-icmp \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
+    @@    --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
         --rules="tcp:80,icmp" \
         --description="Access FreePBX via web and ping"
     ```
 
 11. Allow SIP registration and RTP & UDPTL media streams over the default UDP port ranges for ATAs and softphones from IPs specified in `--source-ranges`. The `$(wget -qO- http://checkip.amazonaws.com)` command assumes the machine where this command is run also shares the same Internet connection as the softphones and devices that will connect to this PBX.
 
-    ```bash
+    ```diff
     gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
+    @@    --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
         --rules="udp:5060,udp:4000-4999,udp:10000-20000" \
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
@@ -322,12 +333,12 @@ These steps are performed in your cloud-deployment workspace:
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="0.0.0.0/0" \
+    !    --source-ranges="0.0.0.0/0" \
         --rules="udp:4000-4999,udp:10000-20000" \
         --description="Flowroute incoming RTP and UDPTL media streams"
     ```
 
-    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world. It is so permissive that the following Telnyx, T38Fax, and BulkVS specific ingress rules are redundant, but they are included below for completeness:
+    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world (with `0.0.0.0/0`). It is so permissive that the following Telnyx, T38Fax, and BulkVS specific ingress rules are redundant, but they are included below for completeness:
 
     #### Telnyx
 
