@@ -328,15 +328,15 @@ These steps are performed in your cloud-deployment workspace:
 
     #### Flowroute
 
-    ```bash
-    gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
-        --direction=INGRESS \
-        --action=ALLOW \
-        --target-tags=pbx \
-    !    --source-ranges="0.0.0.0/0" \
-        --rules="udp:4000-4999,udp:10000-20000" \
-        --description="Flowroute incoming RTP and UDPTL media streams"
-    ```
+```bash
+gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
+    --direction=INGRESS \
+    --action=ALLOW \
+    --target-tags=pbx \
+!    --source-ranges="0.0.0.0/0" \
+    --rules="udp:4000-4999,udp:10000-20000" \
+    --description="Flowroute incoming RTP and UDPTL media streams"
+```
 
     The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world (with `0.0.0.0/0`). It is so permissive that the following Telnyx, T38Fax, and BulkVS specific ingress rules are redundant, but they are included below for completeness:
 
