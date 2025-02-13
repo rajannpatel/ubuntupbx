@@ -39,12 +39,11 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 Instead of installing the Google Cloud CLI software directly on your computer, use containers or VMs for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
-- Proceed as a Windows or macOS user<br>[Set up a cloud-deployment workspace on Windows and macOS](#set-up-a-cloud-deployment-workspace-on-windows-and-macos)
-- Proceed as a Linux user<br>[Set up a cloud-deployment workspace on Linux](#set-up-a-cloud-deployment-workspace-on-linux)
-
-#### Set up a cloud-deployment workspace on Windows and macOS
+<hr>
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
+
+#### Set up a cloud-deployment workspace on Windows and macOS
 
 On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
 
@@ -60,9 +59,11 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
-#### Set up a cloud-deployment workspace on Linux
+<hr>
 
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
+
+#### Set up a cloud-deployment workspace on Linux
 
 On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
