@@ -87,7 +87,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-<br><br><sub>PROGRESS: GO TO <a href="#step-2">STEP 2</a></sub><br><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<br><br><sub>PROGRESS: :heavy_check_mark: STEP 1  :heavy_multiplication_x: <a href="#step-2">STEP 2</a> :heavy_multiplication_x: STEP 3</sub><br><br>
 
 <hr>
 
