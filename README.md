@@ -436,9 +436,6 @@ These steps are performed in your cloud-deployment workspace:
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-    - Navigate to **Settings** > **Asterisk SIP Settings** (located at `/admin/config.php?display=sipsettings`)
-        -  In the **General SIP Settings** tab, set **T38 Pass-Through** to `Yes with Redundancy`.
-
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
 <hr>

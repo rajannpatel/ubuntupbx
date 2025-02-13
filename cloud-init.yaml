@@ -243,6 +243,7 @@ runcmd:
   - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.core.backup.tar.gz'
   - echo "DELETE FROM ampusers;" | fwconsole mysql
   - echo "DELETE FROM kvstore_OOBE;" | fwconsole mysql
+  - echo "INSERT INTO sipsettings (keyword, data) VALUES ('t38pt_udptl', 'redundancy') ON DUPLICATE KEY UPDATE data = 'redundancy';" | fwconsole mysql
   - fwconsole chown
   - fwconsole restart
   - echo "cloud-init RUNCMD COMPLETED AT $(date)"
