@@ -28,7 +28,9 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
 
-Proceed to [Step 1](#step-1).
+- [ ] Proceed to [STEP 1](#step-1)
+- [ ] STEP 2
+- [ ] STEP 3
 
 <hr>
 
@@ -55,7 +57,9 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
         multipass shell cloud-deployment-workspace
 
-Proceed to [Step 2](#step-2).
+- [x] STEP 1
+- [ ] Proceed to [STEP 2](#step-2).
+- [ ] STEP 3
 
 #### Set up a cloud-deployment workspace on Linux
 
@@ -86,7 +90,9 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-Proceed to [Step 2](#step-2).
+- [x] STEP 1
+- [ ] Proceed to [STEP 2](#step-2).
+- [ ] STEP 3
 
 <hr>
 
@@ -118,7 +124,9 @@ Proceed to [Step 2](#step-2).
     > $ gcloud config set project PROJECT_ID
     > ```
 
-Proceed to [Step 3](#step-3).
+- [x] STEP 1
+- [x] STEP 2
+- [ ] Proceed to [STEP 3](#step-3).
 
 <hr>
 
@@ -239,7 +247,7 @@ Proceed to [Step 3](#step-3).
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-> **info:**<br><img align="right" alt="Delete" width="50" src="./images/icons8-information-100.png" />
+> [!TIP] <img align="right" alt="Delete" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas. For example: `192.178.0.0/15,142.251.47.238`
 >
 > For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
@@ -394,7 +402,9 @@ Proceed to [Step 3](#step-3).
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-Congratulations! You are done.
+- [x] STEP 1
+- [x] STEP 2
+- [x] STEP 3: Congratulations! You are done. :tada:
 
 <hr>
 
@@ -403,8 +413,8 @@ Congratulations! You are done.
 ## **HOW DO I UNDO?**
 ### How to delete things in Google Cloud
 
-> **warning!**<br><img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
-The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
+> [!WARNING] <img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
+> The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
 The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
 
