@@ -87,7 +87,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-<br><sup>PROGRESS:</sup><sub>&emsp;&emsp;:heavy_check_mark:&emsp;STEP 1&emsp;&emsp;:heavy_multiplication_x:&emsp;<a href="#step-2">STEP 2</a>&emsp;&emsp;:heavy_multiplication_x:&emsp;STEP 3</sub><br><br>
+<br><sup>PROGRESS:</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp;<a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 <hr>
 
