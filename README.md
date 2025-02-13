@@ -404,7 +404,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-<sub>PROGRESS</sub><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<sub>PROGRESS</sub><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
 
 <hr>
 
