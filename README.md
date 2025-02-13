@@ -392,7 +392,7 @@ These steps are performed in your cloud-deployment workspace:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-14. First time gcloud CLI users will be prompted for a passphrase twice. This password can be left blank, press **Enter** twice to proceed:
+14. First time gcloud CLI users will be prompted for a passphrase twice. This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
     
     > ```text
     > WARNING: The private SSH key file for gcloud does not exist.
@@ -416,7 +416,7 @@ These steps are performed in your cloud-deployment workspace:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-17. Press `CTRL + C` to terminate the tail process when it stops producing new output, and prints a `finished at` line:
+17. Press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process when it stops producing new output, and prints a `finished at` line:
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
