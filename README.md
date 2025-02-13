@@ -402,7 +402,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-- [x] STEP 1
+- [x] Step 1 [x] Step 2
 - [x] STEP 2
 - [x] STEP 3: Congratulations! You are done. :tada:
 
