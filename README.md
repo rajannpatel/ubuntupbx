@@ -5,13 +5,13 @@
 
 This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
 
-> [!IMPORTANT]
-> <img align="right" alt="Info Balloon" width="50" src="./images/icons8-info-100.png" />
-> Open source software dependencies of FreePBX (including Asterisk) installed from official Ubuntu LTS repositories get 12 years of security patches when free or paid [Ubuntu Pro](https://ubuntu.com/pro) is enabled.
-
 Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this deployment has daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
 
-There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
+> [!NOTE]
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
+> <img align="left" alt="Free Badge" width="50" src="./images/icons8-free-100.png" />
+> Open source software dependencies of FreePBX (including Asterisk) installed from official Ubuntu LTS repositories get 12 years of security patches when free (or paid) [Ubuntu Pro](https://ubuntu.com/pro) is enabled.
+> There is no charge to use Google Cloud's Compute Engine up to their specified [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) usage limit. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
 
 <hr>
 
