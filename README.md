@@ -29,7 +29,7 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
 
-<sub>PROGRESS: GO TO <a href="#step-1">STEP 1</a></sub><br><a href="#step-1"><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<sub>PROGRESS: GO TO <a href="#step-1">STEP 1</a></sub><br><br><a href="#step-1"><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
 
 <hr>
 
@@ -56,7 +56,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
         multipass shell cloud-deployment-workspace
 
-<sub>PROGRESS: GO TO <a href="#step-2">STEP 2</a></sub><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<sub>PROGRESS: GO TO <a href="#step-2">STEP 2</a></sub><br><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
 
 #### Set up a cloud-deployment workspace on Linux
 
@@ -87,7 +87,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-<sub>PROGRESS: GO TO <a href="#step-2">STEP 2</a></sub><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<sub>PROGRESS: GO TO <a href="#step-2">STEP 2</a></sub><br><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
 
 <hr>
 
@@ -119,7 +119,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     > $ gcloud config set project PROJECT_ID
     > ```
 
-<sub>PROGRESS</sub><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<sub>PROGRESS</sub><br><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Pending Checkbox" width="25" src="./images/icons8-unchecked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
 
 <hr>
 
@@ -396,7 +396,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-<sub>PROGRESS: DONE :tada:</sub><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
+<sub>PROGRESS: DONE :tada:</sub><br><br><a href="#step-1"><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 1" height="25" src="./images/step1.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-2"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 2" height="25" src="./images/step2.png" /><img alt="" height="25" src="./images/dash.png" /></a><a href="#step-3"><img alt="" height="25" src="./images/dash.png" /><img alt="Done Checkbox" width="25" src="./images/icons8-checked-radio-button-100.png" /><img alt="Step 3" height="25" src="./images/step3.png" /></a>
 
 <hr>
 
