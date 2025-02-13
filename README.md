@@ -14,11 +14,15 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 <hr>
 
+<img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
+
 This guide is broken down into 3 steps:
 
-- **[STEP 1](#step-1):** <br>create an Ubuntu virtual machine or container running on your computer, which will be referred to as the "cloud-deployment workspace"
-- **[STEP 2](#step-2):** <br>install and configure Google Cloud CLI in the cloud-deployment workspace
-- **[STEP 3](#step-3):** <br>deploy an Ubuntu virtual machine on Google Cloud that will have:
+- **[STEP 1](#step-1):** <br>Set up a cloud-deployment workspace, Google Cloud resources like virtual machines and firewalls can be provisioned and configured from here.
+    - Confine the Google Cloud CLI in an Ubuntu virtual machine or container, this VM or container becomes the cloud-deployment workspace.
+- **[STEP 2](#step-2):** <br>Install and configure Google Cloud CLI in the cloud-deployment workspace.
+    - The Google Cloud CLI is available as a snap package with "classic confinement", meaning it doesn't have strict confinement and has broader system access.
+- **[STEP 3](#step-3):** <br>From within the cloud-deployment workspace, launch an Ubuntu virtual machine on Google Cloud that will have:
     - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS virtual machine in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
@@ -29,10 +33,10 @@ Proceed to [Step 1](#step-1).
 
 <img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
 
-## STEP 1:
+## STEP 1
 ### Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
-Instead of installing the Google Cloud CLI software directly on your Ubuntu workstation, use containers or virtual machines for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
+Instead of installing the Google Cloud CLI software directly on your computer, use containers or virtual machines for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
@@ -54,21 +58,23 @@ Proceed to [Step 2](#step-2).
 
 On Linux, [LXD](https://canonical.com/lxd/) is a system container and virtual machine manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
-1.  [Install LXD](https://canonical.com/lxd/install) and initialize it
+1.  [Install snapd](https://snapcraft.io/docs/installing-snapd) if your Linux doesn't already have the **snap** command line utility installed.
 
-        sudo apt install -y snapd
+
+2.  [Install LXD](https://canonical.com/lxd/install) and initialize it
+
         snap list lxd &> /dev/null && sudo snap refresh lxd --channel latest/stable || sudo snap install lxd --channel latest/stable
         lxd init --auto
 
-2.  Launch a LXD container named **cloud-deployment-workspace** and map your user account on the host machine to the default **ubuntu** user account in the container:
+3.  Launch a LXD container named **cloud-deployment-workspace** and map your user account on the host machine to the default **ubuntu** user account in the container:
 
         lxc launch ubuntu:noble cloud-deployment-workspace -c raw.idmap="both 1000 1000"
 
-3.  Optional Step: mount your home directory into the container as a disk named "ubuntupbx-home", to conveniently access your files from within the container:
+4.  Optional Step: mount your home directory into the container as a disk named "ubuntupbx-home", to conveniently access your files from within the container:
 
         lxc config device add cloud-deployment-workspace ubuntupbx-home disk source=~/ path=/home/ubuntu
 
-4.  Enter the LXD container as the **ubuntu** user:
+5.  Enter the LXD container as the **ubuntu** user:
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
@@ -78,7 +84,7 @@ Proceed to [Step 2](#step-2).
 
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
-## STEP 2:
+## STEP 2
 ### Install and configure the gcloud CLI in your cloud-deployment workspace
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
