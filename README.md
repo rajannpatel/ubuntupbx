@@ -63,7 +63,7 @@ Proceed to [Step 2](#step-2).
 
 On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
-1.  [Install snapd](https://snapcraft.io/docs/installing-snapd) if your Linux doesn't already have the **snap** command line utility installed.
+1.  [Install snapd](https://snapcraft.io/docs/installing-snapd) if your Linux doesn't already have it.
 
 
 2.  [Install LXD](https://canonical.com/lxd/install) and initialize it
