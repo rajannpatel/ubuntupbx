@@ -392,7 +392,7 @@ Congratulations! You are done.
 
 <img alt="Delete" width="50" src="./images/icons8-delete-100.png" />
 
-## **UNDO EVERYTHING:**
+## **UNDO EVERYTHING**
 ### How to delete everything in Google Cloud
 
 > **warning!**<br><img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
