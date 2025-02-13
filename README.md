@@ -276,13 +276,13 @@ These steps are performed in your cloud-deployment workspace:
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
-> Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of 174.96.0.0/12. CIDR blocks for popular ISPs serving dynamic IPs to customers in North America appear in the following table:
-> | ISP  | CIDR |
-> | ------------- | ------------- |
-> | Charter Spectrum  | [174.96.0.0/12](https://search.arin.net/rdap/?query=174.96.0.0)  |
-> | Optimum Online's Altice Fiber  | [24.184.0.0/14](https://search.arin.net/rdap/?query=24.184.0.0)  |
-> | Verizon Wireless 5G Home Internet  | [75.192.0.0/10](https://search.arin.net/rdap/?query=75.192.0.0)  |
-> | Google Fiber  | [136.32.0.0/11](https://search.arin.net/rdap/?query=136.32.0.0)  |
+> Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of `174.96.0.0/12`. CIDR blocks for popular ISPs serving dynamic IPs to customers in North America appear in the following table:
+> | ISP  | Name | CIDR |
+> | ------------- | ------------- | ------------- |
+> | Charter Spectrum  | [RRMA](https://search.arin.net/rdap/?query=174.96.0.0)  | `174.96.0.0/12`  |
+> | Optimum Online's Altice Fiber  | [OOL-CPE-STJMNY-24-184-0-0-21](https://search.arin.net/rdap/?query=24.184.0.0)  | `24.184.0.0/14`  |
+> | Verizon Wireless 5G Home Internet  | [WIRELESSDATANEWORK](https://search.arin.net/rdap/?query=75.192.0.0)  | `75.192.0.0/10`  |
+> | Google Fiber  | [GOOGLE-FIBER](https://search.arin.net/rdap/?query=136.32.0.0)  | `136.32.0.0/11`  |
 
 
 > [!CAUTION]
