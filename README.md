@@ -17,7 +17,7 @@ Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an 
 > 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
 > 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
 
-<img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
+<img alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
 
 ### Always Free
 
