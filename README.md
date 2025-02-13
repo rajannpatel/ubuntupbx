@@ -2,7 +2,7 @@
 
 <img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
 
-### Install FreePBX 17 on Ubuntu 24.04, with open-source dependencies installed from Ubuntu's official repositories.
+### Install FreePBX 17 on Ubuntu 24.04 LTS, with open-source dependencies installed from Ubuntu's official repositories.
 
 This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
 
@@ -16,7 +16,7 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
-This guide is broken down into 3 steps:
+### What you will accomplish in 3 steps
 
 - **[STEP 1](#step-1):** <br>Set up a cloud-deployment workspace, Google Cloud resources like virtual machines and firewalls can be provisioned and configured from here.
     - Confine the Google Cloud CLI in an Ubuntu virtual machine or container, this VM or container becomes the cloud-deployment workspace.
