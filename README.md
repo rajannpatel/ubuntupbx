@@ -276,7 +276,14 @@ These steps are performed in your cloud-deployment workspace:
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
-> Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of 174.96.0.0/12. Verizon Wireless 5G Home Internet serves IPs from [75.192.0.0/10](https://search.arin.net/rdap/?query=75.192.0.0), Optimum Online's Altice Fiber serves IPs from [24.184.0.0/14](https://search.arin.net/rdap/?query=24.184.0.0), and Google Fiber serves IPs from [136.32.0.0/11](https://search.arin.net/rdap/?query=136.32.0.0). Adding an entire CIDR block to the source range ensures service isn't disrupted for users with a dynamic IP, and not a static IP, from their ISP.
+> Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of 174.96.0.0/12. CIDR blocks for popular ISPs serving dynamic IPs to customers in North America appear in the following table:
+> | ISP  | CIDR |
+> | ------------- | ------------- |
+> | Charter Spectrum  | [174.96.0.0/12](https://search.arin.net/rdap/?query=174.96.0.0)  |
+> | Optimum Online's Altice Fiber  | [24.184.0.0/14](https://search.arin.net/rdap/?query=24.184.0.0)  |
+> | Verizon Wireless 5G Home Internet  | [75.192.0.0/10](https://search.arin.net/rdap/?query=75.192.0.0)  |
+> | Google Fiber  | [136.32.0.0/11](https://search.arin.net/rdap/?query=136.32.0.0)  |
+
 
 > [!CAUTION]
 > <img align="right" alt="Caution Sign" width="50" src="./images/icons8-caution-100.png" />
