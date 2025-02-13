@@ -73,7 +73,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 1.  [Install snapd](https://snapcraft.io/docs/installing-snapd) if your Linux doesn't already have it.
 
 
-2.  [Install LXD](https://canonical.com/lxd/install) and initialize it
+2.  [Install LXD](https://canonical.com/lxd/install)
 
         snap list lxd &> /dev/null && sudo snap refresh lxd --channel latest/stable || sudo snap install lxd --channel latest/stable
 
