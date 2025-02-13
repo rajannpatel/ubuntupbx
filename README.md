@@ -3,20 +3,28 @@
 # FreePBX + Asterisk + Ubuntu
 ### Install FreePBX 17 on Ubuntu 24.04 LTS, with open-source dependencies installed from Ubuntu's official repositories.
 
-This guide will show you how and where to deploy a long running FreePBX system cost-effectively, reliably, and securely.
+This guide will show you how and where to deploy a long running FreePBX system cost-effectively, securely, and reliably.
 
-> [!NOTE]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> #### Free Ubuntu virtual machine and network connectivity on Google Cloud
-> It is free (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within specific [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits.
-
-Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this guide's deployment uses daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
+#### Cost-effectively
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
+> #### Free Ubuntu virtual machine on Google Cloud
+> It is free (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within specific [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits.
+
+#### Securely
+
+> [!IMPORTANT]
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
 > #### Free security patches on open source software for 12 years
 > 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
 > 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
+
+#### Reliably
+
+> [!NOTE]
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
+> Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
 
 <img alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
 
@@ -442,11 +450,34 @@ These steps are performed in your cloud-deployment workspace:
 
         gcloud compute ssh pbx --zone $ZONE
 
+    Upon logging in via SSH, edit the root user's crontab
+
+        sudo crontab -e
+
+    When prompted for a default crontab editor, **nano** (option 1) will be the most intuitive option for most users
+
+        > Select an editor.  To change later, run 'select-editor'.
+        > 1. /bin/nano        <---- easiest
+        > 2. /usr/bin/vim.basic
+        > 3. /usr/bin/vim.tiny
+        > 4. /bin/ed
+
+    Add the following lines at the bottom of the crontab file. Replace **example-bucket-name** with the name of your storage bucket on Google Cloud Storage.
+
+        @daily gcloud storage rsync /var/spool/asterisk/backup gs://example-bucket-name/backup --recursive
+        @daily gcloud storage rsync /var/spool/asterisk/monitor gs://example-bucket-name/monitor --recursive
+
+    Use cloud storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, and object lifecycle policies can be enabled on the S3 bucket to delete backups from the S3 bucket on a schedule of your choosing.
+
+20. Connect to the pbx VM via SSH:
+
+        gcloud compute ssh pbx --zone $ZONE
+
     Upon logging in via SSH, connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
 
         sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
 
-20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
+    The `exit` command will safely exit the Asterisk CLI. Running the `exit` command again will quit the SSH session. 
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
