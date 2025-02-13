@@ -15,10 +15,10 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 <hr>
 
+<img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
+
 ## 3 Steps
 ### What you will accomplish
-
-<img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
 - **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like VMs and firewalls can be provisioned and configured from here.
     - Confine the Google Cloud CLI in an Ubuntu VM or container, this VM or container becomes the cloud-deployment workspace.
