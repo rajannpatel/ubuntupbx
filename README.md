@@ -400,8 +400,8 @@ Congratulations! You are done.
 
 <img alt="Delete" width="50" src="./images/icons8-delete-100.png" />
 
-## **UNDO EVERYTHING**
-### How to delete everything in Google Cloud
+## **HOW DO I UNDO?**
+### How to delete things in Google Cloud
 
 > **warning!**<br><img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
 The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
@@ -412,7 +412,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
 
        gcloud compute instances list
 
-2. Delete the "pbx" VM, update `ZONE` if not set already, to reflect what was specified in Step 5:
+2. To delete the "pbx" VM, update `ZONE` if not set already, to reflect what was specified in Step 5:
 
        ZONE=us-east1-b
        gcloud compute instances delete pbx --zone $ZONE
@@ -421,7 +421,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     
        gcloud compute addresses list
 
-4. Delete the address named "pbx-external-ip", update `REGION` if not set already, to reflect what was specified in Step 5:
+4. To delete the address named "pbx-external-ip", update `REGION` if not set already, to reflect what was specified in Step 5:
 
        REGION=us-east1
        gcloud compute addresses delete pbx-external-ip --region=$REGION
@@ -430,7 +430,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     
        gcloud compute firewall-rules list
 
-6. Delete the firewall rules we created earlier:
+6. To delete the firewall rules we created earlier:
 
        gcloud compute firewall-rules delete allow-management-http-icmp
        gcloud compute firewall-rules delete allow-devices-sip-rtp-udptl
