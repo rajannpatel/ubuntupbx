@@ -392,7 +392,8 @@ Congratulations! You are done.
 
 <img alt="Delete" width="50" src="./images/icons8-delete-100.png" />
 
-## **UNDO EVERYTHING:** How to delete everything in Google Cloud
+## **UNDO EVERYTHING:**
+### How to delete everything in Google Cloud
 
 > **warning!**<br><img align="right" alt="Delete" width="50" src="./images/icons8-warning-100.png" />
 The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
