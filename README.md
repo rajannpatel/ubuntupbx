@@ -247,7 +247,8 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
         --metadata-from-file=user-data=cloud-init.yaml
     ```
 
-> [!TIP] <img align="right" alt="Delete" width="50" src="./images/icons8-information-100.png" />
+> [!TIP]
+> <img align="right" alt="Delete" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas. For example: `192.178.0.0/15,142.251.47.238`
 >
 > For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Remove `$(wget -qO- http://checkip.amazonaws.com)` if that is not an appropriate assumption, and replace it with the correct IP address(es) and/or IP address ranges written in slash notation.
@@ -402,7 +403,8 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
 
-<img alt="Step 1: Done" width="16" align="left" src="./images/icons8-unchecked-radio-button-100.png" /><p align="left">step 1</p><img alt="Step 2: Done" width="16" align="left" src="./images/icons8-unchecked-radio-button-100.png" /><p align="left">step 2</p>
+<img alt="Done Checkbox" width="25" align="left" src="./images/icons8-unchecked-radio-button-100.png" />
+<img alt="Step 1" width="25" align="left" src="./images/step1.png" />
 
 <hr>
 
