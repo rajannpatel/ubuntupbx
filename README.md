@@ -39,10 +39,8 @@ There is no charge to use Google Cloud's Compute Engine up to their specified [a
 
 Instead of installing the Google Cloud CLI software directly on your computer, use containers or VMs for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
-- Proceed as a Windows or macOS user
-    [Set up a cloud-deployment workspace on Windows and macOS](#set-up-a-cloud-deployment-workspace-on-windows-and-macos)
-- Proceed as a Linux user
-    [Set up a cloud-deployment workspace on Linux](#set-up-a-cloud-deployment-workspace-on-linux)
+- Proceed as a Windows or macOS user<br>[Set up a cloud-deployment workspace on Windows and macOS](#set-up-a-cloud-deployment-workspace-on-windows-and-macos)
+- Proceed as a Linux user<br>[Set up a cloud-deployment workspace on Linux](#set-up-a-cloud-deployment-workspace-on-linux)
 
 #### Set up a cloud-deployment workspace on Windows and macOS
 
