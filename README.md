@@ -5,14 +5,14 @@
 
 Deploy a long running FreePBX system cost-effectively, securely, and reliably.
 
-#### Cost-effectively
+#### Cost-effective
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Free Ubuntu virtual machine on Google Cloud
 > It is free (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within specific [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits.
 
-#### Securely
+#### Secure
 
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
@@ -20,7 +20,7 @@ Deploy a long running FreePBX system cost-effectively, securely, and reliably.
 > 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
 > 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
 
-#### Reliably
+#### Reliable
 
 > [!NOTE]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
