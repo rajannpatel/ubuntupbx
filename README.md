@@ -333,7 +333,7 @@ gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
     --direction=INGRESS \
     --action=ALLOW \
     --target-tags=pbx \
-!    --source-ranges="0.0.0.0/0" \
+   ! --source-ranges="0.0.0.0/0" \
     --rules="udp:4000-4999,udp:10000-20000" \
     --description="Flowroute incoming RTP and UDPTL media streams"
 ```
