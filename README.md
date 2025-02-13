@@ -7,13 +7,14 @@ This guide will show you how and where to deploy a long running FreePBX system c
 
 > [!NOTE]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
+> #### Free Ubuntu virtual machine and network connectivity on Google Cloud
 > It is free (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within specific [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits.
 
 Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. The setup can be scaled up for larger organizations. For disaster recovery, this guide's deployment uses daily recovery points with a recovery time measured in minutes, inclusive of all FreePBX, Asterisk, and Ubuntu configurations and customizations.
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
-> #### Get 12 years of security patches if you:
+> #### Free security patches on open source software for 12 years
 > 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
 > 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
 
