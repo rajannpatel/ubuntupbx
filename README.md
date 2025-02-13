@@ -456,11 +456,13 @@ These steps are performed in your cloud-deployment workspace:
 
     When prompted for a default crontab editor, **nano** (option 1) will be the most intuitive option for most users
 
+    > ```text
     > Select an editor.  To change later, run 'select-editor'.
     > 1. /bin/nano        <---- easiest
     > 2. /usr/bin/vim.basic
     > 3. /usr/bin/vim.tiny
     > 4. /bin/ed
+    > ```
 
     Add the following lines at the bottom of the crontab file. Replace **example-bucket-name** with the name of your storage bucket on Google Cloud Storage.
 
