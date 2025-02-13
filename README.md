@@ -422,7 +422,7 @@ These steps are performed in your cloud-deployment workspace:
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, CTRL+Click to open:
+18. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
 
         dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
 
@@ -435,6 +435,9 @@ These steps are performed in your cloud-deployment workspace:
         sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
 
 20. Configure FreePBX. It is time to set up Trunks and Extensions for voice-over-IP and fax-over-IP.
+
+    - Navigate to **Settings** > **Asterisk SIP Settings** (located at `/admin/config.php?display=sipsettings`)
+        -  In the **General SIP Settings** tab, set **T38 Pass-Through** to `Yes with Redundancy`.
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
