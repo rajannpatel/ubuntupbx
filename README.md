@@ -105,9 +105,9 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc launch ubuntu:noble cloud-deployment-workspace -c raw.idmap="both 1000 1000"
 
-5.  Optional Step: mount your home directory into the container as a disk named "ubuntupbx-home", to conveniently access your files from within the container:
+5.  Optional Step: mount your home directory into the container as a disk named "host-home", to conveniently access your files from within the container:
 
-        lxc config device add cloud-deployment-workspace ubuntupbx-home disk source=~/ path=/home/ubuntu
+        lxc config device add cloud-deployment-workspace host-home disk source=~/ path=/home/ubuntu
 
 6.  Enter the LXD container as the **ubuntu** user:
 
