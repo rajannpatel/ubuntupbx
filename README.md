@@ -1,16 +1,51 @@
+Install FreePBX 17 on Ubuntu 24.04 LTS, with open-source dependencies (including Asterisk) installed from Ubuntu's official repositories, through a [cloud-init.yaml](./cloud-init.yaml) installation template. This template can be used on machines where Ubuntu is already installed, or used as a template for deploying new virtual machines on public cloud.
+
+---
+
+<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-server-100.png" />
+
+## Install FreePBX and Asterisk on Ubuntu
+
+If you are installing FreePBX on an existing Ubuntu machine, follow these 3 steps.
+
+1. Download and edit cloud-init.yaml from this repository. Open the file in an editor (like nano) to change configurations specified between lines 4 and 53. Setting `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) is required for security updates to Asterisk, Asterisk's dependencies, and some FreePBX dependencies. [Livepatch](https://ubuntu.com/security/livepatch) will be enabled if a Pro Token is set.
+
+        curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
+
+2. Install **j2cli** to process the Jinja and create a valid YAML file
+
+        sudo apt update
+        sudo apt install j2cli
+        j2 cloud-init-jinja.yaml > cloud-init.yaml
+
+3. Manually process the cloud-init.yaml file
+
+        sudo cloud-init clean
+        sudo cloud-init single --name ubuntu_pro --file cloud-init.yaml
+        sudo cloud-init single --name timezone --file cloud-init.yaml
+        sudo cloud-init single --name set_hostname --file cloud-init.yaml
+        sudo cloud-init single --name update_hostname --file cloud-init.yaml
+        sudo cloud-init single --name users_groups --file cloud-init.yaml
+        sudo cloud-init single --name write_files --file cloud-init.yaml
+        sudo cloud-init single --name apt_configure --file cloud-init.yaml
+        sudo cloud-init single --name package-update-upgrade-install --file cloud-init.yaml
+        sudo snap install yq
+        sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
+
+Congratulations, you have successfully installed FreePBX 17 on Ubuntu. Next, you can try repeating the installation in Google Cloud.
+
+---
+
 <img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
 
-# FreePBX + Asterisk + Ubuntu
-### Install FreePBX 17 on Ubuntu 24.04 LTS, with open-source dependencies installed from Ubuntu's official repositories.
-
-Deploy a long running FreePBX system cost-effectively, securely, and reliably.
+## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
 #### Cost-effective
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Free Ubuntu virtual machine on Google Cloud
-> It is free (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within specific [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits.
+> It is *free* (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits used in this guide.
 
 #### Secure
 
@@ -33,12 +68,11 @@ Deploy a long running FreePBX system cost-effectively, securely, and reliably.
 - Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
 - Every Google Cloud account has an "always-free" tier. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
 
-<hr>
+---
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
-## 3 Steps
-### What you will accomplish
+### What you will accomplish in 3 steps
 
 - **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like VMs and firewalls can be provisioned and configured from here.
     - Confine the Google Cloud CLI in an Ubuntu VM or container, this VM or container becomes the cloud-deployment workspace.
@@ -51,7 +85,7 @@ Deploy a long running FreePBX system cost-effectively, securely, and reliably.
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
-<hr>
+---
 
 <img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
 
@@ -60,7 +94,7 @@ Deploy a long running FreePBX system cost-effectively, securely, and reliably.
 
 Instead of installing the Google Cloud CLI software directly on your computer, use containers or VMs for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
-<hr>
+---
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
@@ -81,7 +115,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
-<hr>
+---
 
 <img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
@@ -115,7 +149,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
-<hr>
+---
 
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
@@ -147,7 +181,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3">STEP 3</a></sub><br><br>
 
-<hr>
+---
 
 <img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
 
@@ -490,7 +524,7 @@ These steps are performed in your cloud-deployment workspace:
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
-<hr>
+---
 
 <img alt="Delete" width="50" src="./images/icons8-delete-100.png" />
 
