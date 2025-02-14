@@ -36,7 +36,10 @@
 {% set HOSTNAME = 'voip' %}
 {% set FQDN = 'voip.example.com' %}
 
-{% set HUMAN_READABLE_INSTANCE_NAME = "My PBX Server" %}
+# PRECONFIGURE FREEPBX CORE MODULE (Trunks and Outbound Routes)
+# N11, International, and NANPA dialing with failover, across T38Fax, BulkVS, Telnyx, and Flowroute
+# ubuntupbx.core.backup.tar.gz was generated with the Backup & Restore FreePBX Module
+{% set RESTORE_BACKUP = 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -76,7 +79,7 @@ write_files:
     permissions: "0644"
     content: |
       [Unit]
-      Description={{ HUMAN_READABLE_INSTANCE_NAME }}
+      Description=FreePBX
       After=mariadb.service
       [Service]
       Type=oneshot
@@ -239,10 +242,15 @@ runcmd:
   - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /root/schedule.txt
 {% endif %}
   - crontab /root/schedule.txt && rm /root/schedule.txt
-  - wget -P /var/spool/asterisk/backup/ https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz
-  - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.core.backup.tar.gz'
+{% if RESTORE_BACKUP %}
+  - mkdir -p /var/spool/asterisk/backup && chown asterisk:asterisk /var/spool/asterisk/backup
+  - curl -L -o /var/spool/asterisk/backup/restored-at-first-boot.tar.gz {{ RESTORE_BACKUP }}
+  - fwconsole backup --restore='/var/spool/asterisk/backup/restored-at-first-boot.tar.gz'
+{% endif %}
+{% if RESTORE_BACKUP == 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
   - echo "DELETE FROM ampusers;" | fwconsole mysql
   - echo "DELETE FROM kvstore_OOBE;" | fwconsole mysql
+{% endif %}
   - echo "INSERT INTO sipsettings (keyword, data) VALUES ('t38pt_udptl', 'redundancy') ON DUPLICATE KEY UPDATE data = 'redundancy';" | fwconsole mysql
   - fwconsole chown
   - fwconsole restart
