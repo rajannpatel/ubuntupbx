@@ -121,11 +121,11 @@ package_upgrade: true
 # https://bugs.launchpad.net/ubuntu/+source/cloud-init/+bug/2094208
 # package_reboot_if_required: true
 
-ubuntu_pro:
 {% if TOKEN %}
+ubuntu_pro:
   token: {{ TOKEN }}
-{% endif %}
   enable: [livepatch, esm-apps, esm-infra]
+{% endif %}
 
 {% if "/" in TIMEZONE %}
 timezone: {{ TIMEZONE }}
@@ -163,6 +163,11 @@ packages:
   - asterisk-moh-opsound-g722
 
 runcmd:
+# for Ubuntu Pro enabled public cloud images, where a token may not be provided by the user
+  - pro status --format yaml | grep -x attached:\ true && pro enable esm-infra
+  - pro status --format yaml | grep -x attached:\ true && pro enable esm-infra
+  - pro status --format yaml | grep -x attached:\ true && pro enable esm-apps
+  - pro status --format yaml | grep -x attached:\ true && pro enable livepatch
   - sed -i "s/^#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
   - needrestart -r a
   - sed -i 's|^//\s*Unattended-Upgrade::Remove-Unused-Kernel-Packages\s*".*";|Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
