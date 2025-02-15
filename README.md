@@ -49,12 +49,12 @@ Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
-> [!TIP]
-> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
-> #### Free Ubuntu virtual machine on Google Cloud
-> An Ubuntu virtual machine on Google Cloud can be 100% free, if run within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits prescribed in this guide
-> - $0 cost to launch
-> - $0 recurring expense to run
+    > [!TIP]
+    > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
+    > #### Free Ubuntu virtual machine on Google Cloud
+    > An Ubuntu virtual machine on Google Cloud can be 100% free, if run within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits prescribed in this guide
+    > - $0 cost to launch
+    > - $0 recurring expense to run
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
