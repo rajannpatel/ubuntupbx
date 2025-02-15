@@ -500,17 +500,18 @@ These steps are performed in your cloud-deployment workspace:
 
     Use Google Cloud Storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, because the backups are retained externally in a Google Cloud Storage S3 Bucket. Delete stale backups from the S3 bucket on a schedule of your choosing by setting a "maximum age" object lifecycle policy on the S3 bucket.
 
-> [!NOTE]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
-> - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
-> - FreePBX backups can be copied from your Ubuntu virtual machine into Google's Cloud Storage. Modify line 43 of cloud-init.yaml to restore a backup on a new Ubuntu server.
-
     Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
 
         sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
 
     The `exit` command will safely exit the Asterisk CLI. Running the `exit` command again will quit the SSH session. 
+
+
+> [!NOTE]
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
+> - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
+> - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
+> - FreePBX backups can be copied from your Ubuntu virtual machine into Google's Cloud Storage. Modify line 43 of cloud-init.yaml to restore a backup on a new Ubuntu server.
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
