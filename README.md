@@ -102,7 +102,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
         sudo snap install yq
         sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
 
-Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu with a cloud-init.yaml template
+<br><sup>CONGRATULATIONS :tada:</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;YOU HAVE SUCCESSFULLY INSTALLED FREEPBX 17 ON UBUNTU WITH A CLOUD-INIT.YAML TEMPLATE :tada: </sub><br><br>
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
