@@ -18,7 +18,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
 > #### Free security patches on open source software for 12 years
-> 1. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
+> 1. This cloud-init.yaml template installs open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories. All packages installed from official Ubuntu repositories get security patches for 12 years when an Ubuntu Pro token is specified.
 > 2. Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
 
 2. Install **j2cli** to process the Jinja and create a valid YAML file
