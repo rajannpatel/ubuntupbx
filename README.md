@@ -15,6 +15,13 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
         curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
         nano cloud-init-jinja.yaml
 
+> [!IMPORTANT]
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
+> #### Free security patches on open source software for 12 years
+> 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
+> 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
+> Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
+
 2. Install **j2cli** to process the Jinja and create a valid YAML file
 
         sudo apt update
@@ -39,36 +46,16 @@ Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 
 ---
 
-<img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
-
-An Ubuntu virtual machine on Google Cloud can be 100% free:
-- $0 cost to launch
-- $0 recurring expense to run
-
-> [!TIP]
-> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
-> #### Free Ubuntu virtual machine on Google Cloud
-> - It is *free* (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits used in this guide.
-> - Every Google Cloud account has an "always-free" tier. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
-
-> [!IMPORTANT]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
-> #### Free security patches on open source software for 12 years
-> 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
-> 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
-> Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
-
-> [!NOTE]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
-> - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
-
----
-
 <img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
+> [!TIP]
+> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
+> #### Free Ubuntu virtual machine on Google Cloud
+> An Ubuntu virtual machine on Google Cloud can be 100% free, if run within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits prescribed in this guide
+> - $0 cost to launch
+> - $0 recurring expense to run
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
@@ -513,6 +500,12 @@ These steps are performed in your cloud-deployment workspace:
         @daily gcloud storage rsync /var/spool/asterisk/monitor gs://example-bucket-name/monitor --recursive
 
     Use Google Cloud Storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, because the backups are retained externally in a Google Cloud Storage S3 Bucket. Delete stale backups from the S3 bucket on a schedule of your choosing by setting a "maximum age" object lifecycle policy on the S3 bucket.
+
+> [!NOTE]
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
+> - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
+> - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
+> - FreePBX backups can be copied from your Ubuntu virtual machine into Google's Cloud Storage. Modify line 43 of cloud-init.yaml to restore a backup on a new Ubuntu server.
 
     Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
 
