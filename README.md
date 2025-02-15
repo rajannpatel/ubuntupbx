@@ -47,8 +47,8 @@ Next: Learn why and how to deploy and run FreePBX 17 on Ubuntu on Google Cloud f
 > [!TIP]
 > <img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
 > #### Free Ubuntu virtual machine on Google Cloud
-> It is *free* (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits used in this guide.
-> Every Google Cloud account has an "always-free" tier. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
+> - It is *free* (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits used in this guide.
+> - Every Google Cloud account has an "always-free" tier. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
 
 #### Secure
 
@@ -63,7 +63,8 @@ Next: Learn why and how to deploy and run FreePBX 17 on Ubuntu on Google Cloud f
 
 > [!NOTE]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses. Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
+> - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
+> - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
 
 ---
 
