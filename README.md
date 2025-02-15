@@ -39,9 +39,11 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 
-An Ubuntu virtual machine on Google Cloud can cost $0 to launch, and can have a $0 recurring expense to run: 100% free.
+An Ubuntu virtual machine on Google Cloud can be 100% free:
+- $0 cost to launch
+- $0 recurring expense to run
 
-Next: Learn why and how to run FreePBX 17 on a free Ubuntu virtual machine on Google Cloud.
+Who doesn't like free cloud computing resources? Learn how to run FreePBX 17 on a free Ubuntu virtual machine in Google Cloud.
 
 ---
 
