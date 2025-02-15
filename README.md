@@ -36,6 +36,8 @@ If you are installing FreePBX on an existing Ubuntu machine, follow these 3 step
         sudo snap install yq
         sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
 
+<img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
+
 Congratulations, you have successfully installed FreePBX 17 on Ubuntu.
 
 Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud, for $0
@@ -49,7 +51,7 @@ Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud, for $0
 #### Cost-effective
 
 > [!TIP]
-> <img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
+> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Free Ubuntu virtual machine on Google Cloud
 > - It is *free* (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits used in this guide.
 > - Every Google Cloud account has an "always-free" tier. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
