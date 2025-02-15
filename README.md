@@ -46,7 +46,7 @@ Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Run a free Ubuntu virtual machine on Google Cloud
-> An Ubuntu virtual machine on Google Cloud can be 100% free, if run within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits prescribed in this guide
+> An Ubuntu virtual machine on Google Cloud can be 100% free, if run within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits
 > - $0 cost to launch
 > - $0 recurring expense to run
 
