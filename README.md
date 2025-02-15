@@ -38,7 +38,7 @@ If you are installing FreePBX on an existing Ubuntu machine, follow these 3 step
 
 Congratulations, you have successfully installed FreePBX 17 on Ubuntu.
 
-Next: Learn why and how to deploy and run FreePBX 17 on Ubuntu on Google Cloud for $0.
+Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud, for $0
 
 ---
 
