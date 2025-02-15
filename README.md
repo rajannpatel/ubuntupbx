@@ -35,9 +35,9 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
         sudo snap install yq
         sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
 
-<img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
-
 Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
+
+<img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
 
 An Ubuntu virtual machine on Google Cloud can be 100% free:
 - $0 cost to launch
