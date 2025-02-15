@@ -39,7 +39,9 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 
-Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud. It costs $0 up front, and has a $0 recurring expense.
+An Ubuntu virtual machine on Google Cloud can cost $0 to launch, and can have a $0 recurring expense to run: 100% free.
+
+Next: Learn why and how to run FreePBX 17 on a free Ubuntu virtual machine on Google Cloud.
 
 ---
 
@@ -47,15 +49,11 @@ Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud. It costs $
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
-#### Cost-effective
-
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Free Ubuntu virtual machine on Google Cloud
 > - It is *free* (with no up-front or recurring charge) to launch an Ubuntu virtual machine on Google Cloud's Compute Engine, within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits used in this guide.
 > - Every Google Cloud account has an "always-free" tier. The free usage limit does not expire, and is perfect for running FreePBX 17 and Asterisk 20.6 on Ubuntu 24.04 LTS.
-
-#### Secure
 
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
@@ -64,18 +62,12 @@ Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud. It costs $
 > 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
 > Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
 
-#### Reliable
-
 > [!NOTE]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
 > - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
 > - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
 
----
-
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
-
-### What you will accomplish in 3 steps
 
 - **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like VMs and firewalls can be provisioned and configured from here.
     - Confine the Google Cloud CLI in an Ubuntu VM or container, this VM or container becomes the cloud-deployment workspace.
