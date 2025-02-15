@@ -10,7 +10,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 ## Install FreePBX and Asterisk on an existing Ubuntu machine
 
-1. Download and edit cloud-init.yaml from this repository. Open the file in an editor (like nano) to set configurations between lines 4 and 53. Set `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) for all security patches to the full chain of open source FreePBX dependencies installed from Ubuntu archives, inclusive of NodeJS and Asterisk. [Livepatch](https://ubuntu.com/security/livepatch) will also be enabled, to protect the Linux kernel.
+1. Download and edit cloud-init.yaml from this repository. Open the file in an editor (like nano) to set configurations between lines 4 and 53. Set `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) for security patches, and [Livepatch](https://ubuntu.com/security/livepatch) security automation to protect the Linux kernel.
 
         curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
         nano cloud-init-jinja.yaml
@@ -18,9 +18,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
 > #### Free security patches on open source software for 12 years
-> 1. [Attach a free or paid Ubuntu Pro token](https://ubuntu.com/server/docs/attach-your-ubuntu-pro-subscription) to your Ubuntu installation
-> 2. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
-> Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
+> 1. Install all open source software dependencies of FreePBX (including Asterisk) from official Ubuntu LTS repositories
+> 2. Ubuntu Pro is available for free for personal use or commercial evaluation purposes, on up to 5 Ubuntu installations.
 
 2. Install **j2cli** to process the Jinja and create a valid YAML file
 
