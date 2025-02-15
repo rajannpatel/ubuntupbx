@@ -42,9 +42,9 @@ Next: Learn why and how to deploy and run FreePBX 17 on Ubuntu on Google Cloud f
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
-#### Cost-effective
-
 <img alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
+
+#### Cost-effective
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
