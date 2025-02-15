@@ -49,13 +49,6 @@ Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
-    > [!TIP]
-    > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
-    > #### Free Ubuntu virtual machine on Google Cloud
-    > An Ubuntu virtual machine on Google Cloud can be 100% free, if run within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits prescribed in this guide
-    > - $0 cost to launch
-    > - $0 recurring expense to run
-
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
 - **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like VMs and firewalls can be provisioned and configured from here.
@@ -66,6 +59,13 @@ Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
     - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS VM in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
+
+> [!TIP]
+> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
+> #### Free Ubuntu virtual machine on Google Cloud
+> An Ubuntu virtual machine on Google Cloud can be 100% free, if run within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits prescribed in this guide
+> - $0 cost to launch
+> - $0 recurring expense to run
 
 <br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
