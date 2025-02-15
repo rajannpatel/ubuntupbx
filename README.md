@@ -1,12 +1,12 @@
 Install FreePBX 17 on Ubuntu 24.04 LTS
 
 - with open-source dependencies (including Asterisk) installed from Ubuntu's official repositories
-- with a [cloud-init.yaml](./cloud-init.yaml) installation template
-- on machines where Ubuntu is already installed, or used as a template for deploying new virtual machines on public cloud
+- using a [cloud-init.yaml](./cloud-init.yaml) installation template
+- on machines where Ubuntu is already installed, or to deploy new virtual machines on public cloud
 
 ---
 
-<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-server-100.png" />
+<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="on" width="50" src="./images/icons8-right-50.png" /><img alt="Ubuntu Server" width="50" src="./images/icons8-server-100.png" />
 
 ## Install FreePBX and Asterisk on Ubuntu
 
