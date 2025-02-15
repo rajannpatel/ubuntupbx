@@ -1,20 +1,19 @@
 Install FreePBX 17 on Ubuntu 24.04 LTS
 
 - with open-source dependencies (including Asterisk) installed from Ubuntu's official repositories
-- using a [cloud-init.yaml](./cloud-init.yaml) installation template
+- using this [cloud-init.yaml](./cloud-init.yaml) installation template
 - on machines where Ubuntu is already installed, or on public cloud virtual machines
 
 ---
 
 <img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="on" width="50" src="./images/icons8-right-50.png" /><img alt="Ubuntu Server" width="50" src="./images/icons8-server-100.png" />
 
-## Install FreePBX and Asterisk on Ubuntu
+## Install FreePBX and Asterisk on an existing Ubuntu machine
 
-If you are installing FreePBX on an existing Ubuntu machine, follow these 3 steps.
-
-1. Download and edit cloud-init.yaml from this repository. Open the file in an editor (like nano) to change configurations specified between lines 4 and 53. Setting `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) is required for security updates to Asterisk, Asterisk's dependencies, and some FreePBX dependencies. [Livepatch](https://ubuntu.com/security/livepatch) will be enabled if a Pro Token is set.
+1. Download and edit cloud-init.yaml from this repository. Open the file in an editor (like nano) to set configurations between lines 4 and 53. Set `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) for all security patches to the full chain of open source FreePBX dependencies installed from Ubuntu archives, inclusive of NodeJS and Asterisk. [Livepatch](https://ubuntu.com/security/livepatch) will also be enabled, to protect the Linux kernel.
 
         curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
+        nano cloud-init-jinja.yaml
 
 2. Install **j2cli** to process the Jinja and create a valid YAML file
 
@@ -38,9 +37,9 @@ If you are installing FreePBX on an existing Ubuntu machine, follow these 3 step
 
 <img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
 
-Congratulations, you have successfully installed FreePBX 17 on Ubuntu.
+Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 
-Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud, for $0
+Next: Learn why and how to run FreePBX 17 on Ubuntu, on Google Cloud. It costs $0 up front, and has a $0 recurring expense.
 
 ---
 
