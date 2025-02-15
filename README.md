@@ -37,19 +37,13 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 Congratulations :tada: you have successfully installed FreePBX 17 on Ubuntu!
 
+---
+
 <img align="right" alt="Free Badge" width="50" src="./images/icons8-one-free-100.png" />
 
 An Ubuntu virtual machine on Google Cloud can be 100% free:
 - $0 cost to launch
 - $0 recurring expense to run
-
-Who doesn't like free cloud computing resources? Learn how to run FreePBX 17 on a free Ubuntu virtual machine in Google Cloud.
-
----
-
-<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
-
-## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
@@ -68,6 +62,13 @@ Who doesn't like free cloud computing resources? Learn how to run FreePBX 17 on 
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
 > - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
 > - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
+
+---
+
+<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
+
+## Install FreePBX and Asterisk on Ubuntu in Google Cloud
+
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
