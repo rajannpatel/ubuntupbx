@@ -678,7 +678,7 @@ These steps are performed in your cloud-deployment workspace.
     > 4. /bin/ed
     > ```
 
-    Add the following lines at the bottom of the crontab file. Replace **example-bucket-name** with the name of your storage bucket on Google Cloud Storage.
+    Add the following lines at the bottom of the crontab file. Replace `example-bucket-name` with the name of your storage bucket on Google Cloud Storage.
 
     ```bash
     @daily gcloud storage rsync /var/spool/asterisk/backup gs://example-bucket-name/backup --recursive
