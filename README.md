@@ -21,12 +21,12 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
 |:---|:---|
-| **STEP&nbsp;1** | Download and edit cloud-init.yaml from this repository |
-| **STEP&nbsp;2** | Use **j2cli** to interpret Jinja variables and render YAML output |
-| **STEP&nbsp;3** | Manually process the cloud-init.yaml file |
+| **[STEP&nbsp;1](#step-1)** | Download and edit cloud-init.yaml from this repository |
+| **[STEP&nbsp;2](#step-2)** | Use **j2cli** to interpret Jinja variables and render YAML output |
+| **[STEP&nbsp;3](#step-3)** | Manually process the cloud-init.yaml file |
 
 ### STEP 1
-#### Download and edit cloud-init.yaml from this repository.
+Download and edit cloud-init.yaml from this repository.
 
 ```bash
 curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
@@ -94,7 +94,8 @@ nano cloud-init-jinja.yaml
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
-**STEP 2** &emsp; Install **j2cli** and process the Jinja tags to create a valid YAML file
+### STEP 2
+Install **j2cli** and process the Jinja tags to create a valid YAML file
 
 ```bash
 sudo apt update
@@ -104,7 +105,8 @@ j2 cloud-init-jinja.yaml > cloud-init.yaml
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; STEP 3</sub><br><br>
 
-**STEP 3** &emsp; Manually process the cloud-init.yaml file
+### STEP 3
+Manually process the cloud-init.yaml file
 
 ```bash
 sudo cloud-init clean
@@ -148,8 +150,8 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 <img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
 
-## STEP 1
-### Set up a cloud-deployment workspace on Windows, macOS, or Linux
+### STEP 1
+#### Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
 Instead of installing the Google Cloud CLI software directly on your computer, use containers or VMs for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
