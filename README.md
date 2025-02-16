@@ -467,7 +467,7 @@ These steps are performed in your cloud-deployment workspace:
 11. Permit ingress traffic from your preferred VoIP or FoIP SIP Trunk provider(s)
 
     - allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges
-    - allow SIP signaling for inbound calls when using IP authentication
+    - allow SIP signaling for inbound calls when using IP authentication<br>
 
     <details>
 
