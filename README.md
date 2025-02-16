@@ -155,10 +155,11 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 ---
 
-<img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
+<img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" /><img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
-#### Step 1 for Windows and macOS users
-##### Set up a cloud-deployment workspace on Windows and macOS
+<details>
+
+<summary>Set up a cloud-deployment workspace on Windows and macOS</summary>
 
 On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
 
@@ -176,14 +177,11 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
     multipass shell cloud-deployment-workspace
     ```
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+</details>
 
----
+<details>
 
-<img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
-
-#### Step 1 for Linux users
-##### Set up a cloud-deployment workspace on Linux
+<summary>Set up a cloud-deployment workspace on Linux</summary>
 
 On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
@@ -219,6 +217,8 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     ```bash
     lxc exec cloud-deployment-workspace -- su -l ubuntu
     ```
+
+</details>
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
