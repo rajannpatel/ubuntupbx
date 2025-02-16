@@ -748,13 +748,17 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     ```bash
     gcloud compute firewall-rules delete allow-management-http-icmp
     gcloud compute firewall-rules delete allow-devices-sip-rtp-udptl
-    gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
-    gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
+
     gcloud compute firewall-rules delete allow-t38fax-rtp-udptl
-    gcloud compute firewall-rules delete allow-bulkvs-rtp-udptl
-    gcloud compute firewall-rules delete allow-flowroute-sip
-    gcloud compute firewall-rules delete allow-telnyx-sip
     gcloud compute firewall-rules delete allow-t38fax-sip
+
+    gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
+    gcloud compute firewall-rules delete allow-flowroute-sip
+
+    gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
+    gcloud compute firewall-rules delete allow-telnyx-sip
+
+    gcloud compute firewall-rules delete allow-bulkvs-rtp-udptl
     gcloud compute firewall-rules delete allow-bulkvs-sip
     ```
 
