@@ -138,9 +138,9 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 **[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
 
-**[STEP 2](#step-2)** &emsp; install and configure Google Cloud CLI in the that workspace
+**[STEP 2](#step-2)** &emsp; install and configure Google Cloud CLI in the workspace from Step 1
 
-**[STEP 3](#step-3)** &emsp; provision a free Ubuntu VM with cloud-init and configure the firewall
+**[STEP 3](#step-3)** &emsp; use the **gcloud** command to provision a free Ubuntu VM with cloud-init and configure the firewall
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
