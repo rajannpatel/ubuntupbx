@@ -134,7 +134,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 > <sub>NEXT</sub><p>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits</p>
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
-|---|---|
+|:---|:---|
 | **[STEP&nbsp;1](#step-1)** | create a disposable, confined, local workspace with Multipass or LXD |
 | **[STEP&nbsp;2](#step-2)** | install and configure Google Cloud CLI in the workspace from Step 1 |
 | **[STEP&nbsp;3](#step-3)** | use the **gcloud** command to provision a free Ubuntu VM with cloud-init and configure the firewall |
