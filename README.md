@@ -117,7 +117,7 @@ j2 cloud-init-jinja.yaml > cloud-init.yaml
 
 ---
 
-<img alt="Apply cloud-init" width="50" src="./images/icons8-process-100.png" />
+<img alt="Apply cloud-init" width="50" src="./images/icons8-cloud-file-100.png" />
 
 ### STEP 3
 Manually process the cloud-init.yaml file
