@@ -327,8 +327,10 @@ These steps are performed in your cloud-deployment workspace:
 
 5. Google Cloud's free tier is only in the `us-west1`, `us-central1`, and `us-east1` regions
 
-    - Set the `REGION` environment variable with one of the 3 free tier regions, and set any `ZONE` in that region
-    - The following zone and region can be used, or any other combination from `gcloud compute zones list`<br><br>
+    - Set the `REGION` environment variable with one of the 3 free tier regions
+    - Set any `ZONE` in that region from the `gcloud compute zones list` output<br><br>
+
+    The following zone and region can be used:
 
     ```bash
     REGION=us-east1
