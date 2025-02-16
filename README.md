@@ -82,10 +82,10 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
-> #### Ubuntu Pro is FREE for personal use or commercial evaluation on 5 machines
-> FreePBX dependencies (Asterisk, NodeJS, etc) get security patches on Ubuntu until 2034.
+> #### Securely run FreePBX on Ubuntu 24.04 LTS until 2034
+> Asterisk, NodeJS, and other FreePBX dependencies are maintained on Ubuntu until 2034.
 > - Ubuntu Pro: security patching for all open source software on Ubuntu for 10 years
-> - Ubuntu Pro Legacy: extends security patching on Ubuntu 24.04 LTS until April 2036
+> - Ubuntu Pro is FREE for personal use or commercial evaluation on 5 machines
 
 2. Install **j2cli** and process the Jinja tags to create a valid YAML file
 
