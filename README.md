@@ -31,7 +31,7 @@ nano cloud-init-jinja.yaml
 ```
 <details>
 
-<summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
+<summary><sup>EXPAND</sup> Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
 
 ```markdown
 # SET OUR VARIABLES
