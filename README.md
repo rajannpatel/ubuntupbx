@@ -132,9 +132,9 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
-- **[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
-- **[STEP 2](#step-2)** &emsp; install and configure Google Cloud CLI in the that workspace
-- **[STEP 3](#step-3)** &emsp; provision a free Ubuntu VM with cloud-init and configure the firewall
+1. &emsp; **[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
+2. &emsp; **[STEP 2](#step-2)** &emsp; install and configure Google Cloud CLI in the that workspace
+3. &emsp; **[STEP 3](#step-3)** &emsp; provision a free Ubuntu VM with cloud-init and configure the firewall
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
