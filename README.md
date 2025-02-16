@@ -77,6 +77,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     
     </details>
 
+<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; STEP 1&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
 > #### Free security patches on open source software for 12 years
@@ -90,6 +92,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     sudo apt install j2cli
     j2 cloud-init-jinja.yaml > cloud-init.yaml
     ```
+
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 3. Manually process the cloud-init.yaml file
 
@@ -107,7 +111,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
     ```
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
+<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
@@ -133,7 +137,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
     - security patching automations enabled until the year 2034.
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -163,7 +167,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
         multipass shell cloud-deployment-workspace
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -197,7 +201,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
         lxc exec cloud-deployment-workspace -- su -l ubuntu
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -229,7 +233,7 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
     > $ gcloud config set project PROJECT_ID
     > ```
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3">STEP 3</a></sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3">STEP 3</a></sub><br><br>
 
 ---
 
@@ -579,7 +583,7 @@ These steps are performed in your cloud-deployment workspace:
 > - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
 > - FreePBX backups can be copied from your Ubuntu virtual machine into Google's Cloud Storage. Modify line 43 of cloud-init.yaml to restore a backup on a new Ubuntu server.
 
-<br><sup>PROGRESS</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
+<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
 ---
 
