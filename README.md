@@ -25,6 +25,10 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 | **[STEP&nbsp;2](#step-2)** | Use **j2cli** to interpret Jinja variables and render YAML output |
 | **[STEP&nbsp;3](#step-3)** | Manually process the cloud-init.yaml file |
 
+<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+
+---
+
 ### STEP 1
 Download and edit cloud-init.yaml from this repository.
 
@@ -35,7 +39,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init.yaml and configure Jinja variables (`{% set VARIABLE = '...' %}`) between lines 4 and 53.</summary>
+<summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.</summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -92,7 +96,7 @@ nano cloud-init-jinja.yaml
 
 </details>
 
-<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ### STEP 2
 Install **j2cli** and process the Jinja tags to create a valid YAML file
@@ -103,7 +107,7 @@ sudo apt install j2cli
 j2 cloud-init-jinja.yaml > cloud-init.yaml
 ```
 
-<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; STEP 3</sub><br><br>
+<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3">STEP 3</a></sub><br><br>
 
 ### STEP 3
 Manually process the cloud-init.yaml file
@@ -140,11 +144,11 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
 |:---|:---|
-| **[STEP&nbsp;1](#step-1)** | create a disposable, confined, local workspace with Multipass or LXD |
-| **[STEP&nbsp;2](#step-2)** | install and configure Google Cloud CLI in the workspace from Step 1 |
-| **[STEP&nbsp;3](#step-3)** | use **gcloud** to provision a free Ubuntu VM with cloud-init, and configure the firewall |
+| **[STEP&nbsp;1](#step-1-1)** | create a disposable, confined, local workspace with Multipass or LXD |
+| **[STEP&nbsp;2](#step-2-1)** | install and configure Google Cloud CLI in the workspace from Step 1 |
+| **[STEP&nbsp;3](#step-3-1)** | use **gcloud** to provision a free Ubuntu VM with cloud-init, and configure the firewall |
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -224,7 +228,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 </details>
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2-1">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -260,7 +264,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
     > $ gcloud config set project PROJECT_ID
     > ```
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3">STEP 3</a></sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3-1">STEP 3</a></sub><br><br>
 
 ---
 
