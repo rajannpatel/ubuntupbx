@@ -132,20 +132,9 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
-- **[STEP 1](#step-1)**
-
-    <ol type="a">
-        <li>Set up a cloud-deployment workspace</li>
-        <li>Install the Google Cloud CLI in the cloud-deployment workspace</li>
-        <li>Google Cloud resources like VMs and firewalls can be provisioned and configured from this cloud-deployment workspace</li>
-    </ol>
-
-- **[STEP 2](#step-2)** <br>Install and configure Google Cloud CLI in the cloud-deployment workspace.
-    - The Google Cloud CLI is available as a snap package with "classic confinement", meaning it doesn't have strict confinement and has broader system access.
-- **[STEP 3](#step-3)** <br>From within the cloud-deployment workspace, launch an Ubuntu VM on Google Cloud that will have:
-    - FreePBX 17 and Asterisk 20.6 running on a free Ubuntu 24.04 LTS VM in Google Cloud, with Flowroute, Telnyx, and T38Fax trunks preconfigured for VoIP (voice over IP) and FoIP (fax over IP) using T.38 with T.30 ECM enabled.
-    - 12 years of security patching for all open source dependencies of FreePBX, including Asterisk 20.6.
-    - security patching automations enabled until the year 2034.
+- **[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
+- **[STEP 2](#step-2)** &emsp; install and configure Google Cloud CLI in the that workspace
+- **[STEP 3](#step-3)** &emsp; provision a free Ubuntu VM with cloud-init and configure the firewall
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
