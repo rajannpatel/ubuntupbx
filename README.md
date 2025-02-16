@@ -403,7 +403,7 @@ These steps are performed in your cloud-deployment workspace:
     
     </details>
 
-9. The following command launches a free tier e2-micro VM named "pbx". Replace `e2-micro` in this command with [another instance type](https://cloud.google.com/compute/docs/machine-resource) if the free tier isn't desired:
+8. The following command launches a free tier e2-micro VM named "pbx". Replace `e2-micro` in this command with [another instance type](https://cloud.google.com/compute/docs/machine-resource) if the free tier isn't desired:
     
     ```bash
     gcloud compute instances create pbx \
@@ -438,7 +438,7 @@ These steps are performed in your cloud-deployment workspace:
 > <img align="right" alt="Caution Sign" width="50" src="./images/icons8-caution-100.png" />
 > Allowing broad permissions to entire CIDR blocks of an ISP increases the attack surface of your FreePBX installation, monitoring SIP registrations with fail2ban and not allowing broad access to the management interface on TCP Port 80 is recommended.
 
-10. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the VM from `--source-ranges` IP(s):
+9. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the VM from `--source-ranges` IP(s):
 
     ```bash
     gcloud compute firewall-rules create allow-management-http-icmp \
@@ -450,7 +450,7 @@ These steps are performed in your cloud-deployment workspace:
         --description="Access FreePBX via web and ping"
     ```
 
-11. Allow SIP registration and RTP & UDPTL media streams over the default UDP port ranges for ATAs and softphones from IPs specified in `--source-ranges`. The `$(wget -qO- http://checkip.amazonaws.com)` command assumes the machine where this command is run also shares the same Internet connection as the softphones and devices that will connect to this PBX.
+10. Allow SIP registration and RTP & UDPTL media streams over the default UDP port ranges for ATAs and softphones from IPs specified in `--source-ranges`. The `$(wget -qO- http://checkip.amazonaws.com)` command assumes the machine where this command is run also shares the same Internet connection as the softphones and devices that will connect to this PBX.
 
     ```bash
     gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
@@ -462,13 +462,15 @@ These steps are performed in your cloud-deployment workspace:
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
 
-12. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges from your SIP Trunk provider.
+11. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges, and allow SIP signaling for inbound calls when using IP authentication, from your preferred SIP Trunk provider(s).
 
     <details>
 
     <summary>Flowroute</summary>
 
-    <br>[Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
+    ##### RTP and UDPTL ingress rule
+
+    [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
 
     ```bash
     gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
@@ -480,67 +482,7 @@ These steps are performed in your cloud-deployment workspace:
         --description="Flowroute incoming RTP and UDPTL media streams"
     ```
 
-    </details>
-
-    <details>
-
-    <summary>Telnyx</summary>
-
-    <br>[Telnyx](https://telnyx.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
-
-    ```bash
-    gcloud compute firewall-rules create allow-telnyx-rtp-udptl \
-        --direction=INGRESS \
-        --action=ALLOW \
-        --target-tags=pbx \
-        --source-ranges="36.255.198.128/25,50.114.136.128/25,50.114.144.0/21,64.16.226.0/24,64.16.227.0/24,64.16.228.0/24,64.16.229.0/24,64.16.230.0/24,64.16.248.0/24,64.16.249.0/24,103.115.244.128/25,185.246.41.128/25" \
-        --rules="udp:4000-4999,udp:10000-20000" \
-        --description="Telnyx incoming RTP and UDPTL media streams"
-    ```
-
-    </details>
-
-    <details>
-
-    <summary>T38Fax</summary>
-
-    <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
-
-    ```bash
-    gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
-        --direction=INGRESS \
-        --action=ALLOW \
-        --target-tags=pbx \
-        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
-        --rules="udp:4000-4999,udp:10000-20000" \
-        --description="T38Fax incoming RTP and UDPTL media streams"
-    ```
-
-    </details>
-
-    <details>
-
-    <summary>BulkVS</summary>
-
-    <br>[BulkVS](https://bulkvs.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
-
-    ```bash
-    gcloud compute firewall-rules create allow-bulkvs-rtp-udptl \
-        --direction=INGRESS \
-        --action=ALLOW \
-        --target-tags=pbx \
-        --source-ranges="162.249.171.198,23.190.16.198,76.8.29.198" \
-        --rules="udp:4000-4999,udp:10000-20000" \
-        --description="BulkVS incoming RTP and UDPTL media streams"
-    ```
-
-    </details>
-
-13. Allow SIP signaling for inbound calls from Flowroute, Telnyx, T38Fax, and BulkVS when using IP authentication for those SIP trunks.
-
-    <details>
-
-    <summary>Flowroute</summary>
+    ##### SIP signaling ingress rule
 
     ```bash
     gcloud compute firewall-rules create allow-flowroute-sip \
@@ -553,10 +495,26 @@ These steps are performed in your cloud-deployment workspace:
     ```
 
     </details>
-    
+
     <details>
 
     <summary>Telnyx</summary>
+
+    ##### RTP and UDPTL ingress rule
+
+    [Telnyx](https://telnyx.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+
+    ```bash
+    gcloud compute firewall-rules create allow-telnyx-rtp-udptl \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="36.255.198.128/25,50.114.136.128/25,50.114.144.0/21,64.16.226.0/24,64.16.227.0/24,64.16.228.0/24,64.16.229.0/24,64.16.230.0/24,64.16.248.0/24,64.16.249.0/24,103.115.244.128/25,185.246.41.128/25" \
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="Telnyx incoming RTP and UDPTL media streams"
+    ```
+
+    ##### SIP signaling ingress rule
 
     ```bash
     gcloud compute firewall-rules create allow-telnyx-sip \
@@ -574,6 +532,22 @@ These steps are performed in your cloud-deployment workspace:
 
     <summary>T38Fax</summary>
 
+    ##### RTP and UDPTL ingress rule
+
+    [T38Fax](https://t38fax.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+
+    ```bash
+    gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="T38Fax incoming RTP and UDPTL media streams"
+    ```
+
+    ##### SIP signaling ingress rule
+
     ```bash
     gcloud compute firewall-rules create allow-t38fax-sip \
         --direction=INGRESS \
@@ -590,6 +564,22 @@ These steps are performed in your cloud-deployment workspace:
 
     <summary>BulkVS</summary>
 
+    ##### RTP and UDPTL ingress rule
+
+    [BulkVS](https://bulkvs.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+
+    ```bash
+    gcloud compute firewall-rules create allow-bulkvs-rtp-udptl \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="162.249.171.198,23.190.16.198,76.8.29.198" \
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="BulkVS incoming RTP and UDPTL media streams"
+    ```
+
+    ##### SIP signaling ingress rule
+
     ```bash
     gcloud compute firewall-rules create allow-bulkvs-sip \
         --direction=INGRESS \
@@ -602,11 +592,11 @@ These steps are performed in your cloud-deployment workspace:
 
     </details>
 
-14. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the VM:
+12. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the VM:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-15. First time gcloud CLI users will be prompted for a passphrase twice. This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
+13. First time gcloud CLI users will be prompted for a passphrase twice. This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
     
     > ```text
     > WARNING: The private SSH key file for gcloud does not exist.
@@ -618,7 +608,7 @@ These steps are performed in your cloud-deployment workspace:
     > Enter same passphrase again:
     > ```
     
-16. A reboot may be required during the cloud-init process. The following output indicates a reboot will be performed:
+14. A reboot may be required during the cloud-init process. The following output indicates a reboot will be performed:
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
@@ -626,25 +616,25 @@ These steps are performed in your cloud-deployment workspace:
     
     If the **ubuntu-2404-lts-amd64** Ubuntu image in Google Cloud, specified in step 9 in the `--image-family` parameter, does not contain all the security patches published by Canonical in the last 24 hours, and `package_reboot_if_required: true` in cloud-init.yaml, a reboot may occur.
   
-17. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
+15. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
     
     ```bash
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-18. Press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process when it stops producing new output, and prints a `finished at` line:
+16. Press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process when it stops producing new output, and prints a `finished at` line:
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-19. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
+17. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
 
     ```bash
     dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
     ```
 
-20. Connect to the pbx VM via SSH:
+18. Connect to the pbx VM via SSH:
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE
