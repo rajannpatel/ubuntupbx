@@ -19,6 +19,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > 
 > <sub>NEXT</sub><p>Get your free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard)</p>
 
+<img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
+
 1. Download and edit cloud-init.yaml from this repository.
 
     ```bash
@@ -114,6 +116,12 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
     <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
+---
+
+<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
+
+## Install FreePBX and Asterisk on Ubuntu in Google Cloud
+
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Run FreePBX on a FREE Ubuntu virtual machine on Google Cloud
@@ -122,16 +130,12 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > 
 > <sub>NEXT</sub><p>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits</p>
 
----
-
-<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
-
-## Install FreePBX and Asterisk on Ubuntu in Google Cloud
-
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
-- **[STEP 1](#step-1)** <br>Set up a cloud-deployment workspace, Google Cloud resources like VMs and firewalls can be provisioned and configured from here.
-    - Confine the Google Cloud CLI in an Ubuntu VM or container, this VM or container becomes the cloud-deployment workspace.
+- **[STEP 1](#step-1)**
+        i.   Set up a cloud-deployment workspace
+        ii.  Install the Google Cloud CLI in the cloud-deployment workspace
+        iii. Google Cloud resources like VMs and firewalls can be provisioned and configured from this cloud-deployment workspace
 - **[STEP 2](#step-2)** <br>Install and configure Google Cloud CLI in the cloud-deployment workspace.
     - The Google Cloud CLI is available as a snap package with "classic confinement", meaning it doesn't have strict confinement and has broader system access.
 - **[STEP 3](#step-3)** <br>From within the cloud-deployment workspace, launch an Ubuntu VM on Google Cloud that will have:
