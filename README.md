@@ -119,7 +119,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Run FreePBX on a FREE Ubuntu virtual machine on Google Cloud
 > - $0 cost to launch, $0 recurring expense to run
-> - personal users spend $0 to keep it secure for 10 years
+> - personal users spend $0 to keep it secure for 10 years with Ubuntu Pro
 > 
 > <sub>NEXT</sub><p>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits</p>
 
