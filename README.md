@@ -12,6 +12,10 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 1. Download and edit cloud-init.yaml from this repository.
 
+    ```bash
+    curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
+    nano cloud-init-jinja.yaml
+    ```
     <details>
 
     <summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
@@ -73,11 +77,6 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     
     </details>
 
-    ```bash
-    curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
-    nano cloud-init-jinja.yaml
-    ```
-
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
 > #### Free security patches on open source software for 12 years
@@ -108,7 +107,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
     ```
 
-<br><sup>CONGRATULATIONS &emsp; :tada:</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;YOU HAVE SUCCESSFULLY INSTALLED FREEPBX 17 ON UBUNTU WITH A CLOUD-INIT.YAML TEMPLATE </sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
