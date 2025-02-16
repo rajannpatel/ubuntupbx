@@ -717,7 +717,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     gcloud compute instances list
     ```
 
-2. To delete the "pbx" VM, set `ZONE` to reflect what was specified in Step 5:
+2. To delete the "pbx" VM, set `ZONE` to reflect what was specified in Step 3.5:
 
     ```bash
     ZONE=us-east1-b
@@ -730,7 +730,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     gcloud compute addresses list
     ```
 
-4. To delete the address named "pbx-external-ip", set `REGION` to reflect what was specified in Step 5:
+4. To delete the address named "pbx-external-ip", set `REGION` to reflect what was specified in Step 3.5
 
     ```bash
     REGION=us-east1
@@ -743,7 +743,7 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     gcloud compute firewall-rules list
     ```
 
-6. To delete the firewall rules we created earlier:
+6. To delete the ingress firewall rules created in Step 3.11
 
     ```bash
     gcloud compute firewall-rules delete allow-management-http-icmp
