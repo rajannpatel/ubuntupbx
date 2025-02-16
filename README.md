@@ -604,7 +604,7 @@ These steps are performed in your cloud-deployment workspace:
 13. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
 
     -  First time gcloud CLI users will be prompted for a passphrase twice
-    -  This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
+    -  This password can be left blank, press <kbd>Enter</kbd> twice to proceed:<br><br>
     
     > ```text
     > WARNING: The private SSH key file for gcloud does not exist.
