@@ -693,7 +693,9 @@ These steps are performed in your cloud-deployment workspace.
     sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
     ```
 
-    The `exit` command will safely exit the Asterisk CLI. Running the `exit` command again will quit the SSH session. 
+    The `exit` command will safely exit the Asterisk CLI.
+    
+    Running the `exit` command again will quit the SSH session. 
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
