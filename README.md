@@ -446,7 +446,7 @@ These steps are performed in your cloud-deployment workspace:
 > <img align="right" alt="Caution Sign" width="50" src="./images/icons8-caution-100.png" />
 > Allowing broad permissions to entire CIDR blocks of an ISP increases the attack surface of your FreePBX installation, monitoring SIP registrations with fail2ban and not allowing broad access to the management interface on TCP Port 80 is recommended.
 
-9. Allow HTTP access to the FreePBX web interface and ICMP (ping) access from IPs specified in `--source-ranges`:
+9. Permit ingress HTTP for management and optionally ICMP for ping replies
 
     ```bash
     gcloud compute firewall-rules create allow-management-http-icmp \
@@ -458,10 +458,7 @@ These steps are performed in your cloud-deployment workspace:
         --description="Access FreePBX via web and ping"
     ```
 
-10. Permit ingress traffic from analog telephone adapters (ATAs) and softphones from IPs specified in `--source-ranges`
-
-    - `$(wget -qO- http://checkip.amazonaws.com)` is a convenient way to get your public IP address
-
+10. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
 
     ```bash
     gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
@@ -473,14 +470,14 @@ These steps are performed in your cloud-deployment workspace:
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
 
-11. Permit ingress traffic from your preferred VoIP or FoIP SIP Trunk provider(s)
+11. Permit ingress traffic from VoIP and/or FoIP SIP Trunk provider(s)
 
     - allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges
     - allow SIP signaling for inbound calls when using IP authentication<br><br>
 
     <details>
 
-    <summary>&ensp;T38Fax&ensp;<b>(exclusively for FoIP)</b><br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;T38Fax&ensp;<b>Power-T.38 SIP Trunk for FoIP</b><br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
     
@@ -606,9 +603,11 @@ These steps are performed in your cloud-deployment workspace:
 
     </details>
 
-12. Observe the installation progress by tailing `/var/log/cloud-init-output.log` on the VM:
+12. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
-        gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
+    ```bash
+    gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
+    ```
     
 13. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
 
@@ -625,13 +624,11 @@ These steps are performed in your cloud-deployment workspace:
     > Enter same passphrase again:
     > ```
     
-14. A reboot may be required during the cloud-init process. The following output indicates a reboot will be performed:
+14. The following cloud-init output indicates a reboot will be performed if a reboot is required after updating
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
     > ```
-    
-    If the **ubuntu-2404-lts-amd64** Ubuntu image in Google Cloud, specified in step 9 in the `--image-family` parameter, does not contain all the security patches published by Canonical in the last 24 hours, and `package_reboot_if_required: true` in cloud-init.yaml, a reboot may occur.
   
 15. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
     
@@ -645,13 +642,19 @@ These steps are performed in your cloud-deployment workspace:
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-17. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
+17. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions.
+
+    -  These commands will print the hostname and IP for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
 
     ```bash
     dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
     ```
 
-18. Connect to the pbx VM via SSH:
+    ```bash
+    echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
+    ```    
+
+18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI:
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE
