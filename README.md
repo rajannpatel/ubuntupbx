@@ -29,6 +29,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 ---
 
+<img alt="Download and Edit" width="50" src="./images/icons8-edit-file-100.png" />
+
 ### STEP 1
 Download and edit cloud-init.yaml from this repository.
 
@@ -98,6 +100,10 @@ nano cloud-init-jinja.yaml
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
+---
+
+<img alt="Export to YAML" width="50" src="./images/icons8-export-100.png" />
+
 ### STEP 2
 Install **j2cli** and process the Jinja tags to create a valid YAML file
 
@@ -108,6 +114,10 @@ j2 cloud-init-jinja.yaml > cloud-init.yaml
 ```
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3">STEP 3</a></sub><br><br>
+
+---
+
+<img alt="Apply cloud-init" width="50" src="./images/icons8-process-100.png" />
 
 ### STEP 3
 Manually process the cloud-init.yaml file
