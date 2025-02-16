@@ -154,9 +154,9 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
 |:---|:---|
-| **[STEP&nbsp;1](#step-1-1)** | make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI) |
-| **[STEP&nbsp;2](#step-2-1)** | install and configure gcloud CLI in the cloud-deployment workspace |
-| **[STEP&nbsp;3](#step-3-1)** | use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall |
+| **[STEP&nbsp;1](#step-1-1)** | Make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI) |
+| **[STEP&nbsp;2](#step-2-1)** | Install and configure gcloud CLI in the cloud-deployment workspace |
+| **[STEP&nbsp;3](#step-3-1)** | Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall |
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
@@ -165,10 +165,10 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 <img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
 
 ### STEP 1
-#### make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI)
+#### Make a cloud-deployment workspace for gcloud CLI
 
--  Multipass creates Ubuntu VMs on Windows and macOS
--  LXD creates Ubuntu containers on Linux
+-  [Multipass](https://multipass.run/) creates Ubuntu VMs on Windows and macOS
+-  [LXD](https://canonical.com/lxd/) creates Ubuntu containers on Linux
 -  Both Multipass and LXD provide access to an Ubuntu terminal, which is required for Step 2
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
@@ -177,7 +177,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 <summary>&ensp;Set up a cloud-deployment workspace on Windows and macOS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-<br>On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
+<br>On Windows and macOS, Multipass provides Linux VMs on demand.
 
 1. [Install Multipass](https://multipass.run/install)
 
@@ -201,7 +201,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 <summary>&ensp;Set up a cloud-deployment workspace on Linux<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-<br>On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
+<br>On Linux, LXD is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
 1.  [Install snapd](https://snapcraft.io/docs/installing-snapd) if your Linux doesn't already have it.
 
@@ -245,9 +245,11 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
 ### STEP 2
-#### install and configure gcloud CLI in the cloud-deployment workspace
+#### Install and configure gcloud CLI in the cloud-deployment workspace
 
-1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
+These steps are performed in your cloud-deployment workspace.
+
+1.  Install gcloud CLI
 
     ```bash
     sudo snap install google-cloud-cli --classic
@@ -281,9 +283,9 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 <img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
 
 ### STEP 3
-#### use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall
+#### Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall
 
-These steps are performed in your cloud-deployment workspace:
+These steps are performed in your cloud-deployment workspace.
 
 1. List the projects in the Google Cloud account:
     
@@ -429,7 +431,7 @@ These steps are performed in your cloud-deployment workspace:
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces). For example: `192.178.0.0/15,142.251.47.238`
 >
-> For convenience, some `--source-ranges` in the steps below fetch the globally routable IPv4 address of the machine where the command was run, using an Amazon AWS service. Replace `$(wget -qO- http://checkip.amazonaws.com)` with the correct IP address(es) and/or IP address ranges written in slash notation, as needed.
+> `$(wget -qO- http://checkip.amazonaws.com)` retrieves the globally routable IPv4 address of the machine where the command is run, using an Amazon AWS service. It appears in some commands below, as a convenience.
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
@@ -440,7 +442,6 @@ These steps are performed in your cloud-deployment workspace:
 > | [Optimum Online's Altice Fiber](https://search.arin.net/rdap/?query=174.96.0.0)  | `24.184.0.0/14`  |
 > | [Verizon Wireless 5G Home Internet](https://search.arin.net/rdap/?query=75.192.0.0)  | `75.192.0.0/10`  |
 > | [Google Fiber](https://search.arin.net/rdap/?query=136.32.0.0)  | `136.32.0.0/11`  |
-
 
 > [!CAUTION]
 > <img align="right" alt="Caution Sign" width="50" src="./images/icons8-caution-100.png" />
