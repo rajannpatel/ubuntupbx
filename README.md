@@ -86,23 +86,27 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 2. Install **j2cli** and process the Jinja tags to create a valid YAML file
 
-        sudo apt update
-        sudo apt install j2cli
-        j2 cloud-init-jinja.yaml > cloud-init.yaml
+    ```bash
+    sudo apt update
+    sudo apt install j2cli
+    j2 cloud-init-jinja.yaml > cloud-init.yaml
+    ```
 
 3. Manually process the cloud-init.yaml file
 
-        sudo cloud-init clean
-        sudo cloud-init single --name ubuntu_pro --file cloud-init.yaml
-        sudo cloud-init single --name timezone --file cloud-init.yaml
-        sudo cloud-init single --name set_hostname --file cloud-init.yaml
-        sudo cloud-init single --name update_hostname --file cloud-init.yaml
-        sudo cloud-init single --name users_groups --file cloud-init.yaml
-        sudo cloud-init single --name write_files --file cloud-init.yaml
-        sudo cloud-init single --name apt_configure --file cloud-init.yaml
-        sudo cloud-init single --name package-update-upgrade-install --file cloud-init.yaml
-        sudo snap install yq
-        sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
+    ```bash
+    sudo cloud-init clean
+    sudo cloud-init single --name ubuntu_pro --file cloud-init.yaml
+    sudo cloud-init single --name timezone --file cloud-init.yaml
+    sudo cloud-init single --name set_hostname --file cloud-init.yaml
+    sudo cloud-init single --name update_hostname --file cloud-init.yaml
+    sudo cloud-init single --name users_groups --file cloud-init.yaml
+    sudo cloud-init single --name write_files --file cloud-init.yaml
+    sudo cloud-init single --name apt_configure --file cloud-init.yaml
+    sudo cloud-init single --name package-update-upgrade-install --file cloud-init.yaml
+    sudo snap install yq
+    sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
+    ```
 
 <br><sup>CONGRATULATIONS &emsp; :tada:</sup><br><sub>&emsp;&emsp; :heavy_check_mark: &emsp;YOU HAVE SUCCESSFULLY INSTALLED FREEPBX 17 ON UBUNTU WITH A CLOUD-INIT.YAML TEMPLATE </sub><br><br>
 
