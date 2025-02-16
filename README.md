@@ -187,7 +187,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
     multipass launch --name cloud-deployment-workspace
     ```
 
-3. Enter the Multipass VM as the **ubuntu** user:
+3. Enter the Multipass VM as the "ubuntu" user:
 
     ```bash
     multipass shell cloud-deployment-workspace
@@ -212,25 +212,25 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
     snap list lxd &> /dev/null && sudo snap refresh lxd --channel latest/stable || sudo snap install lxd --channel latest/stable
     ```
 
-3.  Initialize LXD with sensible default, out-of-the-box configurations
+3.  Initialize LXD with default configurations
 
     ```bash
     lxd init --auto
     ```
 
-4.  Launch a LXD container named **cloud-deployment-workspace** and map your user account on the host machine to the default **ubuntu** user account in the container:
+4.  Launch a LXD container named "cloud-deployment-workspace" and map your user account on the host machine to the default "ubuntu" user account in the container:
 
     ```bash
     lxc launch ubuntu:noble cloud-deployment-workspace -c raw.idmap="both 1000 1000"
     ```
 
-5.  Optional Step: mount your home directory into the container as a disk named "host-home", to conveniently access your files from within the container:
+5.  Mount your home directory into the container as a disk named "host-home", to conveniently access your files from within the container:
 
     ```bash
     lxc config device add cloud-deployment-workspace host-home disk source=~/ path=/home/ubuntu
     ```
 
-6.  Enter the LXD container as the **ubuntu** user:
+6.  Enter the LXD container as the "ubuntu" user:
 
     ```bash
     lxc exec cloud-deployment-workspace -- su -l ubuntu
@@ -325,11 +325,14 @@ These steps are performed in your cloud-deployment workspace:
     > us-east1-b                 us-east1                 UP
     > ```
 
-5. Only regions `us-west1`, `us-central1`, and `us-east1` in North America qualify for Google Cloud's free tier. Set the `ZONE` and `REGION` environment variables with one of the 3 free tier regions, and choose any zone in that region. The following zone and region can be used, or select another zone and region combination from the `gcloud compute zones list` output:
+5. Any zone in the `us-west1`, `us-central1`, and `us-east1` North America regions qualifies for Google Cloud's virtual machine free tier.
+
+    - Set the `REGION` environment variable with one of the 3 free tier regions, and set any `ZONE` in that region
+    - The following zone and region can be used, or select another zone and region combination from the `gcloud compute zones list` output<br><br>
 
     ```bash
-    ZONE=us-east1-b
     REGION=us-east1
+    ZONE=us-east1-b
     ```
 
 6. Reserve a static IP address and label it "pbx-external-ip":
