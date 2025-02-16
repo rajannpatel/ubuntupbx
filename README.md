@@ -21,11 +21,12 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
 |:---|:---|
-| **[STEP&nbsp;1](#step-1)** | Download and edit cloud-init.yaml from this repository |
-| **[STEP&nbsp;2](#step-2)** | Use **j2cli** to interpret Jinja variables and render YAML output |
-| **[STEP&nbsp;3](#step-3)** | Manually process the cloud-init.yaml file |
+| **STEP&nbsp;1** | Download and edit cloud-init.yaml from this repository |
+| **STEP&nbsp;2** | Use **j2cli** to interpret Jinja variables and render YAML output |
+| **STEP&nbsp;3** | Manually process the cloud-init.yaml file |
 
-<br>**STEP 1** &emsp; Download and edit cloud-init.yaml from this repository.
+### STEP 1
+Download and edit cloud-init.yaml from this repository.
 
 ```bash
 curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
