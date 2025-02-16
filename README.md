@@ -41,7 +41,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.</summary>
+<summary>&ensp;<span style="color:#a2a2a2">EXPAND</span>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.</summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -468,7 +468,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <summary>Flowroute</summary>
 
-    <br>[Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
+    <br>[Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, therefore `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
 
     ##### RTP and UDPTL ingress rule
 
