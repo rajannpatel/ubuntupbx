@@ -468,7 +468,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>Flowroute<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;Flowroute<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, therefore `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
 
@@ -500,7 +500,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>Telnyx<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;Telnyx<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[Telnyx](https://telnyx.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
@@ -532,7 +532,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>T38Fax<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;T38Fax<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
     
@@ -564,7 +564,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>BulkVS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;BulkVS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[BulkVS](https://bulkvs.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
 
