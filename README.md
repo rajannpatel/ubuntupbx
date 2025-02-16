@@ -134,9 +134,11 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 - **[STEP 1](#step-1)**
 
-    i.   Set up a cloud-deployment workspace
-    ii.  Install the Google Cloud CLI in the cloud-deployment workspace
-    iii. Google Cloud resources like VMs and firewalls can be provisioned and configured from this cloud-deployment workspace
+    <ol type="a">
+        <li>Set up a cloud-deployment workspace</li>
+        <li>Install the Google Cloud CLI in the cloud-deployment workspace</li>
+        <li>Google Cloud resources like VMs and firewalls can be provisioned and configured from this cloud-deployment workspace</li>
+    </ol>
 
 - **[STEP 2](#step-2)** <br>Install and configure Google Cloud CLI in the cloud-deployment workspace.
     - The Google Cloud CLI is available as a snap package with "classic confinement", meaning it doesn't have strict confinement and has broader system access.
