@@ -471,6 +471,38 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
+    <summary>&ensp;T38Fax&ensp;<b>(exclusively for FoIP)</b><br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+
+    <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
+    
+    ##### RTP and UDPTL ingress rule
+
+    ```bash
+    gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
+        --rules="udp:4000-4999,udp:10000-20000" \
+        --description="T38Fax incoming RTP and UDPTL media streams"
+    ```
+
+    ##### SIP signaling ingress rule
+
+    ```bash
+    gcloud compute firewall-rules create allow-t38fax-sip \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
+        --rules="udp:5060" \
+        --description="T38Fax SIP Signaling"
+    ```
+
+    </details>
+
+    <details>
+
     <summary>&ensp;Flowroute<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, therefore `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
@@ -529,38 +561,6 @@ These steps are performed in your cloud-deployment workspace:
         --source-ranges="192.76.120.10,64.16.250.10,185.246.41.140,185.246.41.141,103.115.244.145,103.115.244.146,192.76.120.31,64.16.250.13" \
         --rules="udp:5060" \
         --description="Telnyx SIP Signaling"
-    ```
-
-    </details>
-
-    <details>
-
-    <summary>&ensp;T38Fax&ensp;<b>(exclusively for FoIP)</b><br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
-
-    <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
-    
-    ##### RTP and UDPTL ingress rule
-
-    ```bash
-    gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
-        --direction=INGRESS \
-        --action=ALLOW \
-        --target-tags=pbx \
-        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
-        --rules="udp:4000-4999,udp:10000-20000" \
-        --description="T38Fax incoming RTP and UDPTL media streams"
-    ```
-
-    ##### SIP signaling ingress rule
-
-    ```bash
-    gcloud compute firewall-rules create allow-t38fax-sip \
-        --direction=INGRESS \
-        --action=ALLOW \
-        --target-tags=pbx \
-        --source-ranges="8.20.91.0/24,130.51.64.0/22,8.34.182.0/24" \
-        --rules="udp:5060" \
-        --description="T38Fax SIP Signaling"
     ```
 
     </details>
