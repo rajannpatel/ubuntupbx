@@ -16,6 +16,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > Asterisk, NodeJS, and other FreePBX dependencies are maintained on Ubuntu until 2034.
 > - Ubuntu Pro includes security patching for all open source software on Ubuntu for 10 years
 > - Ubuntu Pro is FREE for personal use or commercial evaluation on 5 machines
+> 
 > <sub>NEXT</sub><p>Get your free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard)</p>
 
 1. Download and edit cloud-init.yaml from this repository.
