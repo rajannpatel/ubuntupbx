@@ -120,6 +120,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > #### Run FreePBX on a FREE Ubuntu virtual machine on Google Cloud
 > - $0 cost to launch, $0 recurring expense to run
 > - personal users spend $0 to keep it secure for 10 years
+> 
 > Follow this guide to deploy FreePBX on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) configuration and usage limits
 
 ---
