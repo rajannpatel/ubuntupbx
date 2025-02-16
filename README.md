@@ -155,7 +155,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 ---
 
-<img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" /><img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
+<img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
 <details>
 
@@ -178,6 +178,8 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
     ```
 
 </details>
+
+<img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
 <details>
 
