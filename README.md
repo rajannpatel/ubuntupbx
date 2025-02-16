@@ -35,7 +35,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 Download the cloud-init file from this repository
 
 ```bash
-curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
+wget -q https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -O cloud-init-jinja.yaml
 nano cloud-init-jinja.yaml
 ```
 
@@ -343,10 +343,11 @@ These steps are performed in your cloud-deployment workspace:
     gcloud compute addresses create pbx-external-ip --region=$REGION
     ```
     
-7. Use curl to download the cloud-init YAML.
+7. Download the cloud-init YAML.
 
     ```bash
-    curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init.yaml
+    wget -q https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -O cloud-init.yaml
+    nano cloud-init.yaml
     ```
 
     <details>
@@ -410,7 +411,7 @@ These steps are performed in your cloud-deployment workspace:
     
     </details>
 
-8. The following command launches a free tier e2-micro VM named "pbx". Replace `e2-micro` in this command with [another instance type](https://cloud.google.com/compute/docs/machine-resource) if the free tier isn't desired:
+8. Create an e2-micro VM named "pbx". [Other VM types](https://cloud.google.com/compute/docs/machine-resource) cost money:
     
     ```bash
     gcloud compute instances create pbx \
@@ -445,7 +446,7 @@ These steps are performed in your cloud-deployment workspace:
 > <img align="right" alt="Caution Sign" width="50" src="./images/icons8-caution-100.png" />
 > Allowing broad permissions to entire CIDR blocks of an ISP increases the attack surface of your FreePBX installation, monitoring SIP registrations with fail2ban and not allowing broad access to the management interface on TCP Port 80 is recommended.
 
-9. Allow HTTP access to the FreePBX web interface from IPs specified in `--source-ranges`. Including `icmp` in `--rules` is optional, it enables the **ping** command to reach the VM from `--source-ranges` IP(s):
+9. Allow HTTP access to the FreePBX web interface and ICMP (ping) access from IPs specified in `--source-ranges`:
 
     ```bash
     gcloud compute firewall-rules create allow-management-http-icmp \
@@ -457,7 +458,10 @@ These steps are performed in your cloud-deployment workspace:
         --description="Access FreePBX via web and ping"
     ```
 
-10. Allow SIP registration and RTP & UDPTL media streams over the default UDP port ranges for ATAs and softphones from IPs specified in `--source-ranges`. The `$(wget -qO- http://checkip.amazonaws.com)` command assumes the machine where this command is run also shares the same Internet connection as the softphones and devices that will connect to this PBX.
+10. Permit ingress traffic from analog telephone adapters (ATAs) and softphones from IPs specified in `--source-ranges`
+
+    - `$(wget -qO- http://checkip.amazonaws.com)` is a convenient way to get your public IP address
+
 
     ```bash
     gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
