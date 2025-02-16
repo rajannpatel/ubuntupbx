@@ -167,9 +167,9 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 ### STEP 1
 #### Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
-Step 2 assumes an Ubuntu terminal is available.<br>
-Use an Ubuntu container or VM, and keep your local workspace organized, and software installations isolated.<br>
-Multipass or LXD will create an Ubuntu environment on Windows, macOS, and Linux.
+- Step 2 assumes an Ubuntu terminal is available.
+- Use an Ubuntu container or VM, and keep your local workspace organized, and software installations isolated.
+- Multipass or LXD will create an Ubuntu environment on Windows, macOS, and Linux.
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
