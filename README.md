@@ -41,7 +41,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary><h5>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.</h5><br><sup>CLICK TO EXPAND</sup></summary>
+<summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.</h5><br><sup style="padding-left:20px">CLICK TO EXPAND</sup><br></summary>
 
 ```markdown
 # SET OUR VARIABLES
