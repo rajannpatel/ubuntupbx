@@ -41,7 +41,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.</h5><br><sup style="padding-left:20px">CLICK TO EXPAND</sup><br></summary>
+<summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -173,7 +173,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 <details>
 
-<summary>&ensp;Set up a cloud-deployment workspace on Windows and macOS</summary>
+<summary>&ensp;Set up a cloud-deployment workspace on Windows and macOS<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 <br>On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
 
@@ -197,7 +197,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 <details>
 
-<summary>&ensp;Set up a cloud-deployment workspace on Linux</summary>
+<summary>&ensp;Set up a cloud-deployment workspace on Linux<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 <br>On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
@@ -344,7 +344,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
+    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 53.<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
@@ -466,7 +466,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>Flowroute</summary>
+    <summary>Flowroute<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, therefore `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
 
@@ -498,7 +498,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>Telnyx</summary>
+    <summary>Telnyx<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[Telnyx](https://telnyx.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
@@ -530,7 +530,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>T38Fax</summary>
+    <summary>T38Fax<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
     
@@ -562,7 +562,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>BulkVS</summary>
+    <summary>BulkVS<br><sup>&emsp;&ensp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[BulkVS](https://bulkvs.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
 
