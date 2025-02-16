@@ -19,9 +19,11 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > 
 > <sub>NEXT</sub><p>Get your free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard)</p>
 
-<img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
-
-### 3 Steps
+| <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
+|:---|:---|
+| **[STEP&nbsp;1](#step-1)** | Download and edit cloud-init.yaml from this repository |
+| **[STEP&nbsp;2](#step-2)** | Use **j2cli** to interpret Jinja variables and render YAML output |
+| **[STEP&nbsp;3](#step-3)** | Manually process the cloud-init.yaml file |
 
 **STEP 1** &emsp; Download and edit cloud-init.yaml from this repository.
 
@@ -138,12 +140,6 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 | **[STEP&nbsp;1](#step-1)** | create a disposable, confined, local workspace with Multipass or LXD |
 | **[STEP&nbsp;2](#step-2)** | install and configure Google Cloud CLI in the workspace from Step 1 |
 | **[STEP&nbsp;3](#step-3)** | use **gcloud** to provision a free Ubuntu VM with cloud-init, and configure the firewall |
-
-**[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
-
-**[STEP 2](#step-2)** &emsp; install and configure Google Cloud CLI in the workspace from Step 1
-
-**[STEP 3](#step-3)** &emsp; use the **gcloud** command to provision a free Ubuntu VM with cloud-init and configure the firewall
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
