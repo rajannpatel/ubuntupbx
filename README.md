@@ -30,7 +30,7 @@ curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/
 nano cloud-init-jinja.yaml
 ```
 
-<sup>EXPAND</sup>
+<sub>EXPAND</sub>
 <details>
 
 <summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
