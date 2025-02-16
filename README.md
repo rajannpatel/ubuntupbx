@@ -32,7 +32,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 <img alt="Download and Edit" width="50" src="./images/icons8-edit-file-100.png" />
 
 ### STEP 1
-Download and edit Jinja variables in the cloud-init file from this repository
+Download the cloud-init file from this repository
 
 ```bash
 curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
