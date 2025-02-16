@@ -464,7 +464,7 @@ These steps are performed in your cloud-deployment workspace:
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
 
-11. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges, and allow SIP signaling for inbound calls when using IP authentication, from your preferred voice over IP (VoIP) or fax over IP (FoIP) SIP Trunk provider(s).
+11. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges,<br>allow SIP signaling for inbound calls when using IP authentication,<br>from your preferred VoIP or FoIP SIP Trunk provider(s).
 
     <details>
 
@@ -532,7 +532,7 @@ These steps are performed in your cloud-deployment workspace:
 
     <details>
 
-    <summary>&ensp;T38Fax&ensp;<b>(exclusively for FoIP)/b><br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;T38Fax&ensp;<b>(exclusively for FoIP)</b><br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
     
