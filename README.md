@@ -441,11 +441,13 @@ These steps are performed in your cloud-deployment workspace:
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
 
-12. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges. [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound traffic from anywhere in the world. [BulkVS](https://bulkvs.com), [Telnyx](https://telnyx.com) and [T38Fax](https://t38fax.com) proxy all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+12. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges from your SIP Trunk provider.
 
     <details>
 
-    <summary>Flowroute's ingress firewall rule</summary>
+    <summary>Flowroute</summary>
+
+    [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
 
     ```bash
     gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
@@ -459,7 +461,11 @@ These steps are performed in your cloud-deployment workspace:
 
     </details>
 
-    #### Telnyx
+    <details>
+
+    <summary>Telnyx</summary>
+
+    [Telnyx](https://telnyx.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
     ```bash
     gcloud compute firewall-rules create allow-telnyx-rtp-udptl \
@@ -471,7 +477,13 @@ These steps are performed in your cloud-deployment workspace:
         --description="Telnyx incoming RTP and UDPTL media streams"
     ```
 
-    #### T38Fax
+    </details>
+
+    <details>
+
+    <summary>T38Fax</summary>
+
+    [T38Fax](https://t38fax.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
     ```bash
     gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
@@ -483,7 +495,13 @@ These steps are performed in your cloud-deployment workspace:
         --description="T38Fax incoming RTP and UDPTL media streams"
     ```
 
-    #### BulkVS
+    </details>
+
+    <details>
+
+    <summary>BulkVS</summary>
+
+    [BulkVS](https://bulkvs.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
     ```bash
     gcloud compute firewall-rules create allow-bulkvs-rtp-udptl \
@@ -494,6 +512,8 @@ These steps are performed in your cloud-deployment workspace:
         --rules="udp:4000-4999,udp:10000-20000" \
         --description="BulkVS incoming RTP and UDPTL media streams"
     ```
+
+    </details>
 
 13. Allow SIP signaling for inbound calls from Flowroute, Telnyx, T38Fax, and BulkVS when using IP authentication for those SIP trunks.
 
