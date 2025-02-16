@@ -10,15 +10,11 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 ## Install FreePBX and Asterisk on an existing Ubuntu machine
 
-1. Download and edit cloud-init.yaml from this repository.<br>
-   Edit the file to set configurations between lines 4 and 53.
-
-        curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
-        nano cloud-init-jinja.yaml
+1. Download and edit cloud-init.yaml from this repository.
 
     <details>
 
-    <summary>Expand to see configurable parameters in cloud-init.yaml</summary>
+    <summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
 
     <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
@@ -76,6 +72,9 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     ```
     
     </details>
+
+        curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init-jinja.yaml
+        nano cloud-init-jinja.yaml
 
 > [!IMPORTANT]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
