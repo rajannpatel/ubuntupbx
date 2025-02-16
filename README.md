@@ -154,8 +154,8 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
 |:---|:---|
-| **[STEP&nbsp;1](#step-1-1)** | create a disposable, confined, local workspace for Google Cloud Command Line Interface (gcloud CLI) |
-| **[STEP&nbsp;2](#step-2-1)** | install and configure gcloud CLI in the workspace |
+| **[STEP&nbsp;1](#step-1-1)** | make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI) |
+| **[STEP&nbsp;2](#step-2-1)** | install and configure gcloud CLI in the cloud-deployment workspace |
 | **[STEP&nbsp;3](#step-3-1)** | use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall |
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
@@ -165,7 +165,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 <img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
 
 ### STEP 1
-#### Set up a cloud-deployment workspace on Windows, macOS, or Linux
+#### make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI)
 
 -  Multipass creates Ubuntu VMs on Windows and macOS
 -  LXD creates Ubuntu containers on Linux
@@ -245,7 +245,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
 ### STEP 2
-#### Install and configure the gcloud CLI in your cloud-deployment workspace
+#### install and configure gcloud CLI in the cloud-deployment workspace
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
@@ -281,7 +281,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 <img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
 
 ### STEP 3
-#### Provision resources and deploy an Ubuntu VM on Google Cloud
+#### use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall
 
 These steps are performed in your cloud-deployment workspace:
 
