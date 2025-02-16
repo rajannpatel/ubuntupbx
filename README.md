@@ -138,7 +138,7 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 ### 3 Steps
 
 | **[STEP 1](#step-1)** | create a disposable, confined, local workspace with Multipass or LXD |
-
+|---|---|
 
 **[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
 
