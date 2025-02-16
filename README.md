@@ -20,7 +20,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
     <summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
 
-    <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
+    <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches,<br>
+    including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
     ```markdown
     # SET OUR VARIABLES
