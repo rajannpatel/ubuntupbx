@@ -625,27 +625,28 @@ These steps are performed in your cloud-deployment workspace.
     > Enter same passphrase again:
     > ```
     
-14. The following cloud-init output indicates a reboot will be performed if a reboot is required after updating
+14. This line indicates security patches were applied, and a reboot is required
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
     > ```
   
-15. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
+    In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
     
     ```bash
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-16. Press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process when it stops producing new output, and prints a `finished at` line:
+15. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-17. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions.
+17. Access the web portal to set up Trunks and Extensions
 
-    -  These commands will print the hostname and IP for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
+    -  These commands will print the web portal links in the terminal
+    -  <kbd>CTRL</kbd> click the link to open
 
     ```bash
     dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
@@ -655,19 +656,19 @@ These steps are performed in your cloud-deployment workspace.
     echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
     ```    
 
-18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI:
+18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE
     ```
 
-    Upon logging in via SSH, edit the root user's crontab
+    Upon logging in via SSH, edit the "root" user's crontab.
 
     ```bash
     sudo crontab -e
     ```
 
-    When prompted for a default crontab editor, **nano** (option 1) will be the most intuitive option for most users
+    **nano** (option 1) will be the most intuitive option for most users.
 
     > ```text
     > Select an editor.  To change later, run 'select-editor'.
@@ -693,13 +694,6 @@ These steps are performed in your cloud-deployment workspace.
     ```
 
     The `exit` command will safely exit the Asterisk CLI. Running the `exit` command again will quit the SSH session. 
-
-
-> [!NOTE]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> - Deploying FreePBX on a single Ubuntu virtual machine (VM) in Google Cloud is an ideal solution for personal users and small to medium-sized businesses.
-> - Google Cloud provides enterprise grade datacenter resources, which also include simplified backup, recovery, and rollback capabilities for virtual machines.
-> - FreePBX backups can be copied from your Ubuntu virtual machine into Google's Cloud Storage. Modify line 43 of cloud-init.yaml to restore a backup on a new Ubuntu server.
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
