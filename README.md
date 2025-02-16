@@ -161,11 +161,15 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
 2. Launch a VM named "cloud-deployment-workspace":
 
-        multipass launch --name cloud-deployment-workspace
+    ```bash
+    multipass launch --name cloud-deployment-workspace
+    ```
 
 3. Enter the Multipass VM as the **ubuntu** user:
 
-        multipass shell cloud-deployment-workspace
+    ```bash
+    multipass shell cloud-deployment-workspace
+    ```
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
@@ -183,23 +187,33 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 2.  [Install LXD](https://canonical.com/lxd/install)
 
-        snap list lxd &> /dev/null && sudo snap refresh lxd --channel latest/stable || sudo snap install lxd --channel latest/stable
+    ```bash
+    snap list lxd &> /dev/null && sudo snap refresh lxd --channel latest/stable || sudo snap install lxd --channel latest/stable
+    ```
 
 3.  Initialize LXD with sensible default, out-of-the-box configurations
 
-        lxd init --auto
+    ```bash
+    lxd init --auto
+    ```
 
 4.  Launch a LXD container named **cloud-deployment-workspace** and map your user account on the host machine to the default **ubuntu** user account in the container:
 
-        lxc launch ubuntu:noble cloud-deployment-workspace -c raw.idmap="both 1000 1000"
+    ```bash
+    lxc launch ubuntu:noble cloud-deployment-workspace -c raw.idmap="both 1000 1000"
+    ```
 
 5.  Optional Step: mount your home directory into the container as a disk named "host-home", to conveniently access your files from within the container:
 
-        lxc config device add cloud-deployment-workspace host-home disk source=~/ path=/home/ubuntu
+    ```bash
+    lxc config device add cloud-deployment-workspace host-home disk source=~/ path=/home/ubuntu
+    ```
 
 6.  Enter the LXD container as the **ubuntu** user:
 
-        lxc exec cloud-deployment-workspace -- su -l ubuntu
+    ```bash
+    lxc exec cloud-deployment-workspace -- su -l ubuntu
+    ```
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
@@ -212,11 +226,15 @@ On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
-        sudo snap install google-cloud-cli --classic
+    ```bash
+    sudo snap install google-cloud-cli --classic
+    ```
 
 2.  Authenticate with the gcloud CLI
 
-        gcloud init
+    ```bash
+    gcloud init
+    ```
 
     1. Enter **Y** when prompted with *Would you like to log in (Y/n)?*
     2. Visit the authentication link which starts with `https://accounts.google.com/`
@@ -246,7 +264,9 @@ These steps are performed in your cloud-deployment workspace:
 
 1. List the projects in the Google Cloud account:
     
-       gcloud projects list
+    ```bash
+    gcloud projects list
+    ```
     
     Output will appear in this format:
     
@@ -257,17 +277,23 @@ These steps are performed in your cloud-deployment workspace:
     
 2. Assign the `PROJECT_ID` environment variable with the Project ID from the `gcloud projects list` output:
     
-       PROJECT_ID=project-id
+    ```bash
+    PROJECT_ID=project-id
+    ```
     
 3. Associate gcloud CLI to this `PROJECT_ID`:
     
-       gcloud config set project $PROJECT_ID
+    ```bash
+    gcloud config set project $PROJECT_ID
+    ```
     
     This Project ID will contain the PBX VM.
     
 4. List the available cloud zones and cloud regions where VMs can be deployed:
 
-       gcloud compute zones list
+    ```bash
+    gcloud compute zones list
+    ```
 
     Output will appear in this format:
 
@@ -285,13 +311,21 @@ These steps are performed in your cloud-deployment workspace:
 
 6. Reserve a static IP address and label it "pbx-external-ip":
     
-       gcloud compute addresses create pbx-external-ip --region=$REGION
+    ```bash
+    gcloud compute addresses create pbx-external-ip --region=$REGION
+    ```
     
 7. Use curl to download the cloud-init YAML.
 
-       curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init.yaml
+    ```bash
+    curl -s https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -o cloud-init.yaml
+    ```
 
-8. Open the file in an editor (like nano) to change configurations specified between lines 4 and 53. Setting `TOKEN` with an [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) is required for security updates to Asterisk, Asterisk's dependencies, and some FreePBX dependencies. [Livepatch](https://ubuntu.com/security/livepatch) will be enabled by this cloud-init.yaml file if a Pro Token is set.
+    <details>
+
+    <summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
+
+    <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
     ```markdown
     # SET OUR VARIABLES
@@ -345,6 +379,8 @@ These steps are performed in your cloud-deployment workspace:
     # =========================
     # END OF SETTING VARIABLES
     ```
+    
+    </details>
 
 9. The following command launches a free tier e2-micro VM named "pbx". Replace `e2-micro` in this command with [another instance type](https://cloud.google.com/compute/docs/machine-resource) if the free tier isn't desired:
     
@@ -407,7 +443,9 @@ These steps are performed in your cloud-deployment workspace:
 
 12. Allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges. [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound traffic from anywhere in the world. [BulkVS](https://bulkvs.com), [Telnyx](https://telnyx.com) and [T38Fax](https://t38fax.com) proxy all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
-    #### Flowroute
+    <details>
+
+    <summary>Flowroute's ingress firewall rule</summary>
 
     ```bash
     gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
@@ -419,7 +457,7 @@ These steps are performed in your cloud-deployment workspace:
         --description="Flowroute incoming RTP and UDPTL media streams"
     ```
 
-    The Flowroute incoming RTP and UDPTL media streams firewall rule permits incoming UDP traffic to Asterisk's RTP and UDPTL ports from any IP address in the world. It is so permissive that the following Telnyx, T38Fax, and BulkVS specific ingress rules are redundant, but they are included below for completeness:
+    </details>
 
     #### Telnyx
 
@@ -533,7 +571,9 @@ These steps are performed in your cloud-deployment workspace:
   
 17. In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
     
-        gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
+    ```bash
+    gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
+    ```
     
 18. Press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process when it stops producing new output, and prints a `finished at` line:
     
@@ -543,15 +583,21 @@ These steps are performed in your cloud-deployment workspace:
 
 19. Visit the PBX external IP to finalize the configuration of FreePBX and set up your Trunks and Extensions. This command will print the hostname for your VM as a hyperlink, <kbd>CTRL</kbd> click the link to open:
 
-        dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
+    ```bash
+    dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
+    ```
 
 20. Connect to the pbx VM via SSH:
 
-        gcloud compute ssh pbx --zone $ZONE
+    ```bash
+    gcloud compute ssh pbx --zone $ZONE
+    ```
 
     Upon logging in via SSH, edit the root user's crontab
 
-        sudo crontab -e
+    ```bash
+    sudo crontab -e
+    ```
 
     When prompted for a default crontab editor, **nano** (option 1) will be the most intuitive option for most users
 
@@ -565,14 +611,18 @@ These steps are performed in your cloud-deployment workspace:
 
     Add the following lines at the bottom of the crontab file. Replace **example-bucket-name** with the name of your storage bucket on Google Cloud Storage.
 
-        @daily gcloud storage rsync /var/spool/asterisk/backup gs://example-bucket-name/backup --recursive
-        @daily gcloud storage rsync /var/spool/asterisk/monitor gs://example-bucket-name/monitor --recursive
+    ```bash
+    @daily gcloud storage rsync /var/spool/asterisk/backup gs://example-bucket-name/backup --recursive
+    @daily gcloud storage rsync /var/spool/asterisk/monitor gs://example-bucket-name/monitor --recursive
+    ```
 
     Use Google Cloud Storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, because the backups are retained externally in a Google Cloud Storage S3 Bucket. Delete stale backups from the S3 bucket on a schedule of your choosing by setting a "maximum age" object lifecycle policy on the S3 bucket.
 
     Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
 
-        sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
+    ```bash
+    sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
+    ```
 
     The `exit` command will safely exit the Asterisk CLI. Running the `exit` command again will quit the SSH session. 
 
@@ -600,38 +650,50 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
 
 1. List all VMs in this project:
 
-       gcloud compute instances list
+    ```bash
+    gcloud compute instances list
+    ```
 
 2. To delete the "pbx" VM, update `ZONE` if not set already, to reflect what was specified in Step 5:
 
-       ZONE=us-east1-b
-       gcloud compute instances delete pbx --zone $ZONE
+    ```bash
+    ZONE=us-east1-b
+    gcloud compute instances delete pbx --zone $ZONE
+    ```
 
 3. List all the static addresses:
     
-       gcloud compute addresses list
+    ```bash
+    gcloud compute addresses list
+    ```
 
 4. To delete the address named "pbx-external-ip", update `REGION` if not set already, to reflect what was specified in Step 5:
 
-       REGION=us-east1
-       gcloud compute addresses delete pbx-external-ip --region=$REGION
+    ```bash
+    REGION=us-east1
+    gcloud compute addresses delete pbx-external-ip --region=$REGION
+    ```
 
 5. List all firewall rules in this project:
     
-       gcloud compute firewall-rules list
+    ```bash
+    gcloud compute firewall-rules list
+    ```
 
 6. To delete the firewall rules we created earlier:
 
-       gcloud compute firewall-rules delete allow-management-http-icmp
-       gcloud compute firewall-rules delete allow-devices-sip-rtp-udptl
-       gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
-       gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
-       gcloud compute firewall-rules delete allow-t38fax-rtp-udptl
-       gcloud compute firewall-rules delete allow-bulkvs-rtp-udptl
-       gcloud compute firewall-rules delete allow-flowroute-sip
-       gcloud compute firewall-rules delete allow-telnyx-sip
-       gcloud compute firewall-rules delete allow-t38fax-sip
-       gcloud compute firewall-rules delete allow-bulkvs-sip
+    ```bash
+    gcloud compute firewall-rules delete allow-management-http-icmp
+    gcloud compute firewall-rules delete allow-devices-sip-rtp-udptl
+    gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
+    gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
+    gcloud compute firewall-rules delete allow-t38fax-rtp-udptl
+    gcloud compute firewall-rules delete allow-bulkvs-rtp-udptl
+    gcloud compute firewall-rules delete allow-flowroute-sip
+    gcloud compute firewall-rules delete allow-telnyx-sip
+    gcloud compute firewall-rules delete allow-t38fax-sip
+    gcloud compute firewall-rules delete allow-bulkvs-sip
+    ```
 
 <br><br><br><br>
 <a href="https://icons8.com"><img alt="icon credits" align="right" src="./images/icons.png"></a>
