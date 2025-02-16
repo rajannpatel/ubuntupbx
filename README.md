@@ -179,7 +179,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 </details>
 
-<img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
+<br><img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
 
 <details>
 
