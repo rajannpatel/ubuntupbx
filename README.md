@@ -137,6 +137,9 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 ### 3 Steps
 
+| **[STEP 1](#step-1)** | create a disposable, confined, local workspace with Multipass or LXD |
+
+
 **[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
 
 **[STEP 2](#step-2)** &emsp; install and configure Google Cloud CLI in the workspace from Step 1
@@ -160,7 +163,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 <details>
 
-<summary>Set up a cloud-deployment workspace on Windows and macOS</summary>
+<summary>&ensp;Set up a cloud-deployment workspace on Windows and macOS</summary>
 
 <br>On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
 
@@ -184,7 +187,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 <details>
 
-<summary>Set up a cloud-deployment workspace on Linux</summary>
+<summary>&ensp;Set up a cloud-deployment workspace on Linux</summary>
 
 <br>On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
