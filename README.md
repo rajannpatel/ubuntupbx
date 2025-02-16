@@ -86,7 +86,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > FreePBX dependencies (Asterisk, NodeJS, etc) get security patches on Ubuntu until 2034.
 > - Ubuntu Pro: security patching for all open source software on Ubuntu for 10 years
 > - Ubuntu Pro Legacy: extends security patching on Ubuntu 24.04 LTS until April 2036
-> <sub><ul><li>UBUNTU PRO: SECURITY PATCHING FOR ALL OPEN SOURCE SOFTWARE ON UBUNTU FOR 10 YEARS</li></ul></sub>
+> <sub><ul><li>UBUNTU PRO: SECURITY PATCHING FOR ALL OPEN SOURCE SOFTWARE ON UBUNTU FOR 10 YEARS</li></ul></sub><br>
 > <sub><ul><li>UBUNTU PRO LEGACY: EXTENDS SECURITY PATCHING ON UBUNTU 24.04 LTS UNTIL APRIL 2036</li></ul></sub>
 
 2. Install **j2cli** and process the Jinja tags to create a valid YAML file
