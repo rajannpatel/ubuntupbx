@@ -159,8 +159,6 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 
 Instead of installing the Google Cloud CLI software directly on your computer, use containers or VMs for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
 
----
-
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
 <details>
@@ -234,8 +232,8 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 <img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
 
-## STEP 2
-### Install and configure the gcloud CLI in your cloud-deployment workspace
+### STEP 2
+#### Install and configure the gcloud CLI in your cloud-deployment workspace
 
 1.  Install the [gcloud CLI](https://cloud.google.com/sdk/docs/install)
 
@@ -270,8 +268,8 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 <img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
 
-## STEP 3
-### Provision resources and deploy an Ubuntu VM on Google Cloud
+### STEP 3
+#### Provision resources and deploy an Ubuntu VM on Google Cloud
 
 These steps are performed in your cloud-deployment workspace:
 
