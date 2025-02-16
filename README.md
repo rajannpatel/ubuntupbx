@@ -468,9 +468,9 @@ These steps are performed in your cloud-deployment workspace:
 
     <summary>Flowroute</summary>
 
-    ##### RTP and UDPTL ingress rule
+    <br>[Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
 
-    [Flowroute](https://flowroute.com) uses direct media delivery to ensure voice data streams traverse the shortest path between the caller and callee, the `--source-ranges="0.0.0.0/0"` allows inbound RTP and UDPTL traffic from anywhere in the world.
+    ##### RTP and UDPTL ingress rule
 
     ```bash
     gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
@@ -500,9 +500,9 @@ These steps are performed in your cloud-deployment workspace:
 
     <summary>Telnyx</summary>
 
-    ##### RTP and UDPTL ingress rule
+    <br>[Telnyx](https://telnyx.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
-    [Telnyx](https://telnyx.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+    ##### RTP and UDPTL ingress rule
 
     ```bash
     gcloud compute firewall-rules create allow-telnyx-rtp-udptl \
@@ -532,9 +532,9 @@ These steps are performed in your cloud-deployment workspace:
 
     <summary>T38Fax</summary>
 
+    <br>[T38Fax](https://t38fax.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
+    
     ##### RTP and UDPTL ingress rule
-
-    [T38Fax](https://t38fax.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
 
     ```bash
     gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
@@ -564,9 +564,9 @@ These steps are performed in your cloud-deployment workspace:
 
     <summary>BulkVS</summary>
 
-    ##### RTP and UDPTL ingress rule
+    <br>[BulkVS](https://bulkvs.com) proxies all the RTP and UDPTL packets through their network for observability into the quality of the RTP streams.
 
-    [BulkVS](https://bulkvs.com) proxies all the RTP and UDPTL media streams through their network for observability into the quality of the RTP streams.
+    ##### RTP and UDPTL ingress rule
 
     ```bash
     gcloud compute firewall-rules create allow-bulkvs-rtp-udptl \
