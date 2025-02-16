@@ -10,6 +10,14 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 ## Install FreePBX and Asterisk on an existing Ubuntu machine
 
+> [!IMPORTANT]
+> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
+> #### Securely run FreePBX on Ubuntu 24.04 LTS until 2034
+> Asterisk, NodeJS, and other FreePBX dependencies are maintained on Ubuntu until 2034.
+> - Ubuntu Pro includes security patching for all open source software on Ubuntu for 10 years
+> - Ubuntu Pro is FREE for personal use or commercial evaluation on 5 machines
+> <sub>NEXT</sub><p>Get your free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard)</p>
+
 1. Download and edit cloud-init.yaml from this repository.
 
     ```bash
@@ -19,9 +27,6 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
     <details>
 
     <summary>Edit cloud-init.yaml and set configurations between lines 4 and 53.</summary>
-
-    <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches,<br>
-    including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
     ```markdown
     # SET OUR VARIABLES
@@ -80,13 +85,6 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
     <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
-> [!IMPORTANT]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
-> #### Securely run FreePBX on Ubuntu 24.04 LTS until 2034
-> Asterisk, NodeJS, and other FreePBX dependencies are maintained on Ubuntu until 2034.
-> - Ubuntu Pro includes security patching for all open source software on Ubuntu for 10 years
-> - Ubuntu Pro is FREE for personal use or commercial evaluation on 5 machines
-
 2. Install **j2cli** and process the Jinja tags to create a valid YAML file
 
     ```bash
@@ -118,8 +116,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
 > #### Run FreePBX on a FREE Ubuntu virtual machine on Google Cloud
-> - $0 cost to launch, $0 recurring expense to run
-> - personal users spend $0 to keep it secure for 10 years with Ubuntu Pro
+> - $0 cost to launch
+> - $0 recurring expense to run
 > 
 > <sub>NEXT</sub><p>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits</p>
 
