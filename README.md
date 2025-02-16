@@ -161,7 +161,7 @@ Instead of installing the Google Cloud CLI software directly on your computer, u
 
 <summary>Set up a cloud-deployment workspace on Windows and macOS</summary>
 
-On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
+<br>On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on demand.
 
 1. [Install Multipass](https://multipass.run/install)
 
@@ -185,7 +185,7 @@ On Windows and macOS, [Multipass](https://multipass.run/) provides Linux VMs on 
 
 <summary>Set up a cloud-deployment workspace on Linux</summary>
 
-On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
+<br>On Linux, [LXD](https://canonical.com/lxd/) is a system container and VM manager. LXD is built on top of LXC (Linux Containers) but provides a more user-friendly and feature-rich experience. Think of LXD as the tool you use to manage LXC containers, making it easier to create, configure, and run them.
 
 1.  [Install snapd](https://snapcraft.io/docs/installing-snapd) if your Linux doesn't already have it.
 
