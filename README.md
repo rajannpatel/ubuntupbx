@@ -167,7 +167,9 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 ### STEP 1
 #### Set up a cloud-deployment workspace on Windows, macOS, or Linux
 
-Instead of installing the Google Cloud CLI software directly on your computer, use containers or VMs for process isolation and general organization or your local workspace. Multipass or LXD are available options to create a Linux environment for use as your cloud-deployment workspace.
+Step 2 assumes an Ubuntu terminal is available.<br>
+Use an Ubuntu container or VM, and keep your local workspace organized.<br>
+Multipass or LXD will create an Ubuntu environment for use as your cloud-deployment workspace on Windows, macOS, and Linux.
 
 <img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
 
