@@ -121,7 +121,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 > - $0 cost to launch, $0 recurring expense to run
 > - personal users spend $0 to keep it secure for 10 years
 > 
-> <sub>NEXT</sub><br>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits
+> <sub>NEXT</sub><p>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits</p>
 
 ---
 
