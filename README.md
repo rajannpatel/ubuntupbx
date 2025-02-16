@@ -21,6 +21,8 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
 
+### 3 Steps
+
 **STEP 1** &emsp; Download and edit cloud-init.yaml from this repository.
 
 ```bash
@@ -131,6 +133,8 @@ sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do ev
 > <sub>NEXT</sub><p>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits</p>
 
 <img alt="Steps" width="50" src="./images/icons8-steps-100.png" />
+
+### 3 Steps
 
 **[STEP 1](#step-1)** &emsp; create a disposable, confined, local workspace with Multipass or LXD
 
