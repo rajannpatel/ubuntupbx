@@ -601,7 +601,10 @@ These steps are performed in your cloud-deployment workspace:
     
         gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     
-13. First time gcloud CLI users will be prompted for a passphrase twice. This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
+13. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
+
+    -  First time gcloud CLI users will be prompted for a passphrase twice
+    -  This password can be left blank, press <kbd>Enter</kbd> twice to proceed:
     
     > ```text
     > WARNING: The private SSH key file for gcloud does not exist.
