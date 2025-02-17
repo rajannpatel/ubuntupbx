@@ -643,10 +643,10 @@ These steps are performed in your cloud-deployment workspace.
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-17. Access the web portal to set up Trunks and Extensions
+16. Access the web portal to set up Trunks and Extensions
 
     -  These commands will print the web portal links in the terminal
-    -  <kbd>CTRL</kbd> click the link to open
+    -  <kbd>CTRL</kbd> click the link to open<br><br>
 
     ```bash
     dig +short -x $(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)') | sed 's/\.$//; s/^/http:\/\//'
@@ -685,7 +685,9 @@ These steps are performed in your cloud-deployment workspace.
     @daily gcloud storage rsync /var/spool/asterisk/monitor gs://example-bucket-name/monitor --recursive
     ```
 
-    Use Google Cloud Storage for FreePBX backups, and storing call recordings, if you choose to record your calls. There is no need to retain more than 1 copy of your FreePBX backups on your Ubuntu virtual machine, because the backups are retained externally in a Google Cloud Storage S3 Bucket. Delete stale backups from the S3 bucket on a schedule of your choosing by setting a "maximum age" object lifecycle policy on the S3 bucket.
+    -  FreePBX artifacts such as backups and call recordings (if enabled) will be pruned on a schedule through crontab entries for the "root" user.
+    -  A Google Cloud Storage S3 Bucket is a suitable location for long term external storage of this data.
+    -  Delete stale backups and recordings from the S3 bucket on a schedule with "maximum age" object lifecycle policies.
 
     Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
 
