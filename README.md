@@ -41,7 +41,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 58.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 58.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -423,7 +423,7 @@ These steps are performed in your cloud-deployment workspace.
     
     </details>
 
-8. Create an e2-micro VM named "pbx". [Other VM types](https://cloud.google.com/compute/docs/machine-resource) cost money:
+8. Create a free-tier e2-micro VM named "pbx", [other VM types](https://cloud.google.com/compute/docs/machine-resource) cost money.
     
     ```bash
     gcloud compute instances create pbx \
@@ -441,7 +441,7 @@ These steps are performed in your cloud-deployment workspace.
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces). For example: `192.178.0.0/15,142.251.47.238`
 >
-> `$(wget -qO- http://checkip.amazonaws.com)` retrieves the globally routable IPv4 address of the machine where the command is run, using an Amazon AWS service. It appears in some commands below, as a convenience.
+> `$(wget -qO- http://checkip.amazonaws.com)` retrieves the globally routable IPv4 address of the machine where the command is run, using an Amazon AWS service. It appears in some commands below, as a convenience, but can be replaced with manually specified IPs.
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
