@@ -261,17 +261,21 @@ runcmd:
 {% if RESTORE_BACKUP == 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
   - echo "DELETE FROM ampusers;" | fwconsole mysql
   - echo "DELETE FROM kvstore_OOBE;" | fwconsole mysql
+# Configure FoIP Trunks and Outbound Routes
 {% if not enable_T38Fax %}
-  - echo "use asterisk; delete from trunks where trunkid='9'; delete from pjsip where id='9';" | fwconsole mysql
+  - echo "use asterisk; DELETE FROM trunks where trunkid='9'; DELETE FROM pjsip where id='9';" | fwconsole mysql
+{% else %}
+  - echo "use asterisk; INSERT INTO outbound_route_trunks (route_id, trunk_id, seq) VALUES (12, 9, 0);" | fwconsole mysql
 {% endif %}
+# Configure VoIP Trunks and Outbound Routes
 {% if not enable_Flowroute %}
-  - echo "use asterisk; delete from trunks where trunkid='10'; delete from pjsip where id='10';" | fwconsole mysql
+  - echo "use asterisk; DELETE FROM trunks where trunkid='10'; DELETE FROM pjsip where id='10';" | fwconsole mysql
 {% endif %}
 {% if not enable_Telnyx %}
-  - echo "use asterisk; delete from trunks where trunkid='11'; delete from pjsip where id='11';" | fwconsole mysql
+  - echo "use asterisk; DELETE FROM trunks where trunkid='11'; DELETE FROM pjsip where id='11';" | fwconsole mysql
 {% endif %}
 {% if not enable_BulkVS %}
-  - echo "use asterisk; delete from trunks where trunkid='12'; delete from pjsip where id='12';" | fwconsole mysql
+  - echo "use asterisk; DELETE FROM trunks where trunkid='12'; DELETE FROM pjsip where id='12';" | fwconsole mysql
 {% endif %}
 {% endif %}
   - echo "INSERT INTO sipsettings (keyword, data) VALUES ('t38pt_udptl', 'redundancy') ON DUPLICATE KEY UPDATE data = 'redundancy';" | fwconsole mysql
