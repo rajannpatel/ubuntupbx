@@ -186,7 +186,7 @@ runcmd:
   - apt-get remove ufw -y
   - apt-get purge ufw -y
 # Oracle uses iptables
-  - iptables -L | grep -q -v '^Chain' && iptables -F && netfilter-persistent save || echo "No iptables rules found; skipping commands."
+  - iptables -L | grep -q -v '^Chain' && iptables -F && netfilter-persistent save || echo "No iptables rules found"
 # fallocate -l 2G of space for swap file
   - fallocate -l 2G /swapfile
 # Set permission of the swap file to be readable and writable only by the owner  
@@ -276,6 +276,7 @@ runcmd:
 {% endif %}
   - echo "INSERT INTO sipsettings (keyword, data) VALUES ('t38pt_udptl', 'redundancy') ON DUPLICATE KEY UPDATE data = 'redundancy';" | fwconsole mysql
   - fwconsole chown
+  - fwconsole reload
   - fwconsole restart
   - echo "cloud-init RUNCMD COMPLETED AT $(date)"
   - reboot
