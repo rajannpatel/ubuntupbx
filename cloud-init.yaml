@@ -258,6 +258,7 @@ runcmd:
   - curl -L -o /var/spool/asterisk/backup/restored-at-first-boot.tar.gz {{ RESTORE_BACKUP }}
   - fwconsole backup --restore='/var/spool/asterisk/backup/restored-at-first-boot.tar.gz'
 {% endif %}
+# ubuntupbx.core.backup.tar.gz LOGIC BEGIN
 {% if RESTORE_BACKUP == 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
   - echo "DELETE FROM ampusers;" | fwconsole mysql
   - echo "DELETE FROM kvstore_OOBE;" | fwconsole mysql
@@ -278,6 +279,7 @@ runcmd:
   - echo "use asterisk; DELETE FROM trunks where trunkid='12'; DELETE FROM pjsip where id='12';" | fwconsole mysql
 {% endif %}
 {% endif %}
+# ubuntupbx.core.backup.tar.gz LOGIC END
   - echo "INSERT INTO sipsettings (keyword, data) VALUES ('t38pt_udptl', 'redundancy') ON DUPLICATE KEY UPDATE data = 'redundancy';" | fwconsole mysql
   - fwconsole chown
   - fwconsole reload
