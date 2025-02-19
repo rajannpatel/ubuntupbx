@@ -314,13 +314,13 @@ runcmd:
 {% endif %}
   - crontab /root/schedule.txt && rm /root/schedule.txt
   - mkdir -p /var/spool/asterisk/backup && chown asterisk:asterisk /var/spool/asterisk/backup
+# prepare the system for fail2ban
+  - curl -L -o /var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.asterisklogs.backup.tar.gz
+  - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz'
 {% if RESTORE_BACKUP %}
   - curl -L -o /var/spool/asterisk/backup/restored-at-first-boot.tar.gz {{ RESTORE_BACKUP }}
   - fwconsole backup --restore='/var/spool/asterisk/backup/restored-at-first-boot.tar.gz'
 {% endif %}
-# prepare the system for fail2ban
-  - curl -L -o /var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.asterisklogs.backup.tar.gz
-  - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz'
 # ubuntupbx.core.backup.tar.gz LOGIC BEGIN
 {% if RESTORE_BACKUP == 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
   - echo "DELETE FROM ampusers;" | fwconsole mysql
