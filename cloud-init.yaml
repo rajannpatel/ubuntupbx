@@ -101,6 +101,22 @@ write_files:
       Description = ODBC for MySQL (MariaDB)
       Driver = libmaodbc.so
       FileUsage = 1
+  - path: /etc/logrotate.d/asterisk-custom
+    permissions: "0644"
+    content: |
+      /var/log/asterisk/backup*.log {
+          weekly
+          missingok
+          rotate 0
+          maxage 7
+          su asterisk asterisk
+      }
+      /var/log/asterisk/freepbx.log {
+          daily
+          missingok
+          rotate 3
+          su asterisk asterisk
+      }
   - path: /root/schedule.txt
     permissions: "0644"
     content: |
