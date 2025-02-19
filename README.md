@@ -90,8 +90,8 @@ nano cloud-init-jinja.yaml
 {% set enable_Telnyx = false %}     # https://telnyx.com
 {% set enable_BulkVS = true %}      # https://bulkvs.com
 
-# FAIL2BAN_IGNOREIPS should never be banned - include SIP provider IPs and your own static IPs
-{% set FAIL2BAN_IGNOREIPS = '8.20.91.0/24 130.51.64.0/22 8.34.182.0/24 162.249.171.198 23.190.16.198 76.8.29.198' %}
+# FAIL2BAN_IGNOREIPS that should never be blocked from accessing this server (protection against IP Spoofing attacks)
+{% set FAIL2BAN_IGNOREIPS = '' %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -525,6 +525,13 @@ These steps are performed in your cloud-deployment workspace.
         --description="T38Fax SIP Signaling"
     ```
 
+    ##### Fail2Ban IP Spoofing attack protection
+
+    ```bash
+    IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    ```
+
     </details>
 
     <details>
@@ -555,6 +562,13 @@ These steps are performed in your cloud-deployment workspace.
         --source-ranges="34.210.91.112/28,34.226.36.32/28,16.163.86.112/30,3.0.5.12/30,3.8.37.20/30,3.71.103.56/30,18.228.70.48/30" \
         --rules="udp:5060" \
         --description="Flowroute SIP Signaling"
+    ```
+
+    ##### Fail2Ban IP Spoofing attack protection
+
+    ```bash
+    IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
     ```
 
     </details>
@@ -589,6 +603,13 @@ These steps are performed in your cloud-deployment workspace.
         --description="Telnyx SIP Signaling"
     ```
 
+    ##### Fail2Ban IP Spoofing attack protection
+
+    ```bash
+    IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    ```
+
     </details>
 
     <details>
@@ -619,6 +640,13 @@ These steps are performed in your cloud-deployment workspace.
         --source-ranges="162.249.171.198,23.190.16.198,76.8.29.198" \
         --rules="udp:5060" \
         --description="BulkVS SIP Signaling"
+    ```
+
+    ##### Fail2Ban IP Spoofing attack protection
+
+    ```bash
+    IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
     ```
 
     </details>

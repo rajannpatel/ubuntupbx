@@ -47,8 +47,8 @@
 {% set enable_Telnyx = false %}     # https://telnyx.com
 {% set enable_BulkVS = true %}      # https://bulkvs.com
 
-# FAIL2BAN_IGNOREIPS should never be banned - include SIP provider IPs and your own static IPs
-{% set FAIL2BAN_IGNOREIPS = '8.20.91.0/24 130.51.64.0/22 8.34.182.0/24 162.249.171.198 23.190.16.198 76.8.29.198' %}
+# FAIL2BAN_IGNOREIPS that should never be blocked from accessing this server (protection against IP Spoofing attacks)
+{% set FAIL2BAN_IGNOREIPS = '' %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
