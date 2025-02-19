@@ -471,14 +471,16 @@ These steps are performed in your cloud-deployment workspace.
         --description="Access FreePBX via web and ping"
     ```
 
-10. Prevent fail2ban from accidentally banning the management IP(s). If it is necessary to populate the IP variable with multiple IPs, separate each IP with a space, but *no* commas.<br> For example: `192.178.0.0/15 142.251.47.238`
+    ##### Prevent fail2ban from accidentally banning the management IP(s)
+    
+    If it is necessary to populate the IP variable with multiple IPs, separate each IP with a space, but *no* commas.<br>For example: `192.178.0.0/15 142.251.47.238`
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
     gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
     ```
 
-11. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
+10. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
 
     ```bash
     gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
@@ -490,7 +492,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
 
-12. Permit ingress traffic from VoIP and/or FoIP SIP Trunk provider(s)
+11. Permit ingress traffic from VoIP and/or FoIP SIP Trunk provider(s)
 
     - allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges
     - allow SIP signaling for inbound calls when using IP authentication<br><br>
@@ -651,13 +653,13 @@ These steps are performed in your cloud-deployment workspace.
 
     </details>
 
-13. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
+12. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
     ```bash
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-14. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
+13. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
 
     -  First time gcloud CLI users will be prompted for a passphrase twice
     -  This password can be left blank, press <kbd>Enter</kbd> twice to proceed:<br><br>
@@ -672,7 +674,7 @@ These steps are performed in your cloud-deployment workspace.
     > Enter same passphrase again:
     > ```
     
-15. This line indicates security patches were applied, and a reboot is required
+14. This line indicates security patches were applied, and a reboot is required
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
@@ -684,13 +686,13 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-16. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
+15. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-17. Access the web portal to set up Trunks and Extensions
+16. Access the web portal to set up Trunks and Extensions
 
     -  These commands will print the web portal links in the terminal
     -  <kbd>CTRL</kbd> click the link to open<br><br>
@@ -703,7 +705,7 @@ These steps are performed in your cloud-deployment workspace.
     echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
     ```    
 
-18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
+17. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE
