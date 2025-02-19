@@ -125,6 +125,7 @@ write_files:
     permissions: '0644'
     content: |
       [DEFAULT]
+      ignoreip = {{ FAIL2BAN_IGNOREIPS }}
   - path: /var/log/asterisk/asterisk_security.log
     permissions: '0664'
     content: |
@@ -305,8 +306,6 @@ runcmd:
   - sed -i 's|Socket=/var/lib/mysql/mysql.sock|Socket=/run/mysqld/mysqld.sock|' /etc/odbc.ini
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
   - systemctl enable freepbx
-{% if FAIL2BAN_IGNOREIPS %}
-  - sed -i '/^\[DEFAULT\]$/a ignoreip = {{ FAIL2BAN_IGNOREIPS }}' /etc/fail2ban/jail.local
 {% endif %}
 {% if NOTIFICATION_EMAIL %}
   - sed -i '1i MAILTO={{ NOTIFICATION_EMAIL }}' /root/schedule.txt
