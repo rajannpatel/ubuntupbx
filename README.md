@@ -471,7 +471,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Access FreePBX via web and ping"
     ```
 
-10. Prevent fail2ban from accidentally banning the management IP(s)<br>separate IPs with spaces (but no commas). For example: `192.178.0.0/15 142.251.47.238`
+10. Prevent fail2ban from accidentally banning the management IP(s). If it is necessary to populate the IP variable with multiple IPs, separate each IP with a space, but *no* commas.<br> For example: `192.178.0.0/15 142.251.47.238`
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
