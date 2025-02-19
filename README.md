@@ -471,10 +471,10 @@ These steps are performed in your cloud-deployment workspace.
         --description="Access FreePBX via web and ping"
     ```
 
-10. Prevent fail2ban from accidentally banning the management IP(s)
+10. Prevent fail2ban from accidentally banning the management IP(s)<br>separate IPs with spaces (but no commas). For example: `192.178.0.0/15 142.251.47.238`
 
     ```bash
-    IP=$(wget -qO- http://checkip.amazonaws.com) # IPs separated by spaces are OK, CIDR notation is accepted
+    IP=$(wget -qO- http://checkip.amazonaws.com)
     gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
     ```
 
