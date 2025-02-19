@@ -70,8 +70,8 @@ nano cloud-init-jinja.yaml
 {% set SMTP_USERNAME = '' %}
 {% set SMTP_PASSWORD = '' %}
 
-# CRONTAB_EMAIL address for daily crontab notifications
-{% set CRONTAB_EMAIL = 'youremail@example.com' %}
+# NOTIFICATION_EMAIL address for daily crontab notifications
+{% set NOTIFICATION_EMAIL = 'youremail@example.com' %}
 
 # HOSTNAME and FQDN are used by Postfix, and necessary for Sendgrid
 # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
@@ -89,6 +89,9 @@ nano cloud-init-jinja.yaml
 {% set enable_Flowroute = false %}  # https://flowroute.com
 {% set enable_Telnyx = false %}     # https://telnyx.com
 {% set enable_BulkVS = true %}      # https://bulkvs.com
+
+# FAIL2BAN_IGNOREIPS should never be banned - include SIP provider IPs and your own static IPs
+{% set FAIL2BAN_IGNOREIPS = '8.20.91.0/24 130.51.64.0/22 8.34.182.0/24 162.249.171.198 23.190.16.198 76.8.29.198' %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -390,8 +393,8 @@ These steps are performed in your cloud-deployment workspace.
     {% set SMTP_USERNAME = '' %}
     {% set SMTP_PASSWORD = '' %}
 
-    # CRONTAB_EMAIL address for daily crontab notifications
-    {% set CRONTAB_EMAIL = 'youremail@example.com' %}
+    # NOTIFICATION_EMAIL address for daily crontab notifications
+    {% set NOTIFICATION_EMAIL = 'youremail@example.com' %}
 
     # HOSTNAME and FQDN are used by Postfix, and necessary for Sendgrid
     # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
@@ -409,6 +412,9 @@ These steps are performed in your cloud-deployment workspace.
     {% set enable_Flowroute = false %}  # https://flowroute.com
     {% set enable_Telnyx = false %}     # https://telnyx.com
     {% set enable_BulkVS = true %}      # https://bulkvs.com
+
+    # FAIL2BAN_IGNOREIPS should never be banned - include SIP provider IPs and your own static IPs
+    {% set FAIL2BAN_IGNOREIPS = '8.20.91.0/24 130.51.64.0/22 8.34.182.0/24 162.249.171.198 23.190.16.198 76.8.29.198' %}
 
     # TIMEZONE: default value is fine
     # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -452,10 +458,6 @@ These steps are performed in your cloud-deployment workspace.
 > | [Optimum Online's Altice Fiber](https://search.arin.net/rdap/?query=174.96.0.0)  | `24.184.0.0/14`  |
 > | [Verizon Wireless 5G Home Internet](https://search.arin.net/rdap/?query=75.192.0.0)  | `75.192.0.0/10`  |
 > | [Google Fiber](https://search.arin.net/rdap/?query=136.32.0.0)  | `136.32.0.0/11`  |
-
-> [!CAUTION]
-> <img align="right" alt="Caution Sign" width="50" src="./images/icons8-caution-100.png" />
-> Allowing broad permissions to entire CIDR blocks of an ISP increases the attack surface of your FreePBX installation, monitoring SIP registrations with fail2ban and not allowing broad access to the management interface on TCP Port 80 is recommended.
 
 9. Permit ingress HTTP for management and optionally ICMP for ping replies
 

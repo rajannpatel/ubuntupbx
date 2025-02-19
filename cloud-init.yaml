@@ -27,8 +27,8 @@
 {% set SMTP_USERNAME = '' %}
 {% set SMTP_PASSWORD = '' %}
 
-# CRONTAB_EMAIL address for daily crontab notifications
-{% set CRONTAB_EMAIL = 'youremail@example.com' %}
+# NOTIFICATION_EMAIL address for daily crontab notifications
+{% set NOTIFICATION_EMAIL = 'youremail@example.com' %}
 
 # HOSTNAME and FQDN are used by Postfix, and necessary for Sendgrid
 # HOSTNAME: subdomain of FQDN (e.g. `server` for `server.example.com`)
@@ -46,6 +46,9 @@
 {% set enable_Flowroute = false %}  # https://flowroute.com
 {% set enable_Telnyx = false %}     # https://telnyx.com
 {% set enable_BulkVS = true %}      # https://bulkvs.com
+
+# FAIL2BAN_IGNOREIPS should never be banned - include SIP provider IPs and your own static IPs
+{% set FAIL2BAN_IGNOREIPS = '8.20.91.0/24 130.51.64.0/22 8.34.182.0/24 162.249.171.198 23.190.16.198 76.8.29.198' %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -70,7 +73,7 @@ fqdn: {{ FQDN }}
 
 users:
   - name: asterisk
-    gecos: "Asterisk User"
+    gecos: 'Asterisk User'
     groups: users
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     shell: /bin/bash
@@ -78,11 +81,11 @@ users:
 
 write_files:
   - path: /etc/postfix/sasl_passwd
-    permissions: "0400"
+    permissions: '0400'
     content: |
       [{{ SMTP_HOST }}]:{{ SMTP_PORT }} {{ SMTP_USERNAME }}:{{ SMTP_PASSWORD }}
   - path: /etc/systemd/system/freepbx.service
-    permissions: "0644"
+    permissions: '0644'
     content: |
       [Unit]
       Description=FreePBX
@@ -95,14 +98,14 @@ write_files:
       [Install]
       WantedBy=multi-user.target
   - path: /etc/odbcinst.ini
-    permissions: "0644"
+    permissions: '0644'
     content: |
       [MySQL]
       Description = ODBC for MySQL (MariaDB)
       Driver = libmaodbc.so
       FileUsage = 1
   - path: /etc/logrotate.d/asterisk-custom
-    permissions: "0644"
+    permissions: '0644'
     content: |
       /var/log/asterisk/backup*.log {
           weekly
@@ -114,11 +117,51 @@ write_files:
       /var/log/asterisk/core*.log /var/log/asterisk/freepbx*.log {
           daily
           missingok
+          copytruncate
           rotate 3
           su asterisk asterisk
       }
+  - path: /etc/fail2ban/jail.local
+    permissions: '0644'
+    content: |
+      [DEFAULT]
+  - path: /var/log/asterisk/asterisk_security.log
+    permissions: '0664'
+    content: |
+      ---LOG BEGINS---
+  - path: /var/log/asterisk/freepbx_security.log
+    permissions: '0664'
+    content: |
+      ---LOG BEGINS---
+  - path: /etc/fail2ban/jail.d/asterisk-jail.conf
+    permissions: '0644'
+    content: |
+      [asterisk-jail]
+      enabled = true
+      filter = asterisk
+      backend = auto
+      logpath = /var/log/asterisk/asterisk_security.log
+      maxretry = 3
+      findtime = 120
+      bantime = 1h
+  - path: /etc/fail2ban/jail.d/freepbx-jail.conf
+    permissions: '0644'
+    content: |
+      [freepbx-jail]
+      enabled = true
+      backend = auto
+      logpath  = /var/log/asterisk/freepbx_security.log
+      maxretry = 3
+      findtime = 120
+      bantime = 1h
+  - path: /etc/fail2ban/filter.d/freepbx-jail.conf
+    permissions: '0644'
+    content: |
+      [Definition]
+      failregex = ^\[.*\] \[freepbx_security\.NOTICE\]: Authentication failure for .* from <HOST> .*$
+      ignoreregex =
   - path: /root/schedule.txt
-    permissions: "0644"
+    permissions: '0644'
     content: |
       @daily (find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor -type f -size 44c -delete)
       @daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete
@@ -182,6 +225,7 @@ packages:
   - asterisk-moh-opsound-wav
   - asterisk-moh-opsound-gsm
   - asterisk-moh-opsound-g722
+  - fail2ban
 
 runcmd:
 # for Ubuntu Pro enabled public cloud images, where a token may not be provided by the user
@@ -197,11 +241,7 @@ runcmd:
   - sed -i 's|^//\s*Unattended-Upgrade::Automatic-Reboot\s*".*";|Unattended-Upgrade::Automatic-Reboot "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
   - sed -i 's|^//\s*Unattended-Upgrade::Automatic-Reboot-WithUsers\s*".*";|Unattended-Upgrade::Automatic-Reboot-WithUsers "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
   - sed -i 's|^//\s*Unattended-Upgrade::Automatic-Reboot-Time\s*".*";|Unattended-Upgrade::Automatic-Reboot-Time "{{ SECURITY_REBOOT_TIME }}";|' /etc/apt/apt.conf.d/50unattended-upgrades
-# public cloud and LXD images have ufw
-  - ufw disable
-  - apt-get remove ufw -y
-  - apt-get purge ufw -y
-# Oracle uses iptables
+# Erase Oracle Cloud's default restrictive iptables rules
   - iptables -L | grep -q -v '^Chain' && iptables -F && netfilter-persistent save || echo "No iptables rules found"
 # fallocate -l 2G of space for swap file
   - fallocate -l 2G /swapfile
@@ -265,15 +305,22 @@ runcmd:
   - sed -i 's|Socket=/var/lib/mysql/mysql.sock|Socket=/run/mysqld/mysqld.sock|' /etc/odbc.ini
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
   - systemctl enable freepbx
-{% if CRONTAB_EMAIL %}
-  - sed -i '1i MAILTO={{ CRONTAB_EMAIL }}' /root/schedule.txt
+{% if FAIL2BAN_IGNOREIPS %}
+  - sed -i '/^\[DEFAULT\]$/a ignoreip = {{ FAIL2BAN_IGNOREIPS }}' /etc/fail2ban/jail.local
+{% endif %}
+{% if NOTIFICATION_EMAIL %}
+  - sed -i '1i MAILTO={{ NOTIFICATION_EMAIL }}' /root/schedule.txt
+  - sed -i '/^\[DEFAULT\]$/a destemail = {{ NOTIFICATION_EMAIL }}\nsender = {{ NOTIFICATION_EMAIL }}\nmta = mail' /etc/fail2ban/jail.local
 {% endif %}
   - crontab /root/schedule.txt && rm /root/schedule.txt
-{% if RESTORE_BACKUP %}
   - mkdir -p /var/spool/asterisk/backup && chown asterisk:asterisk /var/spool/asterisk/backup
+{% if RESTORE_BACKUP %}
   - curl -L -o /var/spool/asterisk/backup/restored-at-first-boot.tar.gz {{ RESTORE_BACKUP }}
   - fwconsole backup --restore='/var/spool/asterisk/backup/restored-at-first-boot.tar.gz'
 {% endif %}
+# prepare the system for fail2ban
+  - curl -L -o /var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.asterisklogs.backup.tar.gz
+  - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz'
 # ubuntupbx.core.backup.tar.gz LOGIC BEGIN
 {% if RESTORE_BACKUP == 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
   - echo "DELETE FROM ampusers;" | fwconsole mysql
