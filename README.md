@@ -143,7 +143,8 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo cloud-init single --name apt_configure --file cloud-init.yaml
     sudo cloud-init single --name package-update-upgrade-install --file cloud-init.yaml
     sudo snap install yq
-    sudo bash -c 'while read -r cmd; do echo -e "\n\nExecuting: $cmd"; $cmd; done < <(yq -r ".runcmd[]" cloud-init.yaml)'
+    yq -r '.runcmd[]' cloud-init.yaml | awk 'NR==1 {print "#!/bin/bash\nset -euxo pipefail"} {print}' > runcmd.sh
+    chmod +x runcmd.sh && sudo ./runcmd.sh
     ```
 
 2. Configure fail2ban firewall automations
