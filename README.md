@@ -128,33 +128,68 @@ j2 cloud-init-jinja.yaml > cloud-init.yaml
 <img alt="Apply cloud-init" width="50" src="./images/icons8-cloud-file-100.png" />
 
 ### STEP 3
-Install FreePBX using the cloud-init.yaml file
+Install FreePBX using the cloud-init.yaml file, and configure firewall automations
 
-```bash
-sudo cloud-init clean && sudo cloud-init init --local
-sudo cloud-init single --name ubuntu_pro --file cloud-init.yaml
-sudo cloud-init single --name timezone --file cloud-init.yaml
-sudo cloud-init single --name set_hostname --file cloud-init.yaml
-sudo cloud-init single --name update_hostname --file cloud-init.yaml
-sudo cloud-init single --name users_groups --file cloud-init.yaml
-sudo cloud-init single --name write_files --file cloud-init.yaml
-sudo cloud-init single --name apt_configure --file cloud-init.yaml
-sudo cloud-init single --name package-update-upgrade-install --file cloud-init.yaml
-sudo snap install yq
-sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
-```
+1. Install FreePBX
 
-<!-- Secure the installation with fail2ban
+    ```bash
+    sudo cloud-init clean && sudo cloud-init init --local
+    sudo cloud-init single --name ubuntu_pro --file cloud-init.yaml
+    sudo cloud-init single --name timezone --file cloud-init.yaml
+    sudo cloud-init single --name set_hostname --file cloud-init.yaml
+    sudo cloud-init single --name update_hostname --file cloud-init.yaml
+    sudo cloud-init single --name users_groups --file cloud-init.yaml
+    sudo cloud-init single --name write_files --file cloud-init.yaml
+    sudo cloud-init single --name apt_configure --file cloud-init.yaml
+    sudo cloud-init single --name package-update-upgrade-install --file cloud-init.yaml
+    sudo snap install yq
+    sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
+    ```
 
---- use details ---
-[Prevent fail2ban from accidentally banning the management IPs](#prevent-fail2ban-from-accidentally-banning-the-management-ips)
+2. Configure fail2ban firewall automations
 
---- use details ---
-show fail2ban rules
+    ##### Prevent fail2ban from accidentally banning the management IP(s)
+    
+    If it is necessary to populate the IP variable with multiple IPs, separate each IP with a space, but *no* commas.<br>For example: `192.178.0.0/15 142.251.47.238`
 
+    ```bash
+    IP=$(wget -qO- http://checkip.amazonaws.com)
+    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    ```
 
-AND THEN TEST THE CLOUD INIT INSTALL ON GCLOUD. WORKS IN LXD BUT NOT IN GCP!? -->
+    <details>
 
+    <summary>&ensp;Prevent IP spoofing attacks from triggering fail2ban rules against VoIP and FoIP connections<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+
+    ##### T38Fax
+
+    ```bash
+    IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    ```
+
+    ##### Flowroute
+
+    ```bash
+    IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    ```
+
+    ##### Telnyx
+
+    ```bash
+    IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    ```
+
+    ##### BulkVS
+
+    ```bash
+    IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
+    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    ```
+
+    </details>
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
