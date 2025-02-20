@@ -159,30 +159,30 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     <details>
 
-    <summary>&ensp;Prevent IP spoofing attacks from triggering fail2ban rules against VoIP and FoIP connections<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;IP spoofing attack safeguards<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-    ##### T38Fax
+    ##### T38Fax fail2ban allow list
 
     ```bash
     IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
     sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
-    ##### Flowroute
+    ##### Flowroute fail2ban allow list
 
     ```bash
     IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
     sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
-    ##### Telnyx
+    ##### Telnyx fail2ban allow list
 
     ```bash
     IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
     sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
-    ##### BulkVS
+    ##### BulkVS fail2ban allow list
 
     ```bash
     IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
