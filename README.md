@@ -150,7 +150,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     ##### Prevent fail2ban from accidentally banning the management IP(s)
     
-    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>EXAMPLE<br>`IP=192.178.0.0/15 142.251.47.238`</sub>
+    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
@@ -492,7 +492,7 @@ These steps are performed in your cloud-deployment workspace.
 
 > [!NOTE]
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
-> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces).<br><sub>EXAMPLE: `192.178.0.0/15,142.251.47.238`</sub>
+> In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces).<br><sub>&ensp;EXAMPLE<br>&ensp;`192.178.0.0/15,142.251.47.238`</sub>
 >
 > `$(wget -qO- http://checkip.amazonaws.com)` retrieves the globally routable IPv4 address of the machine where the command is run, using an Amazon AWS service. It appears in some commands below, as a convenience, but can be replaced with manually specified IPs.
 
@@ -520,7 +520,7 @@ These steps are performed in your cloud-deployment workspace.
 
     ##### Prevent fail2ban from accidentally banning the management IP(s)
     
-    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>EXAMPLE<br>`IP=192.178.0.0/15 142.251.47.238`</sub>
+    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
