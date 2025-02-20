@@ -150,7 +150,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     ##### Prevent fail2ban from accidentally banning the management IP(s)
     
-    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>EXAMPLE: `192.178.0.0/15 142.251.47.238`</sub>
+    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>EXAMPLE<br>`IP=192.178.0.0/15 142.251.47.238`</sub>
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
@@ -520,7 +520,7 @@ These steps are performed in your cloud-deployment workspace.
 
     ##### Prevent fail2ban from accidentally banning the management IP(s)
     
-    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>EXAMPLE: `192.178.0.0/15 142.251.47.238`</sub>
+    `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>EXAMPLE<br>`IP=192.178.0.0/15 142.251.47.238`</sub>
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
