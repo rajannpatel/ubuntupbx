@@ -149,9 +149,11 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 2. Configure fail2ban firewall automations
 
-    ##### fail2ban safeguard to prevent banning management IP(s)
+    ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
     
-    Set the `IP` variable with all public IPv4 addresses from where management will occur. Separate each IP with a space, do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
+    - Set the `IP` variable with all public IPv4 addresses from where softphone or ATA registrations, or management will occur.
+    - Separate each IP with a space
+    - do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
 
     ```bash
     IP=
@@ -530,9 +532,11 @@ These steps are performed in your cloud-deployment workspace.
         --description="Access FreePBX via web and ping"
     ```
 
-    ##### fail2ban safeguard to prevent banning management IP(s)
+    ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
     
-    Set the `IP` variable with all public IPv4 addresses from where management will occur. Separate each IP with a space, do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
+    - Set the `IP` variable with all public IPv4 addresses from where softphone or ATA registrations, or management will occur.
+    - Separate each IP with a space
+    - do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
