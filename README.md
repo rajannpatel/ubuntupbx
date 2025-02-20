@@ -148,7 +148,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 2. Configure fail2ban firewall automations
 
-    ##### Prevent fail2ban from accidentally banning the management IP(s)
+    ##### fail2ban safeguard from banning management IP(s)
     
     `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
 
@@ -159,7 +159,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     <details>
 
-    <summary>&ensp;IP spoofing attack safeguards<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;fail2ban safeguards against IP spoofing attacks<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     ##### T38Fax fail2ban allow list
 
@@ -461,7 +461,7 @@ These steps are performed in your cloud-deployment workspace.
     {% set enable_BulkVS = true %}      # https://bulkvs.com
 
     # FAIL2BAN_IGNOREIPS should never be banned - include SIP provider IPs and your own static IPs
-    {% set FAIL2BAN_IGNOREIPS = '8.20.91.0/24 130.51.64.0/22 8.34.182.0/24 162.249.171.198 23.190.16.198 76.8.29.198' %}
+    {% set FAIL2BAN_IGNOREIPS = '' %}
 
     # TIMEZONE: default value is fine
     # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -518,7 +518,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Access FreePBX via web and ping"
     ```
 
-    ##### Prevent fail2ban from accidentally banning the management IP(s)
+    ##### fail2ban safeguard from banning management IP(s)
     
     `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
 
@@ -574,7 +574,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="T38Fax SIP Signaling"
     ```
 
-    ##### Fail2Ban IP Spoofing attack protection
+    ##### fail2ban safeguard against IP spoofing attacks
 
     ```bash
     IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
@@ -613,7 +613,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Flowroute SIP Signaling"
     ```
 
-    ##### Fail2Ban IP Spoofing attack protection
+    ##### fail2ban safeguard against IP spoofing attacks
 
     ```bash
     IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
@@ -652,7 +652,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Telnyx SIP Signaling"
     ```
 
-    ##### Fail2Ban IP Spoofing attack protection
+    ##### fail2ban safeguard against IP spoofing attacks
 
     ```bash
     IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
@@ -691,7 +691,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="BulkVS SIP Signaling"
     ```
 
-    ##### Fail2Ban IP Spoofing attack protection
+    ##### fail2ban safeguard against IP spoofing attacks
 
     ```bash
     IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
