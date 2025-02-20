@@ -156,41 +156,52 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     ```bash
     IP=
     sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo fail2ban-client reload
     ```
 
     <details>
 
     <summary>&ensp;fail2ban safeguards against IP spoofing attacks<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-    ##### T38Fax fail2ban allow list
+    ##### T38Fax &ensp; sip.t38fax.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
     sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo fail2ban-client reload
     ```
 
-    ##### Flowroute fail2ban allow list
+    ##### Flowroute &ensp; us-east-va.sip.flowroute.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
     sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo fail2ban-client reload
     ```
 
-    ##### Telnyx fail2ban allow list
+    ##### Telnyx &ensp; sip.telnyx.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
     sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo fail2ban-client reload
     ```
 
-    ##### BulkVS fail2ban allow list
+    ##### BulkVS &ensp; sip.bulkvs.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
     sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo fail2ban-client reload
     ```
 
     </details>
+
+    List all IPs banned by fail2ban
+
+    ```bash
+    sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
+    ```
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
@@ -525,7 +536,8 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     IP=$(wget -qO- http://checkip.amazonaws.com)
-    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
 10. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
@@ -579,7 +591,8 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
     </details>
@@ -618,7 +631,8 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
     </details>
@@ -657,7 +671,8 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
     </details>
@@ -696,10 +711,17 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
     </details>
+
+    List all IPs banned by fail2ban
+
+    ```bash
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
+    ```
 
 12. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
