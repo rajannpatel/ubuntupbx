@@ -165,28 +165,28 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     ```bash
     IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
     ##### Flowroute fail2ban allow list
 
     ```bash
     IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
     ##### Telnyx fail2ban allow list
 
     ```bash
     IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
     ##### BulkVS fail2ban allow list
 
     ```bash
     IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
     </details>
