@@ -153,8 +153,8 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     `IP` can be assigned multiple IPs. Separate each with a space, and *no* commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub>
 
     ```bash
-    IP=$(wget -qO- http://checkip.amazonaws.com)
-    gcloud compute ssh pbx --zone $ZONE --command "sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    IP=
+    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     ```
 
     <details>
