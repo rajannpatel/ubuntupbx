@@ -306,7 +306,6 @@ runcmd:
   - sed -i 's|Socket=/var/lib/mysql/mysql.sock|Socket=/run/mysqld/mysqld.sock|' /etc/odbc.ini
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
   - systemctl enable freepbx
-{% endif %}
 {% if NOTIFICATION_EMAIL %}
   - sed -i '1i MAILTO={{ NOTIFICATION_EMAIL }}' /root/schedule.txt
   - sed -i '/^\[DEFAULT\]$/a destemail = {{ NOTIFICATION_EMAIL }}\nsender = {{ NOTIFICATION_EMAIL }}\nmta = mail' /etc/fail2ban/jail.local

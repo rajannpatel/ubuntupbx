@@ -144,6 +144,18 @@ sudo snap install yq
 sudo bash -c 'cat cloud-init.yaml | yq -r ".runcmd[]" | while read -r cmd; do eval "$cmd"; done'
 ```
 
+Secure the installation with fail2ban
+
+--- use details ---
+[Prevent fail2ban from accidentally banning the management IPs](#prevent-fail2ban-from-accidentally-banning-the-management-ips)
+
+--- use details ---
+show fail2ban rules
+
+
+AND THEN TEST THE CLOUD INIT INSTALL ON GCLOUD. WORKS IN LXD BUT NOT IN GCP!?
+
+
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
 ---
