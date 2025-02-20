@@ -587,7 +587,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="T38Fax SIP Signaling"
     ```
 
-    ##### fail2ban safeguard against IP spoofing attacks
+    ##### T38Fax &ensp; sip.t38fax.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.sip.t38fax.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
@@ -627,7 +627,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Flowroute SIP Signaling"
     ```
 
-    ##### fail2ban safeguard against IP spoofing attacks
+    ##### Flowroute &ensp; us-east-va.sip.flowroute.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.us-east-va.sip.flowroute.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
@@ -667,7 +667,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Telnyx SIP Signaling"
     ```
 
-    ##### fail2ban safeguard against IP spoofing attacks
+    ##### Telnyx &ensp; sip.telnyx.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.sip.telnyx.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
@@ -707,7 +707,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="BulkVS SIP Signaling"
     ```
 
-    ##### fail2ban safeguard against IP spoofing attacks
+    ##### BulkVS &ensp; sip.bulkvs.com &ensp; ignored by fail2ban
 
     ```bash
     IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
