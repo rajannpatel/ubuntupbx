@@ -152,7 +152,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
     
     - all public IPv4 addresses which should never be banned are listed in the `IP` variable
-    - Use standard dotted decimal notation or CIDR (slash) notation for each IP address
+    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
     - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub><br><br>
 
     ```bash
@@ -535,7 +535,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
     
     - all public IPv4 addresses which should never be banned are listed in the `IP` variable
-    - Use standard dotted decimal notation or CIDR (slash) notation for each IP address
+    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
     - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub><br><br>
 
     ```bash
