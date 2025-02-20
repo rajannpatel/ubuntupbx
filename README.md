@@ -532,18 +532,6 @@ These steps are performed in your cloud-deployment workspace.
         --description="Access FreePBX via web and ping"
     ```
 
-    ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
-    
-    - all public IPv4 addresses which should never be banned are listed in the `IP` variable
-    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
-    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub><br><br>
-
-    ```bash
-    IP=$(wget -qO- http://checkip.amazonaws.com)
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
-    ```
-
 10. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
 
     ```bash
@@ -727,13 +715,27 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
     ```
 
-12. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
+12. Configure `ignoreip` in **/etc/fail2ban/jail.local**
+    
+    ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
+
+    - all public IPv4 addresses which should never be banned are listed in the `IP` variable
+    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
+    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub><br><br>
+
+    ```bash
+    IP=$(wget -qO- http://checkip.amazonaws.com)
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
+    ```
+
+13. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
     ```bash
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-13. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
+14. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
 
     -  First time gcloud CLI users will be prompted for a passphrase twice
     -  This password can be left blank, press <kbd>Enter</kbd> twice to proceed:<br><br>
@@ -748,7 +750,7 @@ These steps are performed in your cloud-deployment workspace.
     > Enter same passphrase again:
     > ```
     
-14. This line indicates security patches were applied, and a reboot is required
+15. This line indicates security patches were applied, and a reboot is required
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
@@ -760,13 +762,13 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-15. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
+16. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-16. Access the web portal to set up Trunks and Extensions
+17. Access the web portal to set up Trunks and Extensions
 
     -  These commands will print the web portal links in the terminal
     -  <kbd>CTRL</kbd> click the link to open<br><br>
@@ -779,7 +781,7 @@ These steps are performed in your cloud-deployment workspace.
     echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
     ```    
 
-17. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
+18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE
