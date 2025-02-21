@@ -107,14 +107,7 @@ write_files:
   - path: /etc/logrotate.d/asterisk-custom
     permissions: '0644'
     content: |
-      /var/log/asterisk/backup*.log {
-          weekly
-          missingok
-          rotate 0
-          maxage 7
-          su asterisk asterisk
-      }
-      /var/log/asterisk/asterisk*.log {
+      /var/log/asterisk/backup*.log /var/log/asterisk/asterisk*.log {
           weekly
           missingok
           rotate 0
