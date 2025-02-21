@@ -133,17 +133,16 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 1. Install FreePBX
 
     ```bash
-    sudo cloud-init clean && sudo cloud-init init --local
-    sudo cloud-init single --name ubuntu_pro --file cloud-init.yaml
-    sudo cloud-init single --name timezone --file cloud-init.yaml
-    sudo cloud-init single --name set_hostname --file cloud-init.yaml
-    sudo cloud-init single --name update_hostname --file cloud-init.yaml
-    sudo cloud-init single --name users_groups --file cloud-init.yaml
-    sudo cloud-init single --name write_files --file cloud-init.yaml
-    sudo cloud-init single --name apt_configure --file cloud-init.yaml
-    sudo cloud-init single --name package-update-upgrade-install --file cloud-init.yaml
-    sudo cloud-init single --name runcmd --file cloud-init.yaml
-    sudo cloud-init single --name scripts_user
+    sudo cloud-init single --frequency always --name ubuntu_pro --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name timezone --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name set_hostname --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name update_hostname --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name users_groups --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name write_files --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name apt_configure --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name package-update-upgrade-install --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name runcmd --file cloud-init.yaml
+    sudo cloud-init single --frequency always --name scripts_user
     ```
 
 2. Configure fail2ban firewall automations
