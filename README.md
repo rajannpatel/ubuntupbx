@@ -133,16 +133,17 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 1. Install FreePBX
 
     ```bash
-    sudo cloud-init single --frequency always --name ubuntu_pro --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name timezone --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name set_hostname --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name update_hostname --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name users_groups --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name write_files --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name apt_configure --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name package-update-upgrade-install --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name runcmd --file cloud-init.yaml
-    sudo cloud-init single --frequency always --name scripts_user
+    # comment after each command shows the estimated time to complete on an e2-micro virtual machine
+    sudo cloud-init single --frequency always --name ubuntu_pro --file cloud-init.yaml # 7m32s 
+    sudo cloud-init single --frequency always --name timezone --file cloud-init.yaml # 1s 
+    sudo cloud-init single --frequency always --name set_hostname --file cloud-init.yaml # 1s
+    sudo cloud-init single --frequency always --name update_hostname --file cloud-init.yaml # 1s
+    sudo cloud-init single --frequency always --name users_groups --file cloud-init.yaml # 1s
+    sudo cloud-init single --frequency always --name write_files --file cloud-init.yaml # 1s
+    sudo cloud-init single --frequency always --name apt_configure --file cloud-init.yaml # 14s
+    sudo cloud-init single --frequency always --name package-update-upgrade-install --file cloud-init.yaml # 17m
+    sudo cloud-init single --frequency always --name runcmd --file cloud-init.yaml # 1s
+    sudo cloud-init single --frequency always --name scripts_user # 20m15s
     ```
 
 2. Configure fail2ban firewall automations
