@@ -230,10 +230,9 @@ packages:
 
 runcmd:
 # for Ubuntu Pro enabled public cloud images, where a token may not be provided by the user
-  - pro status --format yaml | grep -x attached:\ true && pro enable esm-infra
-  - pro status --format yaml | grep -x attached:\ true && pro enable esm-infra
-  - pro status --format yaml | grep -x attached:\ true && pro enable esm-apps
-  - pro status --format yaml | grep -x attached:\ true && pro enable livepatch
+  - pro status --format yaml | grep -x attached:\ true && pro status --format yaml | grep -A1 'name: esm-infra' | grep -q 'status: disabled' && pro enable esm-infra
+  - pro status --format yaml | grep -x attached:\ true && pro status --format yaml | grep -A1 'name: esm-apps' | grep -q 'status: disabled' && pro enable esm-apps
+  - pro status --format yaml | grep -x attached:\ true && pro status --format yaml | grep -A1 'name: livepatch' | grep -q 'status: disabled' && pro enable livepatch
   - sed -i "s/^#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
   - needrestart -r a
   - sed -i 's|^//\s*Unattended-Upgrade::Remove-Unused-Kernel-Packages\s*".*";|Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";|' /etc/apt/apt.conf.d/50unattended-upgrades
@@ -298,7 +297,7 @@ runcmd:
 # FreePBX expects default MOH files in /var/lib/asterisk/moh/default, but Ubuntu's deb package places them in /usr/share/asterisk/moh/
   - ln -s /usr/share/asterisk/moh /var/lib/asterisk/moh/asterisk-moh-opsound
   - chown -R asterisk:asterisk /usr/share/asterisk/moh && chown -R asterisk:asterisk /var/lib/asterisk/moh/
-  - cd /usr/src && wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf freepbx-17.0-latest.tgz
+  - curl -L -O --output-dir /var/tmp http://mirror.freepbx.org/modules/packages/freepbx/freepbx-17.0-latest.tgz && tar zxvf /var/tmp/freepbx-17.0-latest.tgz -C /usr/src
   - cd /usr/src/freepbx && ./start_asterisk start
 # set +e and set -e is only important when converting runcmd into a script with `set -euxo pipefail`
   - while asterisk -rx 'core show version' 2>&1 | grep -Eq '(Unable to connect to remote asterisk|No such command)'; do echo 'Waiting for Asterisk core to be available'; sleep 2; done && cd /usr/src/freepbx && set +e; ./install -n; set -e
@@ -313,7 +312,7 @@ runcmd:
   - crontab /root/schedule.txt && rm /root/schedule.txt
   - mkdir -p /var/spool/asterisk/backup && chown asterisk:asterisk /var/spool/asterisk/backup
 # prepare the system for fail2ban
-  - curl -L -o /var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.asterisklogs.backup.tar.gz
+  - curl -L -O --output-dir /var/spool/asterisk/backup https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.asterisklogs.backup.tar.gz
   - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz'
 {% if RESTORE_BACKUP %}
   - curl -L -o /var/spool/asterisk/backup/restored-at-first-boot.tar.gz {{ RESTORE_BACKUP }}
