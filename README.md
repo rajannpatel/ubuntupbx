@@ -199,7 +199,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     </details>
 
-    List all IPs banned by fail2ban
+    List all banned IPs in fail2ban jails
 
     ```bash
     sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
@@ -709,7 +709,7 @@ These steps are performed in your cloud-deployment workspace.
 
     </details>
 
-    List all IPs banned by fail2ban
+    List all banned IPs in fail2ban jails
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
