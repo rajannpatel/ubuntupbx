@@ -165,7 +165,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     <summary>&ensp;fail2ban safeguards against IP spoofing attacks<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-    ##### T38Fax &ensp; sip.t38fax.com &ensp; ignored by fail2ban
+    ##### T38Fax IPs ignored by fail2ban
 
     ```bash
     IP="8.20.91.0/24 130.51.64.0/22 8.34.182.0/24"
@@ -173,7 +173,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo fail2ban-client reload
     ```
 
-    ##### Flowroute &ensp; us-east-va.sip.flowroute.com &ensp; ignored by fail2ban
+    ##### Flowroute IPs ignored by fail2ban
 
     ```bash
     IP="34.210.91.112/28 34.226.36.32/28 16.163.86.112/30 3.0.5.12/30 3.8.37.20/30 3.71.103.56/30 18.228.70.48/30"
@@ -181,7 +181,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo fail2ban-client reload
     ```
 
-    ##### Telnyx &ensp; sip.telnyx.com &ensp; ignored by fail2ban
+    ##### Telnyx IPs ignored by fail2ban
 
     ```bash
     IP="192.76.120.10 64.16.250.10 185.246.41.140 185.246.41.141 103.115.244.145 103.115.244.146 192.76.120.31 64.16.250.13 36.255.198.128/25 50.114.136.128/25 50.114.144.0/21 64.16.226.0/24 64.16.227.0/24 64.16.228.0/24 64.16.229.0/24 64.16.230.0/24 64.16.248.0/24 64.16.249.0/24 103.115.244.128/25 185.246.41.128/25"
@@ -579,7 +579,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="T38Fax SIP Signaling"
     ```
 
-    ##### T38Fax &ensp; sip.t38fax.com &ensp; ignored by fail2ban
+    ##### T38Fax IPs ignored by fail2ban
 
     ```bash
     IP="8.20.91.0/24 130.51.64.0/22 8.34.182.0/24"
@@ -619,7 +619,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Flowroute SIP Signaling"
     ```
 
-    ##### Flowroute &ensp; us-east-va.sip.flowroute.com &ensp; ignored by fail2ban
+    ##### Flowroute IPs ignored by fail2ban
 
     ```bash
     IP="34.210.91.112/28 34.226.36.32/28 16.163.86.112/30 3.0.5.12/30 3.8.37.20/30 3.71.103.56/30 18.228.70.48/30"
@@ -659,7 +659,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Telnyx SIP Signaling"
     ```
 
-    ##### Telnyx &ensp; sip.telnyx.com &ensp; ignored by fail2ban
+    ##### Telnyx IPs ignored by fail2ban
 
     ```bash
     IP="192.76.120.10 64.16.250.10 185.246.41.140 185.246.41.141 103.115.244.145 103.115.244.146 192.76.120.31 64.16.250.13 36.255.198.128/25 50.114.136.128/25 50.114.144.0/21 64.16.226.0/24 64.16.227.0/24 64.16.228.0/24 64.16.229.0/24 64.16.230.0/24 64.16.248.0/24 64.16.249.0/24 103.115.244.128/25 185.246.41.128/25"
