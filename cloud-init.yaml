@@ -114,6 +114,13 @@ write_files:
           maxage 7
           su asterisk asterisk
       }
+      /var/log/asterisk/asterisk*.log {
+          weekly
+          missingok
+          rotate 0
+          maxage 7
+          su asterisk asterisk
+      }
       /var/log/asterisk/core*.log /var/log/asterisk/freepbx*.log {
           daily
           missingok
