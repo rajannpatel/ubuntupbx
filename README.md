@@ -149,7 +149,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo cloud-init single --frequency always --name scripts_user # 20m15s
     ```
 
-2. Add IPs fail2ban should never block, after the initial deployment
+2. Forgot to include an IP in the fail2ban ignoreip list? Manually add the IP or IP range
 
     ##### fail2ban safeguard to prevent banning user and provider IPs
     
@@ -650,7 +650,7 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
     ```
 
-12. Add IPs fail2ban should never block, after the initial deployment
+12. Forgot to include an IP in the fail2ban ignoreip list? Manually add the IP or IP range
     
     ##### fail2ban safeguard to prevent banning user IPs
 
