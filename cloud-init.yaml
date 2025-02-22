@@ -342,17 +342,16 @@ runcmd:
 # END -- ubuntupbx.core.backup.tar.gz
 # BEGIN -- SIP Trunk provider IPs ignored by fail2ban in case of IP spoofing attacks
 {% if enable_T38Fax %}
-  - IP="8.20.91.0/24 130.51.64.0/22 8.34.182.0/24" && sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+  - sed -i 's|^ignoreip = \(.*\)|ignoreip = \1 8.20.91.0/24 130.51.64.0/22 8.34.182.0/24|' /etc/fail2ban/jail.local
 {% endif %}
-# Configure VoIP Trunks and Outbound Routes
 {% if enable_Flowroute %}
-  - IP="34.210.91.112/28 34.226.36.32/28 16.163.86.112/30 3.0.5.12/30 3.8.37.20/30 3.71.103.56/30 18.228.70.48/30" && sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+  - sed -i 's|^ignoreip = \(.*\)|ignoreip = \1 34.210.91.112/28 34.226.36.32/28 16.163.86.112/30 3.0.5.12/30 3.8.37.20/30 3.71.103.56/30 18.228.70.48/30|' /etc/fail2ban/jail.local
 {% endif %}
 {% if enable_Telnyx %}
-  - IP="192.76.120.10 64.16.250.10 185.246.41.140 185.246.41.141 103.115.244.145 103.115.244.146 192.76.120.31 64.16.250.13 36.255.198.128/25 50.114.136.128/25 50.114.144.0/21 64.16.226.0/24 64.16.227.0/24 64.16.228.0/24 64.16.229.0/24 64.16.230.0/24 64.16.248.0/24 64.16.249.0/24 103.115.244.128/25 185.246.41.128/25" && sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+  - sed -i 's|^ignoreip = \(.*\)|ignoreip = \1 192.76.120.10 64.16.250.10 185.246.41.140 185.246.41.141 103.115.244.145 103.115.244.146 192.76.120.31 64.16.250.13 36.255.198.128/25 50.114.136.128/25 50.114.144.0/21 64.16.226.0/24 64.16.227.0/24 64.16.228.0/24 64.16.229.0/24 64.16.230.0/24 64.16.248.0/24 64.16.249.0/24 103.115.244.128/25 185.246.41.128/25|' /etc/fail2ban/jail.local
 {% endif %}
 {% if enable_BulkVS %}
-  - IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -) && sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+  - sed -i 's|^ignoreip = \(.*\)|ignoreip = \1 162.249.171.198 23.190.16.198 76.8.29.198|' /etc/fail2ban/jail.local
 {% endif %}
   - fail2ban-client reload
 # END -- SIP Trunk provider IPs ignored by fail2ban in case of IP spoofing attacks
