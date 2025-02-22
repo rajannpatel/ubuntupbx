@@ -47,7 +47,10 @@
 {% set enable_Telnyx = false %}     # https://telnyx.com
 {% set enable_BulkVS = true %}      # https://bulkvs.com
 
-# USER_IPS: list of public IPv4 addresses that should never be blocked by fail2ban
+# List of public IPv4 addresses that should never be blocked by fail2ban
+# - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
+# - Separate multiple entries with a space, and do not use commas:
+# {% set USER_IPS = '192.178.0.0/15 142.251.47.238' %}
 {% set USER_IPS = '' %}
 
 # TIMEZONE: default value is fine

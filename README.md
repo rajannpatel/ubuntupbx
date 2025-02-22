@@ -41,7 +41,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 58.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 64.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -90,8 +90,11 @@ nano cloud-init-jinja.yaml
 {% set enable_Telnyx = false %}     # https://telnyx.com
 {% set enable_BulkVS = true %}      # https://bulkvs.com
 
-# FAIL2BAN_IGNOREIPS that should never be blocked from accessing this server (protection against IP Spoofing attacks)
-{% set FAIL2BAN_IGNOREIPS = '' %}
+# List of public IPv4 addresses that should never be blocked by fail2ban
+# - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
+# - Separate multiple entries with a space, and do not use commas:
+# {% set USER_IPS = '192.178.0.0/15 142.251.47.238' %}
+{% set USER_IPS = '' %}
 
 # TIMEZONE: default value is fine
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -146,9 +149,9 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo cloud-init single --frequency always --name scripts_user # 20m15s
     ```
 
-2. Configure fail2ban firewall automations
+2. Add IPs fail2ban should never block, after the initial deployment
 
-    ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
+    ##### fail2ban safeguard to prevent banning user and provider IPs
     
     - all public IPv4 addresses which should never be banned are listed in the `IP` variable
     - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
@@ -159,44 +162,6 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     sudo fail2ban-client reload
     ```
-
-    <details>
-
-    <summary>&ensp;fail2ban safeguards against IP spoofing attacks<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
-
-    ##### T38Fax IPs ignored by fail2ban
-
-    ```bash
-    IP="8.20.91.0/24 130.51.64.0/22 8.34.182.0/24"
-    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
-    sudo fail2ban-client reload
-    ```
-
-    ##### Flowroute IPs ignored by fail2ban
-
-    ```bash
-    IP="34.210.91.112/28 34.226.36.32/28 16.163.86.112/30 3.0.5.12/30 3.8.37.20/30 3.71.103.56/30 18.228.70.48/30"
-    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
-    sudo fail2ban-client reload
-    ```
-
-    ##### Telnyx IPs ignored by fail2ban
-
-    ```bash
-    IP="192.76.120.10 64.16.250.10 185.246.41.140 185.246.41.141 103.115.244.145 103.115.244.146 192.76.120.31 64.16.250.13 36.255.198.128/25 50.114.136.128/25 50.114.144.0/21 64.16.226.0/24 64.16.227.0/24 64.16.228.0/24 64.16.229.0/24 64.16.230.0/24 64.16.248.0/24 64.16.249.0/24 103.115.244.128/25 185.246.41.128/25"
-    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
-    sudo fail2ban-client reload
-    ```
-
-    ##### BulkVS &ensp; sip.bulkvs.com &ensp; ignored by fail2ban
-
-    ```bash
-    IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
-    sudo fail2ban-client reload
-    ```
-
-    </details>
 
     List all banned IPs in fail2ban jails
 
@@ -422,7 +387,7 @@ These steps are performed in your cloud-deployment workspace.
 
     <details>
 
-    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 58.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 64.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
@@ -473,8 +438,11 @@ These steps are performed in your cloud-deployment workspace.
     {% set enable_Telnyx = false %}     # https://telnyx.com
     {% set enable_BulkVS = true %}      # https://bulkvs.com
 
-    # FAIL2BAN_IGNOREIPS should never be banned - include SIP provider IPs and your own static IPs
-    {% set FAIL2BAN_IGNOREIPS = '' %}
+    # List of public IPv4 addresses that should never be blocked by fail2ban
+    # - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
+    # - Separate multiple entries with a space, and do not use commas:
+    # {% set USER_IPS = '192.178.0.0/15 142.251.47.238' %}
+    {% set USER_IPS = '' %}
 
     # TIMEZONE: default value is fine
     # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
@@ -578,14 +546,6 @@ These steps are performed in your cloud-deployment workspace.
         --description="T38Fax SIP Signaling"
     ```
 
-    ##### T38Fax IPs ignored by fail2ban
-
-    ```bash
-    IP="8.20.91.0/24 130.51.64.0/22 8.34.182.0/24"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
-    ```
-
     </details>
 
     <details>
@@ -616,14 +576,6 @@ These steps are performed in your cloud-deployment workspace.
         --source-ranges="34.210.91.112/28,34.226.36.32/28,16.163.86.112/30,3.0.5.12/30,3.8.37.20/30,3.71.103.56/30,18.228.70.48/30" \
         --rules="udp:5060" \
         --description="Flowroute SIP Signaling"
-    ```
-
-    ##### Flowroute IPs ignored by fail2ban
-
-    ```bash
-    IP="34.210.91.112/28 34.226.36.32/28 16.163.86.112/30 3.0.5.12/30 3.8.37.20/30 3.71.103.56/30 18.228.70.48/30"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
     </details>
@@ -658,14 +610,6 @@ These steps are performed in your cloud-deployment workspace.
         --description="Telnyx SIP Signaling"
     ```
 
-    ##### Telnyx IPs ignored by fail2ban
-
-    ```bash
-    IP="192.76.120.10 64.16.250.10 185.246.41.140 185.246.41.141 103.115.244.145 103.115.244.146 192.76.120.31 64.16.250.13 36.255.198.128/25 50.114.136.128/25 50.114.144.0/21 64.16.226.0/24 64.16.227.0/24 64.16.228.0/24 64.16.229.0/24 64.16.230.0/24 64.16.248.0/24 64.16.249.0/24 103.115.244.128/25 185.246.41.128/25"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
-    ```
-
     </details>
 
     <details>
@@ -698,14 +642,6 @@ These steps are performed in your cloud-deployment workspace.
         --description="BulkVS SIP Signaling"
     ```
 
-    ##### BulkVS &ensp; sip.bulkvs.com &ensp; ignored by fail2ban
-
-    ```bash
-    IP=$(dig +short _sip._udp.sip.bulkvs.com SRV | awk '{print $4}' | sed 's/\.$//' | xargs -I {} dig +short {} | paste -sd ' ' -)
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
-    ```
-
     </details>
 
     List all banned IPs in fail2ban jails
@@ -714,9 +650,9 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
     ```
 
-12. Configure `ignoreip` in **/etc/fail2ban/jail.local**
+12. Add IPs fail2ban should never block, after the initial deployment
     
-    ##### fail2ban safeguard to prevent banning management and softphone or ATA IP(s)
+    ##### fail2ban safeguard to prevent banning user IPs
 
     - all public IPv4 addresses which should never be banned are listed in the `IP` variable
     - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
