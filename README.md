@@ -134,9 +134,9 @@ j2 cloud-init-jinja.yaml > cloud-init.yaml
 Install FreePBX using the cloud-init.yaml file, and configure firewall automations
 
 1. Install FreePBX
-    - comment after each command shows the estimated time to complete on a Raspberry Pi or e2-micro VM
 
 ```bash
+# comment shows conservative time to completion, for each command
 sudo cloud-init single --frequency always --name ubuntu_pro --file cloud-init.yaml # 7m32s 
 sudo cloud-init single --frequency always --name timezone --file cloud-init.yaml # 1s 
 sudo cloud-init single --frequency always --name set_hostname --file cloud-init.yaml # 1s
