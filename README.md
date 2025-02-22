@@ -35,7 +35,7 @@ Install FreePBX 17 on Ubuntu 24.04 LTS
 Download the cloud-init file from this repository
 
 ```bash
-wget -q https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -O cloud-init-jinja.yaml
+curl -L -o cloud-init-jinja.yaml https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml
 nano cloud-init-jinja.yaml
 ```
 
@@ -381,7 +381,7 @@ These steps are performed in your cloud-deployment workspace.
 7. Download the cloud-init YAML.
 
     ```bash
-    wget -q https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml -O cloud-init.yaml
+    curl -L -O https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml
     nano cloud-init.yaml
     ```
 
@@ -475,7 +475,7 @@ These steps are performed in your cloud-deployment workspace.
 > <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces).<br><sub>&ensp;EXAMPLE<br>&ensp;`192.178.0.0/15,142.251.47.238`</sub>
 >
-> `$(wget -qO- http://checkip.amazonaws.com)` retrieves the globally routable IPv4 address of the machine where the command is run, using an Amazon AWS service. It appears in some commands below, as a convenience, but can be replaced with manually specified IPs.
+> `$(curl -s http://checkip.amazonaws.com)` retrieves the globally routable IPv4 address of the machine where the command is run, using an Amazon AWS service. It appears in some commands below, as a convenience, but can be replaced with manually specified IPs.
 
 > [!TIP]
 > <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
@@ -494,7 +494,7 @@ These steps are performed in your cloud-deployment workspace.
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
+        --source-ranges="$(curl -s http://checkip.amazonaws.com)" \
         --rules="tcp:80,icmp" \
         --description="Access FreePBX via web and ping"
     ```
@@ -506,7 +506,7 @@ These steps are performed in your cloud-deployment workspace.
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
-        --source-ranges="$(wget -qO- http://checkip.amazonaws.com)" \
+        --source-ranges="$(curl -s http://checkip.amazonaws.com)" \
         --rules="udp:5060,udp:4000-4999,udp:10000-20000" \
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
@@ -659,7 +659,7 @@ These steps are performed in your cloud-deployment workspace.
     - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub><br><br>
 
     ```bash
-    IP=$(wget -qO- http://checkip.amazonaws.com)
+    IP=$(curl -s http://checkip.amazonaws.com)
     gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
     gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
