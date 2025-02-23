@@ -482,7 +482,8 @@ These steps are performed in your cloud-deployment workspace.
 > Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of `174.96.0.0/12`. CIDR blocks for popular ISPs serving dynamic IPs to customers in North America appear in the following table:
 > | ISP  | CIDR |
 > | ------------- | ------------- |
-> | [Charter Spectrum](https://search.arin.net/rdap/?query=174.96.0.0)  | `174.96.0.0/12`  |
+> | [Charter Spectrum Charlotte](https://search.arin.net/rdap/?query=174.96.0.0)  | `174.96.0.0/12`  |
+> | [Charter Spectrum Orlando (Road Runner)](https://search.arin.net/rdap/?query=67.8.0.0) | `67.8.0.0/14` |
 > | [Optimum Online's Altice Fiber](https://search.arin.net/rdap/?query=174.96.0.0)  | `24.184.0.0/14`  |
 > | [Verizon Wireless 5G Home Internet](https://search.arin.net/rdap/?query=75.192.0.0)  | `75.192.0.0/10`  |
 > | [Google Fiber](https://search.arin.net/rdap/?query=136.32.0.0)  | `136.32.0.0/11`  |
