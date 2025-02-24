@@ -143,6 +143,7 @@ write_files:
     permissions: '0644'
     content: |
       [DEFAULT]
+      action = %(action_mwl)s
       ignoreip ={{ FAIL2BAN_IGNOREIPS }}
   - path: /var/log/asterisk/asterisk_security.log
     permissions: '0664'
@@ -325,7 +326,7 @@ runcmd:
   - systemctl enable freepbx
 {% if NOTIFICATION_EMAIL %}
   - sed -i '1i MAILTO={{ NOTIFICATION_EMAIL }}' /root/schedule.txt
-  - sed -i '/^\[DEFAULT\]$/a destemail = {{ NOTIFICATION_EMAIL }}\nsender = {{ NOTIFICATION_EMAIL }}\nmta = mail' /etc/fail2ban/jail.local
+  - sed -i '/^\[DEFAULT\]$/a destemail = {{ NOTIFICATION_EMAIL }}\nsender = {{ NOTIFICATION_EMAIL }}' /etc/fail2ban/jail.local
 {% endif %}
   - crontab /root/schedule.txt && rm /root/schedule.txt
   - mkdir -p /var/spool/asterisk/backup && chown asterisk:asterisk /var/spool/asterisk/backup
