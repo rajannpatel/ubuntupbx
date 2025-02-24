@@ -155,10 +155,10 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     
     - all public IPv4 addresses which should never be banned are listed in the `IP` variable
     - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
-    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub><br><br>
+    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
 
     ```bash
-    IP=
+    IP=''
     sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
     sudo fail2ban-client reload
     ```
@@ -665,7 +665,7 @@ These steps are performed in your cloud-deployment workspace.
 
     - all public IPv4 addresses which should never be banned are listed in the `IP` variable
     - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
-    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP=192.178.0.0/15 142.251.47.238`</sub><br><br>
+    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
 
     ```bash
     IP=$(curl -s http://checkip.amazonaws.com)
