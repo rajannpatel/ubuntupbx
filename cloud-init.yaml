@@ -143,12 +143,22 @@ write_files:
     permissions: '0644'
     content: |
       [DEFAULT]
-      action = %(action_mwl)s
 {% if NOTIFICATION_EMAIL %}
       destemail = {{ NOTIFICATION_EMAIL }}
 {% endif %}
       sender = no-reply@{{ DOMAIN }}
       ignoreip ={{ FAIL2BAN_IGNOREIPS }}
+      [sshd]
+      enabled  = true
+      action   = %(action_)s
+
+      [asterisk-jail]
+      enabled  = true
+      action   = %(action_mwl)s
+
+      [freepbx-jail]
+      enabled  = true
+      action   = %(action_mwl)s
   - path: /var/log/asterisk/asterisk_security.log
     permissions: '0664'
     content: |
