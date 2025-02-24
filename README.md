@@ -81,7 +81,7 @@ nano cloud-init-jinja.yaml
 
 # OPTIONAL: PRECONFIGURE FREEPBX CORE MODULE (OUTBOUND ROUTES AND TRUNKS)
 # ubuntupbx.core.backup.tar.gz was generated with the Backup & Restore FreePBX Module
-# this can be replaced with the address of your backup file, if you're copying configurations from another FreePBX installation
+# this can be replaced with the https:// or gs:// address of your backup file, if you're copying configurations from another FreePBX installation
 {% set RESTORE_BACKUP = 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
 # ubuntupbx.core.backup.tar.gz Outbound Routes include: N11, North America FoIP, North America VoIP, International VoIP
 # ubuntupbx.core.backup.tar.gz SIP Trunks include:
@@ -347,6 +347,12 @@ These steps are performed in your cloud-deployment workspace.
     
     This Project ID will contain the PBX VM.
     
+4.  Enable the Google Cloud Compute Engine service
+
+    ```bash
+    gcloud services enable compute.googleapis.com
+    ```
+
 4. List the available cloud zones and cloud regions where VMs can be deployed:
 
     ```bash
@@ -429,7 +435,7 @@ These steps are performed in your cloud-deployment workspace.
 
     # OPTIONAL: PRECONFIGURE FREEPBX CORE MODULE (OUTBOUND ROUTES AND TRUNKS)
     # ubuntupbx.core.backup.tar.gz was generated with the Backup & Restore FreePBX Module
-    # this can be replaced with the address of your backup file, if you're copying configurations from another FreePBX installation
+    # this can be replaced with the https:// or gs:// address of your backup file, if you're copying configurations from another FreePBX installation
     {% set RESTORE_BACKUP = 'https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.core.backup.tar.gz' %}
     # ubuntupbx.core.backup.tar.gz Outbound Routes include: N11, North America FoIP, North America VoIP, International VoIP
     # ubuntupbx.core.backup.tar.gz SIP Trunks include:
@@ -465,6 +471,8 @@ These steps are performed in your cloud-deployment workspace.
         --machine-type=e2-micro \
         --address=pbx-external-ip \
         --tags=pbx \
+        --service-account=$(gcloud compute project-info describe --format="value(defaultServiceAccount)") \
+        --scopes=https://www.googleapis.com/auth/cloud-platform \
         --boot-disk-size=30 \
         --image-family=ubuntu-2404-lts-amd64 \
         --image-project=ubuntu-os-cloud \

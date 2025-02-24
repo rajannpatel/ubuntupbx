@@ -332,8 +332,14 @@ runcmd:
 # prepare the system for fail2ban
   - curl -L -O --output-dir /var/spool/asterisk/backup https://github.com/rajannpatel/ubuntupbx/raw/refs/heads/main/ubuntupbx.asterisklogs.backup.tar.gz
   - fwconsole backup --restore='/var/spool/asterisk/backup/ubuntupbx.asterisklogs.backup.tar.gz'
-{% if RESTORE_BACKUP %}
+{% if RESTORE_BACKUP.startswith('https://') %}
   - curl -L -o /var/spool/asterisk/backup/restored-at-first-boot.tar.gz {{ RESTORE_BACKUP }}
+{% elif RESTORE_BACKUP.startswith('gs://') %}
+  - gcloud storage cp {{ RESTORE_BACKUP }} /var/spool/asterisk/backup/restored-at-first-boot.tar.gz
+{% else %}
+  - echo "Unsupported RESTORE_BACKUP URL format: {{ RESTORE_BACKUP }}"
+{% endif %}
+{% if RESTORE_BACKUP %}
   - fwconsole backup --restore='/var/spool/asterisk/backup/restored-at-first-boot.tar.gz'
 {% endif %}
 # BEGIN -- ubuntupbx.core.backup.tar.gz
