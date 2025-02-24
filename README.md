@@ -169,6 +169,20 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
     ```
 
+3. Connect to the FreePBX web portal
+
+    ```bash
+    echo "http://$(ip route get 1 | awk '{print $7; exit}')"
+    ```
+
+    Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
+
+    ```bash
+    sudo su -s /bin/bash asterisk -c 'cd ~/ && asterisk -rvvvvv'
+    ```
+
+    -  The `exit` command will safely exit the Asterisk CLI.
+
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
 ---
