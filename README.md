@@ -169,7 +169,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
     ```
 
-3. Connect to the FreePBX web portal
+3. Print the FreePBX web portal address and configure Asterisk via a web browser:
 
     ```bash
     echo "http://$(ip route get 1 | awk '{print $7; exit}')"
