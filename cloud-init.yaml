@@ -144,6 +144,10 @@ write_files:
     content: |
       [DEFAULT]
       action = %(action_mwl)s
+{% if NOTIFICATION_EMAIL %}
+      destemail = {{ NOTIFICATION_EMAIL }}
+{% endif %}
+      sender = no-reply@{{ DOMAIN }}
       ignoreip ={{ FAIL2BAN_IGNOREIPS }}
   - path: /var/log/asterisk/asterisk_security.log
     permissions: '0664'
@@ -183,6 +187,9 @@ write_files:
   - path: /root/schedule.txt
     permissions: '0644'
     content: |
+{% if NOTIFICATION_EMAIL %}
+      MAILTO={{ NOTIFICATION_EMAIL }}
+{% endif %}
       @daily (find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor -type f -size 44c -delete)
       @daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete
       @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cdr;'
@@ -324,10 +331,6 @@ runcmd:
   - sed -i 's|Socket=/var/lib/mysql/mysql.sock|Socket=/run/mysqld/mysqld.sock|' /etc/odbc.ini
   - fwconsole ma downloadinstall pm2 framework customappsreg featurecodeadmin recordings soundlang calendar conferences core ivr infoservices queues ringgroups timeconditions asteriskinfo voicemail logfiles dashboard music filestore backup sipsettings
   - systemctl enable freepbx
-{% if NOTIFICATION_EMAIL %}
-  - sed -i '1i MAILTO={{ NOTIFICATION_EMAIL }}' /root/schedule.txt
-  - sed -i '/^\[DEFAULT\]$/a destemail = {{ NOTIFICATION_EMAIL }}\nsender = {{ NOTIFICATION_EMAIL }}' /etc/fail2ban/jail.local
-{% endif %}
   - crontab /root/schedule.txt && rm /root/schedule.txt
   - mkdir -p /var/spool/asterisk/backup && chown asterisk:asterisk /var/spool/asterisk/backup
 # prepare the system for fail2ban
