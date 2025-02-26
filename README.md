@@ -150,27 +150,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo cloud-init single --frequency always --name scripts_user # 20m15s
     ```
 
-2. Forgot to include an IP in the fail2ban ignoreip list? Manually add the IP or IP range
-
-    ##### fail2ban safeguard to prevent banning user and provider IPs
-    
-    - all public IPv4 addresses which should never be banned are listed in the `IP` variable
-    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
-    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
-
-    ```bash
-    IP=''
-    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
-    sudo fail2ban-client reload
-    ```
-
-    List all banned IPs in fail2ban jails
-
-    ```bash
-    sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
-    ```
-
-3. Print the FreePBX web portal address and configure Asterisk via a web browser:
+2. Print the FreePBX web portal address and configure Asterisk via a web browser:
 
     ```bash
     echo "http://$(ip route get 1 | awk '{print $7; exit}')"
@@ -183,6 +163,46 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     ```
 
     -  The `exit` command will safely exit the Asterisk CLI.
+
+3. fail2ban blocks IPs and emails alerts after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX.
+
+    <details>
+
+    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary><br>
+
+    ##### Append more user and provider IPs to `ignoreip =` in jail.local
+    
+    - all public IPv4 addresses which should never be banned are listed in the `IP` variable
+    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
+    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
+
+    ```bash
+    IP=''
+    sudo sed -i "s/ignoreip = \(.*\)/ignoreip = \1 $IP/" /etc/fail2ban/jail.local
+    sudo fail2ban-client reload
+    ```
+
+    ##### List all banned IPs in fail2ban jails
+
+    ```bash
+    sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
+    ```
+
+    ##### Unban `$IP` from fail2ban jails
+
+    - Replace `127.0.0.1` with the IP address that needs to be unbanned
+    - The 3 jails are named `sshd`, `asterisk`, and `freepbx`
+    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned
+
+    ```bash
+    $IP='127.0.0.1'
+    sudo fail2ban-client set sshd unban $IP
+    sudo fail2ban-client set asterisk unban $IP
+    sudo fail2ban-client set freepbx unban $IP
+    ```
+
+    </details>
+
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
@@ -675,10 +695,14 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
     ```
 
-12. Forgot to include an IP in the fail2ban ignoreip list? Manually add the IP or IP range
-    
-    ##### fail2ban safeguard to prevent banning user IPs
+12. fail2ban blocks IPs and emails alerts after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX.
 
+    <details>
+
+    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary><br>
+
+    ##### Append more user and provider IPs to `ignoreip =` in jail.local
+    
     - all public IPv4 addresses which should never be banned are listed in the `IP` variable
     - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
     - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
@@ -688,6 +712,27 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
     gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
+
+    ##### List all banned IPs in fail2ban jails
+
+    ```bash
+    gcloud compute ssh pbx --zone $ZONE --command "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
+    ```
+
+    ##### Unban `$IP` from fail2ban jails
+
+    - Replace `127.0.0.1` with the IP address that needs to be unbanned
+    - The 3 jails are named `sshd`, `asterisk`, and `freepbx`
+    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned
+
+    ```bash
+    $IP='127.0.0.1'
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set sshd unban $IP"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set asterisk unban $IP"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set freepbx unban $IP"
+    ```
+
+    </details>
 
 13. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
