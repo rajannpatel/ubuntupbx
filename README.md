@@ -168,7 +168,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     <details>
 
-    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary><br>
+    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     ##### Append more user and provider IPs to `ignoreip =` in jail.local
     
@@ -699,7 +699,7 @@ These steps are performed in your cloud-deployment workspace.
 
     <details>
 
-    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary><br>
+    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     ##### Append more user and provider IPs to `ignoreip =` in jail.local
     
