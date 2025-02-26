@@ -143,19 +143,36 @@ write_files:
     permissions: '0644'
     content: |
       [DEFAULT]
+{% if NOTIFICATION_EMAIL %}
+      destemail = {{ NOTIFICATION_EMAIL }}
+      sender = no-reply@{{ DOMAIN }}
+{% endif %}
       ignoreip ={{ FAIL2BAN_IGNOREIPS }}
 
       [sshd]
       enabled = true
-      action = iptables[name=SSH, port=22, protocol=tcp]
+      action = iptables[name=sshd, port=22, protocol=tcp]
 
-      [asterisk-jail]
+      [asterisk]
       enabled = true
-      action = iptables[name=ASTERISK, port=5060, protocol=udp]
+      filter = asterisk
+      backend = auto
+      logpath = /var/log/asterisk/asterisk_security.log
+      maxretry = 3
+      findtime = 120
+      bantime = 1h
+      action = iptables[name=asterisk, port=5060, protocol=udp]
+               %(action_mw)s
 
-      [freepbx-jail]
+      [freepbx]
       enabled = true
-      action = iptables[name=FREEPBX, port=80, protocol=tcp]
+      backend = auto
+      logpath  = /var/log/asterisk/freepbx_security.log
+      maxretry = 3
+      findtime = 120
+      bantime = 1h
+      action = iptables[name=freepbx, port=80, protocol=tcp]
+               %(action_mw)s
   - path: /var/log/asterisk/asterisk_security.log
     permissions: '0664'
     content: |
@@ -164,28 +181,7 @@ write_files:
     permissions: '0664'
     content: |
       ---LOG BEGINS---
-  - path: /etc/fail2ban/jail.d/asterisk-jail.conf
-    permissions: '0644'
-    content: |
-      [asterisk-jail]
-      enabled = true
-      filter = asterisk
-      backend = auto
-      logpath = /var/log/asterisk/asterisk_security.log
-      maxretry = 3
-      findtime = 120
-      bantime = 1h
-  - path: /etc/fail2ban/jail.d/freepbx-jail.conf
-    permissions: '0644'
-    content: |
-      [freepbx-jail]
-      enabled = true
-      backend = auto
-      logpath  = /var/log/asterisk/freepbx_security.log
-      maxretry = 3
-      findtime = 120
-      bantime = 1h
-  - path: /etc/fail2ban/filter.d/freepbx-jail.conf
+  - path: /etc/fail2ban/filter.d/freepbx.conf
     permissions: '0644'
     content: |
       [Definition]
