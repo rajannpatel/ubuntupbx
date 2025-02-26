@@ -188,11 +188,11 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
     ```
 
-    ##### Unban `$IP` from fail2ban jails
+    ##### Unban IP from fail2ban jails
 
     - Replace `127.0.0.1` with the IP address that needs to be unbanned
-    - The 3 jails are named `sshd`, `asterisk`, and `freepbx`
-    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned
+    - The 3 jails are named **sshd**, **asterisk**, and **freepbx**
+    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned<br><br>
 
     ```bash
     $IP='127.0.0.1'
@@ -719,11 +719,11 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
     ```
 
-    ##### Unban `$IP` from fail2ban jails
+    ##### Unban IP from fail2ban jails
 
     - Replace `127.0.0.1` with the IP address that needs to be unbanned
-    - The 3 jails are named `sshd`, `asterisk`, and `freepbx`
-    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned
+    - The 3 jails are named **sshd**, **asterisk**, and **freepbx**
+    - A `1` output indicates successful removal, a `0` output indicates the IP was not bannedM<br><br>
 
     ```bash
     $IP='127.0.0.1'
