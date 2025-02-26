@@ -41,7 +41,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 64.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 65.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -100,7 +100,8 @@ nano cloud-init-jinja.yaml
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
 {% set TIMEZONE = 'America/New_York' %}
 
-# TIME TO REBOOT FOR SECURITY AND BUGFIX PATCHES IN XX:XX FORMAT
+# TIME TO INSTALL AND REBOOT UBUNTU FOR SECURITY PATCHES FROM CANONICAL IN XX:XX FORMAT
+{% set SECURITY_INSTALL_TIME = "04:10" %}
 {% set SECURITY_REBOOT_TIME = "04:30" %}
 
 # =========================
@@ -407,7 +408,7 @@ These steps are performed in your cloud-deployment workspace.
 
     <details>
 
-    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 64.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 65.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
@@ -468,7 +469,8 @@ These steps are performed in your cloud-deployment workspace.
     # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
     {% set TIMEZONE = 'America/New_York' %}
 
-    # TIME TO REBOOT FOR SECURITY AND BUGFIX PATCHES IN XX:XX FORMAT
+    # TIME TO INSTALL AND REBOOT UBUNTU FOR SECURITY PATCHES FROM CANONICAL IN XX:XX FORMAT
+    {% set SECURITY_INSTALL_TIME = "04:10" %}
     {% set SECURITY_REBOOT_TIME = "04:30" %}
 
     # =========================

@@ -57,7 +57,8 @@
 # As represented in /usr/share/zoneinfo. An empty string ('') will result in UTC time being used.
 {% set TIMEZONE = 'America/New_York' %}
 
-# TIME TO REBOOT FOR SECURITY AND BUGFIX PATCHES IN XX:XX FORMAT
+# TIME TO INSTALL AND REBOOT UBUNTU FOR SECURITY PATCHES FROM CANONICAL IN XX:XX FORMAT
+{% set SECURITY_INSTALL_TIME = "04:10" %}
 {% set SECURITY_REBOOT_TIME = "04:30" %}
 
 # =========================
@@ -98,6 +99,13 @@ users:
     lock_passwd: true
 
 write_files:
+  - path: /etc/systemd/system/apt-daily-upgrade.timer.d/override.conf
+    permissions: '0644'
+    content: |
+      [Timer]
+      OnCalendar=
+      OnCalendar={{ SECURITY_INSTALL_TIME }}
+      RandomizedDelaySec=0
   - path: /etc/postfix/sasl_passwd
     permissions: '0400'
     content: |
