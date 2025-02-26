@@ -172,7 +172,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     ##### Append more user and provider IPs to `ignoreip =` in jail.local
     
-    - all public IPv4 addresses which should never be banned are listed in the `IP` variable
+    - any additional public IPv4 addresses which should never be banned are listed in the `IP` variable
     - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
     - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
 
@@ -703,7 +703,7 @@ These steps are performed in your cloud-deployment workspace.
 
     ##### Append more user and provider IPs to `ignoreip =` in jail.local
     
-    - all public IPv4 addresses which should never be banned are listed in the `IP` variable
+    - any additional public IPv4 addresses which should never be banned are listed in the `IP` variable
     - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
     - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
 
