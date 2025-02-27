@@ -570,7 +570,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### RTP and UDPTL ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-t38fax-rtp-udptl \
+    gcloud compute firewall-rules create foip-t38fax-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -582,7 +582,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### SIP signaling ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-t38fax-sip \
+    gcloud compute firewall-rules create foip-t38fax-sip \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -602,7 +602,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### RTP and UDPTL ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-flowroute-rtp-udptl \
+    gcloud compute firewall-rules create voip-flowroute-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -614,7 +614,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### SIP signaling ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-flowroute-sip \
+    gcloud compute firewall-rules create voip-flowroute-sip \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -634,7 +634,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### RTP and UDPTL ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-telnyx-rtp-udptl \
+    gcloud compute firewall-rules create voip-telnyx-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -646,7 +646,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### SIP signaling ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-telnyx-sip \
+    gcloud compute firewall-rules create voip-telnyx-sip \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -666,7 +666,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### RTP and UDPTL ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-bulkvs-rtp-udptl \
+    gcloud compute firewall-rules create voip-bulkvs-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -678,7 +678,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### SIP signaling ingress rule
 
     ```bash
-    gcloud compute firewall-rules create allow-bulkvs-sip \
+    gcloud compute firewall-rules create voip-bulkvs-sip \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
@@ -875,17 +875,17 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     gcloud compute firewall-rules delete allow-management-http-icmp
     gcloud compute firewall-rules delete allow-devices-sip-rtp-udptl
 
-    gcloud compute firewall-rules delete allow-t38fax-rtp-udptl
-    gcloud compute firewall-rules delete allow-t38fax-sip
+    gcloud compute firewall-rules delete foip-t38fax-rtp-udptl
+    gcloud compute firewall-rules delete foip-t38fax-sip
 
-    gcloud compute firewall-rules delete allow-flowroute-rtp-udptl
-    gcloud compute firewall-rules delete allow-flowroute-sip
+    gcloud compute firewall-rules delete voip-flowroute-rtp-udptl
+    gcloud compute firewall-rules delete voip-flowroute-sip
 
-    gcloud compute firewall-rules delete allow-telnyx-rtp-udptl
-    gcloud compute firewall-rules delete allow-telnyx-sip
+    gcloud compute firewall-rules delete voip-telnyx-rtp-udptl
+    gcloud compute firewall-rules delete voip-telnyx-sip
 
-    gcloud compute firewall-rules delete allow-bulkvs-rtp-udptl
-    gcloud compute firewall-rules delete allow-bulkvs-sip
+    gcloud compute firewall-rules delete voip-bulkvs-rtp-udptl
+    gcloud compute firewall-rules delete voip-bulkvs-sip
     ```
 
 <br><br><br><br>
