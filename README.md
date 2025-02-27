@@ -723,7 +723,7 @@ These steps are performed in your cloud-deployment workspace.
 
     - Replace `127.0.0.1` with the IP address that needs to be unbanned
     - The 3 jails are named **sshd**, **asterisk**, and **freepbx**
-    - A `1` output indicates successful removal, a `0` output indicates the IP was not bannedM<br><br>
+    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned<br><br>
 
     ```bash
     $IP='127.0.0.1'
