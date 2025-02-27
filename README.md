@@ -804,7 +804,7 @@ These steps are performed in your cloud-deployment workspace.
     ##### List all banned IPs in fail2ban jails
 
     ```bash
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 sudo fail2ban-client status"
     ```
 
     ##### Unban IP from fail2ban jails
