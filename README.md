@@ -380,7 +380,7 @@ These steps are performed in your cloud-deployment workspace.
     gcloud config set project $PROJECT_ID
     ```
     
-    This Project ID will contain the PBX VM.
+    This Project ID will contain the "ubuntupbx" VM.
     
 4.  Enable the Google Cloud Compute Engine service
 
@@ -499,10 +499,10 @@ These steps are performed in your cloud-deployment workspace.
     
     </details>
 
-9. Create a free-tier e2-micro VM named "pbx", [other VM types](https://cloud.google.com/compute/docs/machine-resource) cost money.
+9. Create a free-tier e2-micro VM named "ubuntupbx", [other VM types](https://cloud.google.com/compute/docs/machine-resource) cost money.
     
     ```bash
-    gcloud compute instances create pbx \
+    gcloud compute instances create ubuntupbx \
         --zone=$ZONE \
         --machine-type=e2-micro \
         --address=pbx-external-ip \
@@ -546,12 +546,28 @@ These steps are performed in your cloud-deployment workspace.
 
 11. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
 
+    ##### This firewall rule allows ingress SIP traffic from your IP
+
     ```bash
     gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
         --direction=INGRESS \
         --action=ALLOW \
         --target-tags=pbx \
         --source-ranges="$(curl -s http://checkip.amazonaws.com)" \
+        --rules="udp:5060,udp:4000-4999,udp:10000-20000" \
+        --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
+    ```
+
+    ##### This firewall rule allows ingress SIP traffic from the Google Fiber ISP
+
+    Change the `isp-googlefiber` name and `--source-ranges="136.32.0.0/11"` to reflect the public IPv4 ranges of FoIP and VoIP SIP endpoints.
+
+    ```bash
+    gcloud compute firewall-rules create isp-googlefiber \
+        --direction=INGRESS \
+        --action=ALLOW \
+        --target-tags=pbx \
+        --source-ranges="136.32.0.0/11" \
         --rules="udp:5060,udp:4000-4999,udp:10000-20000" \
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
@@ -692,7 +708,7 @@ These steps are performed in your cloud-deployment workspace.
 13. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
     ```bash
-    gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
 14. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
@@ -719,7 +735,7 @@ These steps are performed in your cloud-deployment workspace.
     In the event of a reboot, re-run the tail command to continue observing the progress of the installation; otherwise skip this step:
     
     ```bash
-    gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
 16. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
@@ -741,10 +757,10 @@ These steps are performed in your cloud-deployment workspace.
     echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
     ```    
 
-18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
+18. Connect to the "ubuntupbx" VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
 
     ```bash
-    gcloud compute ssh pbx --zone $ZONE
+    gcloud compute ssh ubuntupbx --zone $ZONE
     ```
 
     Upon logging in via SSH, edit the "root" user's crontab.
@@ -797,14 +813,14 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     IP=$(curl -s http://checkip.amazonaws.com)
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
     ##### List all banned IPs in fail2ban jails
 
     ```bash
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 sudo fail2ban-client status"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 sudo fail2ban-client status"
     ```
 
     ##### Unban IP from fail2ban jails
@@ -815,9 +831,9 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     $IP='127.0.0.1'
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set sshd unban $IP"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set asterisk unban $IP"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set freepbx unban $IP"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client set sshd unban $IP"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client set asterisk unban $IP"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client set freepbx unban $IP"
     ```
 
     </details>
@@ -835,7 +851,7 @@ These steps are performed in your cloud-deployment workspace.
 > <img align="right" alt="Warning Sign" width="50" src="./images/icons8-warning-100.png" />
 > The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
-The following steps remove the "pbx" VM, its static IP address, and its firewall rules.
+The following steps remove the "ubuntupbx" VM, its static IP address, and its firewall rules.
 
 1. List all VMs in this project:
 
@@ -843,11 +859,11 @@ The following steps remove the "pbx" VM, its static IP address, and its firewall
     gcloud compute instances list
     ```
 
-2. To delete the "pbx" VM, set `ZONE` to reflect what was specified in Step 3.5:
+2. To delete the "ubuntupbx" VM, set `ZONE` to reflect what was specified in Step 3.5:
 
     ```bash
     ZONE=us-east1-b
-    gcloud compute instances delete pbx --zone $ZONE
+    gcloud compute instances delete ubuntupbx --zone $ZONE
     ```
 
 3. List all the static addresses:
