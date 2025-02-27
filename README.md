@@ -689,58 +689,13 @@ These steps are performed in your cloud-deployment workspace.
 
     </details>
 
-    List all banned IPs in fail2ban jails
-
-    ```bash
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
-    ```
-
-12. fail2ban blocks IPs after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX. fail2ban also emails alerts when the dynamic firewall turns on, turns off, and when an IP is banned due to invalid authentication attempts on Asterisk and FreePBX.
-
-    <details>
-
-    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
-
-    ##### Append more user and provider IPs to `ignoreip =` in jail.local
-    
-    - any additional public IPv4 addresses which should never be banned are listed in the `IP` variable
-    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
-    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
-
-    ```bash
-    IP=$(curl -s http://checkip.amazonaws.com)
-    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
-    ```
-
-    ##### List all banned IPs in fail2ban jails
-
-    ```bash
-    gcloud compute ssh pbx --zone $ZONE --command "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
-    ```
-
-    ##### Unban IP from fail2ban jails
-
-    - Replace `127.0.0.1` with the IP address that needs to be unbanned
-    - The 3 jails are named **sshd**, **asterisk**, and **freepbx**
-    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned<br><br>
-
-    ```bash
-    $IP='127.0.0.1'
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set sshd unban $IP"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set asterisk unban $IP"
-    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set freepbx unban $IP"
-    ```
-
-    </details>
-
-13. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
+12. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
     ```bash
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-14. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
+13. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
 
     -  First time gcloud CLI users will be prompted for a passphrase twice
     -  This password can be left blank, press <kbd>Enter</kbd> twice to proceed:<br><br>
@@ -755,7 +710,7 @@ These steps are performed in your cloud-deployment workspace.
     > Enter same passphrase again:
     > ```
     
-15. This line indicates security patches were applied, and a reboot is required
+14. This line indicates security patches were applied, and a reboot is required
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
@@ -767,13 +722,13 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-16. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
+15. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-17. Access the web portal to set up Trunks and Extensions
+16. Access the web portal to set up Trunks and Extensions
 
     -  These commands will print the web portal links in the terminal
     -  <kbd>CTRL</kbd> click the link to open<br><br>
@@ -786,7 +741,7 @@ These steps are performed in your cloud-deployment workspace.
     echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
     ```    
 
-18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
+17. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE
@@ -826,7 +781,46 @@ These steps are performed in your cloud-deployment workspace.
     ```
 
     -  The `exit` command will safely exit the Asterisk CLI.
-    -  Running the `exit` command again will quit the SSH session. 
+    -  Running the `exit` command again will quit the SSH session.
+
+18. fail2ban blocks IPs after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX. fail2ban also emails alerts when the dynamic firewall turns on, turns off, and when an IP is banned due to invalid authentication attempts on Asterisk and FreePBX.
+
+    <details>
+
+    <summary>&ensp;Manage the fail2ban dynamic firewall<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+
+    ##### Append more user and provider IPs to `ignoreip =` in jail.local
+    
+    - any additional public IPv4 addresses which should never be banned are listed in the `IP` variable
+    - Use standard dotted decimal notation for each IP address or CIDR (slash) notation IP ranges
+    - Separate multiple entries with a space, and do not use commas.<br><sub>&ensp;EXAMPLE<br>&ensp;`IP='192.178.0.0/15 142.251.47.238'`</sub><br><br>
+
+    ```bash
+    IP=$(curl -s http://checkip.amazonaws.com)
+    gcloud compute ssh pbx --zone $ZONE --command "sudo sed -i 's/ignoreip = \(.*\)/ignoreip = \1 '"$IP"'/' /etc/fail2ban/jail.local"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client reload"
+    ```
+
+    ##### List all banned IPs in fail2ban jails
+
+    ```bash
+    gcloud compute ssh pbx --zone $ZONE --command "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
+    ```
+
+    ##### Unban IP from fail2ban jails
+
+    - Replace `127.0.0.1` with the IP address that needs to be unbanned
+    - The 3 jails are named **sshd**, **asterisk**, and **freepbx**
+    - A `1` output indicates successful removal, a `0` output indicates the IP was not banned<br><br>
+
+    ```bash
+    $IP='127.0.0.1'
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set sshd unban $IP"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set asterisk unban $IP"
+    gcloud compute ssh pbx --zone $ZONE --command "sudo fail2ban-client set freepbx unban $IP"
+    ```
+
+    </details>
 
 <sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_check_mark: &emsp;STEP 3&emsp;&emsp; :tada: &emsp;COMPLETED</sub><br><br>
 
