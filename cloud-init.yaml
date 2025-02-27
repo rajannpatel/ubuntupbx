@@ -61,6 +61,10 @@
 {% set SECURITY_INSTALL_TIME = "04:10" %}
 {% set SECURITY_REBOOT_TIME = "04:30" %}
 
+# NUMBER OF DAYS TO RETAIN CDR AND CEL RECORDS IN FREEPBX
+{% set CDR_RETENTION_DAYS = "60" %}
+{% set CEL_RETENTION_DAYS = "60" %}
+
 # =========================
 # END OF SETTING VARIABLES
 
@@ -203,8 +207,8 @@ write_files:
 {% endif %}
       @daily (find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor -type f -size 44c -delete)
       @daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete
-      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cdr;'
-      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL 1 DAY); optimize table cel;'
+      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL {{ CDR_RETENTION_DAYS }} DAY); optimize table cdr;'
+      @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL {{ CEL_RETENTION_DAYS }} DAY); optimize table cel;'
 
 apt:
   conf: |+
@@ -386,6 +390,5 @@ runcmd:
   - fwconsole chown
   - fwconsole reload
   - fwconsole restart
-  - sed -i "s/^#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
   - echo "cloud-init RUNCMD COMPLETED AT $(date)"
   - reboot

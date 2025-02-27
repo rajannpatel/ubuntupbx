@@ -41,7 +41,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 65.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 69.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -103,6 +103,10 @@ nano cloud-init-jinja.yaml
 # TIME TO INSTALL AND REBOOT UBUNTU FOR SECURITY PATCHES FROM CANONICAL IN XX:XX FORMAT
 {% set SECURITY_INSTALL_TIME = "04:10" %}
 {% set SECURITY_REBOOT_TIME = "04:30" %}
+
+# NUMBER OF DAYS TO RETAIN CDR AND CEL RECORDS IN FREEPBX
+{% set CDR_RETENTION_DAYS = "60" %}
+{% set CEL_RETENTION_DAYS = "60" %}
 
 # =========================
 # END OF SETTING VARIABLES
@@ -428,7 +432,7 @@ These steps are performed in your cloud-deployment workspace.
 
     <details>
 
-    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 65.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 69.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
@@ -492,6 +496,10 @@ These steps are performed in your cloud-deployment workspace.
     # TIME TO INSTALL AND REBOOT UBUNTU FOR SECURITY PATCHES FROM CANONICAL IN XX:XX FORMAT
     {% set SECURITY_INSTALL_TIME = "04:10" %}
     {% set SECURITY_REBOOT_TIME = "04:30" %}
+
+    # NUMBER OF DAYS TO RETAIN CDR AND CEL RECORDS IN FREEPBX
+    {% set CDR_RETENTION_DAYS = "60" %}
+    {% set CEL_RETENTION_DAYS = "60" %}
 
     # =========================
     # END OF SETTING VARIABLES
