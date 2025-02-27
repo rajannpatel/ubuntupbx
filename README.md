@@ -388,7 +388,7 @@ These steps are performed in your cloud-deployment workspace.
     gcloud services enable compute.googleapis.com
     ```
 
-4. List the available cloud zones and cloud regions where VMs can be deployed:
+5. List the available cloud zones and cloud regions where VMs can be deployed:
 
     ```bash
     gcloud compute zones list
@@ -401,7 +401,7 @@ These steps are performed in your cloud-deployment workspace.
     > us-east1-b                 us-east1                 UP
     > ```
 
-5. Google Cloud's free tier is only in the `us-west1`, `us-central1`, and `us-east1` regions
+6. Google Cloud's free tier is only in the `us-west1`, `us-central1`, and `us-east1` regions
 
     - Set the `REGION` environment variable with one of the 3 free tier regions
     - Set any `ZONE` in that region from the `gcloud compute zones list` output
@@ -413,13 +413,13 @@ These steps are performed in your cloud-deployment workspace.
     ZONE=us-east1-b
     ```
 
-6. Reserve a static IP address and label it "pbx-external-ip":
+7. Reserve a static IP address and label it "pbx-external-ip":
     
     ```bash
     gcloud compute addresses create pbx-external-ip --region=$REGION
     ```
     
-7. Download the cloud-init YAML.
+8. Download the cloud-init YAML.
 
     ```bash
     curl -L -O https://raw.githubusercontent.com/rajannpatel/ubuntupbx/refs/heads/main/cloud-init.yaml
@@ -499,7 +499,7 @@ These steps are performed in your cloud-deployment workspace.
     
     </details>
 
-8. Create a free-tier e2-micro VM named "pbx", [other VM types](https://cloud.google.com/compute/docs/machine-resource) cost money.
+9. Create a free-tier e2-micro VM named "pbx", [other VM types](https://cloud.google.com/compute/docs/machine-resource) cost money.
     
     ```bash
     gcloud compute instances create pbx \
@@ -532,7 +532,7 @@ These steps are performed in your cloud-deployment workspace.
 > | [Verizon Wireless 5G Home Internet](https://search.arin.net/rdap/?query=75.192.0.0)  | `75.192.0.0/10`  |
 > | [Google Fiber](https://search.arin.net/rdap/?query=136.32.0.0)  | `136.32.0.0/11`  |
 
-9. Permit ingress HTTP for management and optionally ICMP for ping replies
+10. Permit ingress HTTP for management and optionally ICMP for ping replies
 
     ```bash
     gcloud compute firewall-rules create allow-management-http-icmp \
@@ -544,7 +544,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="Access FreePBX via web and ping"
     ```
 
-10. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
+11. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
 
     ```bash
     gcloud compute firewall-rules create allow-devices-sip-rtp-udptl \
@@ -556,7 +556,7 @@ These steps are performed in your cloud-deployment workspace.
         --description="SIP signaling and RTP & UDPTL media for ATAs and Softphones"
     ```
 
-11. Permit ingress traffic from VoIP and/or FoIP SIP Trunk provider(s)
+12. Permit ingress traffic from VoIP and/or FoIP SIP Trunk provider(s)
 
     - allow RTP and UDPTL media streams over Asterisk's configured UDP port ranges
     - allow SIP signaling for inbound calls when using IP authentication<br><br>
@@ -689,13 +689,13 @@ These steps are performed in your cloud-deployment workspace.
 
     </details>
 
-12. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
+13. Observe the installation progress by tailing `/var/log/cloud-init-output.log`
     
     ```bash
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-13. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
+14. Authorize gcloud CLI to have SSH access to your Ubuntu virtual machine
 
     -  First time gcloud CLI users will be prompted for a passphrase twice
     -  This password can be left blank, press <kbd>Enter</kbd> twice to proceed:<br><br>
@@ -710,7 +710,7 @@ These steps are performed in your cloud-deployment workspace.
     > Enter same passphrase again:
     > ```
     
-14. This line indicates security patches were applied, and a reboot is required
+15. This line indicates security patches were applied, and a reboot is required
     
     > ```text
     > 2023-08-20 17:30:04,721 - cc_package_update_upgrade_install.py[WARNING]: Rebooting after upgrade or install per /var/run/reboot-required
@@ -722,13 +722,13 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "tail -f /var/log/cloud-init-output.log"
     ```
     
-15. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
+16. When cloud-init prints this `finished at` line, press <kbd>CTRL</kbd> + <kbd>C</kbd> to terminate the tail process.
     
     > ```text
     > Cloud-init v. 24.1.3-0ubuntu3.3 finished at Thu, 20 Jun 2024 03:53:16 +0000. Datasource DataSourceGCELocal.  Up 666.00 seconds
     > ```
 
-16. Access the web portal to set up Trunks and Extensions
+17. Access the web portal to set up Trunks and Extensions
 
     -  These commands will print the web portal links in the terminal
     -  <kbd>CTRL</kbd> click the link to open<br><br>
@@ -741,7 +741,7 @@ These steps are performed in your cloud-deployment workspace.
     echo "http://$(gcloud compute addresses describe pbx-external-ip --region=$REGION --format='get(address)')"
     ```    
 
-17. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
+18. Connect to the pbx VM via SSH to configure external backup schedules, and connect to the Asterisk CLI.
 
     ```bash
     gcloud compute ssh pbx --zone $ZONE
@@ -783,7 +783,7 @@ These steps are performed in your cloud-deployment workspace.
     -  The `exit` command will safely exit the Asterisk CLI.
     -  Running the `exit` command again will quit the SSH session.
 
-18. fail2ban blocks IPs after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX. fail2ban also emails alerts when the dynamic firewall turns on, turns off, and when an IP is banned due to invalid authentication attempts on Asterisk and FreePBX.
+19. fail2ban blocks IPs after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX. fail2ban also emails alerts when the dynamic firewall turns on, turns off, and when an IP is banned due to invalid authentication attempts on Asterisk and FreePBX.
 
     <details>
 
