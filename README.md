@@ -560,8 +560,9 @@ These steps are performed in your cloud-deployment workspace.
 
     ##### This firewall rule allows ingress SIP traffic from the Google Fiber ISP
 
-    - Change the `isp-googlefiber` name and `--source-ranges="136.32.0.0/11"` as needed, for the public IPv4 ranges of FoIP and VoIP SIP endpoints.
-    - Repeat this step for every ISP where SIP endpoints will be connecting coming from.<br><br>
+    - Change the `isp-googlefiber` firewall rule name and `--source-ranges="136.32.0.0/11"` as needed.
+    - These allow ingress rules should reflect the ISP and IPv4 ranges of FoIP and VoIP SIP endpoints connecting to "ubuntupbx".
+    - Repeat this step for every ISP where SIP endpoints exist.<br><br>
 
     ```bash
     gcloud compute firewall-rules create isp-googlefiber \
