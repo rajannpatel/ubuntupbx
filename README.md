@@ -164,7 +164,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     -  The `exit` command will safely exit the Asterisk CLI.
 
-3. fail2ban blocks IPs and emails alerts after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX.
+3. fail2ban blocks IPs after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX. fail2ban also emails alerts when the dynamic firewall turns on, turns off, and when an IP is banned due to invalid authentication attempts on Asterisk and FreePBX.
 
     <details>
 
@@ -695,7 +695,7 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh pbx --zone $ZONE --command "sudo sh -c \"fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status\""
     ```
 
-12. fail2ban blocks IPs and emails alerts after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX.
+12. fail2ban blocks IPs after 3 invalid authentication attempts on SSH, Asterisk, and FreePBX. fail2ban also emails alerts when the dynamic firewall turns on, turns off, and when an IP is banned due to invalid authentication attempts on Asterisk and FreePBX.
 
     <details>
 
