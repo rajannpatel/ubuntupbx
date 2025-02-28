@@ -10,21 +10,21 @@
 
 <img align="right" alt="Table of Contents" width="50" src="./images/icons8-index-100.png" />
 
-- **OPTION 1**<br><sub>[INSTALL FREEPBX AND ASTERISK ON AN UBUNTU MACHINE](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)</sub><br>
+- **[OPTION 1](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)**<br><sub>INSTALL FREEPBX AND ASTERISK ON AN UBUNTU MACHINE</sub><br>
 
-  > <sub>STEP 1<br>[DOWNLOAD AND EDIT JINJA VARIABLES IN THE CLOUD-INIT FILE FROM THIS REPOSITORY](#step-1)</sub><br>
+  > <sub>[STEP 1](#step-1)<br>DOWNLOAD AND EDIT JINJA VARIABLES IN THE CLOUD-INIT FILE FROM THIS REPOSITORY</sub><br>
 
-  > <sub>STEP 2<br>[USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT](#step-2)</sub><br>
+  > <sub>[STEP 2](#step-2)<br>USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT</sub><br>
 
-  > <sub>STEP 3<br>[INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE](#step-3)</sub><br>
+  > <sub>[STEP 3](#step-3)<br>INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE</sub><br>
 
-- **OPTION 2**<br><sub>[INSTALL FREEPBX AND ASTERISK ON UBUNTU IN GOOGLE CLOUD](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)</sub><br>
+- **[OPTION 2](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)**<br><sub>INSTALL FREEPBX AND ASTERISK ON UBUNTU IN GOOGLE CLOUD</sub><br>
 
   > <sub>[STEP 1](#step-1-1)<br>MAKE A CLOUD-DEPLOYMENT WORKSPACE FOR GOOGLE CLOUD COMMAND LINE INTERFACE (GCLOUD CLI)</sub><br>
 
-  > <sub>STEP 2<br>[INSTALL AND CONFIGURE GCLOUD CLI IN THE CLOUD-DEPLOYMENT WORKSPACE](#step-2-1)</sub><br>
+  > <sub>[STEP 2](#step-2-1)<br>INSTALL AND CONFIGURE GCLOUD CLI IN THE CLOUD-DEPLOYMENT WORKSPACE</sub><br>
 
-  > <sub>STEP 3<br>[USE GCLOUD CLI TO PROVISION A FREE UBUNTU VM WITH CLOUD-INIT, AND CONFIGURE THE FIREWALL](#step-3-1)</sub><br>
+  > <sub>[STEP 3](#step-3-1)<br>USE GCLOUD CLI TO PROVISION A FREE UBUNTU VM WITH CLOUD-INIT, AND CONFIGURE THE FIREWALL</sub><br>
 
 </details>
 
