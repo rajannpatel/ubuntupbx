@@ -12,9 +12,11 @@
 
 **OPTION 1**: [Install FreePBX and Asterisk on an existing Ubuntu machine](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)
 
-  > <sub>STEP 1<br>[DOWNLOAD AND EDIT JINJA VARIABLES IN THE CLOUD-INIT FILE FROM THIS REPOSITORY](#step-1)</sub><br>
-  > <sub>STEP 2<br>[USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT](#step-2)</sub><br>
-  > <sub>STEP 3<br>[INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE](#step-3)</sub><br>
+    > <sub>STEP 1<br>[DOWNLOAD AND EDIT JINJA VARIABLES IN THE CLOUD-INIT FILE FROM THIS REPOSITORY](#step-1)</sub>
+
+    > <sub>STEP 2<br>[USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT](#step-2)</sub>
+    
+    > <sub>STEP 3<br>[INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE](#step-3)</sub>
 
 **OPTION 2**: [Install FreePBX and Asterisk on Ubuntu in Google Cloud](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)
 
