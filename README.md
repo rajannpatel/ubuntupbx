@@ -8,7 +8,7 @@
 
 <summary>&ensp;TABLE OF CONTENTS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-<img align="right" alt="Table of Contents" width="50" src="./images/icons8-index-100.png" />
+<img align="right" alt="machine" width="50" src="./images/icons8-server-100.png" />
 
 - **[OPTION 1](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)**<br><sub>INSTALL FREEPBX AND ASTERISK ON AN UBUNTU MACHINE</sub><br>
 
@@ -17,6 +17,8 @@
   > <sub>[STEP 2](#step-2)<br>USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT</sub><br>
 
   > <sub>[STEP 3](#step-3)<br>INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE</sub><br>
+
+<img align="right" alt="cloud" width="50" src="./images/icons8-cloud-100.png" />
 
 - **[OPTION 2](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)**<br><sub>INSTALL FREEPBX AND ASTERISK ON UBUNTU IN GOOGLE CLOUD</sub><br>
 
