@@ -34,12 +34,14 @@
 
 ---
 
-<a name="install-freepbx-and-asterisk-on-an-existing-ubuntu-machine-icon"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="on" width="50" src="./images/icons8-right-50.png" /><img alt="Ubuntu Server" width="50" src="./images/icons8-server-100.png" /></a>
+<a name="install-freepbx-and-asterisk-on-an-existing-ubuntu-machine-icon"></a>
+
+<a name="install-freepbx-and-asterisk-on-an-existing-ubuntu-machine-icon-png"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="on" width="50" src="./images/icons8-right-50.png" /><img alt="Ubuntu Server" width="50" src="./images/icons8-server-100.png" /></a>
 
 ## Install FreePBX and Asterisk on an existing Ubuntu machine
 
 > [!IMPORTANT]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" />
+> <a name="info-bubble-1"><img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" /></a>
 > #### Securely run FreePBX on Ubuntu 24.04 LTS until 2034
 > Asterisk, NodeJS, and other FreePBX dependencies are maintained on Ubuntu until 2034.
 > - Ubuntu Pro includes security patching for all open source software on Ubuntu for 10 years
@@ -47,7 +49,7 @@
 > 
 > <sub>NEXT</sub><p>Get your free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard)</p>
 
-| <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
+| <a name="steps-1"><img alt="Steps" width="50" src="./images/icons8-steps-100.png" /></a> | 3&nbsp;Steps |
 |:---|:---|
 | **[STEP&nbsp;1](#step-1-icon)** | Download and edit Jinja variables in the cloud-init file from this repository |
 | **[STEP&nbsp;2](#step-2-icon)** | Use **j2cli** to interpret Jinja variables and render YAML output |
