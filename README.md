@@ -6,7 +6,7 @@
 
 <details>
 
-<summary>&ensp;TABLE OF CONTENTS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+<summary>&ensp;TABLE OF CONTENTS<br><sup><!-- &emsp;&ensp;&thinsp;&thinsp; --><img height="1" width="11" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">CLICK TO EXPAND</sup><br></summary>
 
 <a name="server-1-icon"><img align="right" alt="machine" width="50" src="./images/icons8-server-100.png" /></a>
 
