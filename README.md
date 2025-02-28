@@ -11,8 +11,7 @@
 <img align="right" alt="Table of Contents" width="50" src="./images/icons8-index-100.png" />
 
 - [Install FreePBX and Asterisk on an existing Ubuntu machine](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)
-  - <sup>[Step 1](#step-1)<br></sup>
-    <sub>[Download and edit Jinja variables in the cloud-init file from this repository](#step-1)</sub>
+  - <sub>STEP 1</sub><br>[Download and edit Jinja variables in the cloud-init file from this repository](#step-1)
   - [Step 2: Use j2cli to interpret Jinja variables and render YAML output](#step-2)
   - [Step 3: Install FreePBX using the cloud-init.yaml file](#step-3)
 - [Install FreePBX and Asterisk on Ubuntu in Google Cloud](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)
