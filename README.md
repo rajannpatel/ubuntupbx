@@ -436,8 +436,6 @@ These steps are performed in your cloud-deployment workspace.
     gcloud services enable compute.googleapis.com
     ```
 
-<a name="step-3-5"></a>
-
 5. List the available cloud zones and cloud regions where VMs can be deployed:
 
     ```bash
@@ -450,6 +448,8 @@ These steps are performed in your cloud-deployment workspace.
     > NAME                       REGION                   STATUS  NEXT_MAINTENANCE  TURNDOWN_DATE
     > us-east1-b                 us-east1                 UP
     > ```
+
+<a name="step-3-6"></a>
 
 6. Google Cloud's free tier is only in the `us-west1`, `us-central1`, and `us-east1` regions
 
@@ -919,7 +919,7 @@ The following steps remove the "ubuntupbx" VM, its static IP address, and its fi
     gcloud compute instances list
     ```
 
-2. To delete the "ubuntupbx" VM, set `ZONE` to reflect what was specified in [Step 3.5](#step-3-5):
+2. To delete the "ubuntupbx" VM, set `ZONE` to reflect what was specified in [Step 3.6](#step-3-6):
 
     ```bash
     ZONE=us-east1-b
@@ -932,7 +932,7 @@ The following steps remove the "ubuntupbx" VM, its static IP address, and its fi
     gcloud compute addresses list
     ```
 
-4. To delete the address named "pbx-external-ip", set `REGION` to reflect what was specified in [Step 3.5](#step-3-5)
+4. To delete the address named "pbx-external-ip", set `REGION` to reflect what was specified in [Step 3.6](#step-3-6)
 
     ```bash
     REGION=us-east1
