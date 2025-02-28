@@ -55,7 +55,7 @@
 | **[STEP&nbsp;2](#step-2-icon)** | Use **j2cli** to interpret Jinja variables and render YAML output |
 | **[STEP&nbsp;3](#step-3-icon)** | Install FreePBX using the cloud-init.yaml file |
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1-icon">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -146,7 +146,7 @@ nano cloud-init-jinja.yaml
 
 </details>
 
-<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2-icon">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -163,7 +163,7 @@ sudo apt install j2cli
 j2 cloud-init-jinja.yaml > cloud-init.yaml
 ```
 
-<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3">STEP 3</a></sub><br><br>
+<sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3-icon">STEP 3</a></sub><br><br>
 
 ---
 
@@ -268,7 +268,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 | **[STEP&nbsp;2](#step-2-1-icon)** | Install and configure gcloud CLI in the cloud-deployment workspace |
 | **[STEP&nbsp;3](#step-3-1-icon)** | Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall |
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1-1-icon">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -350,7 +350,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 </details>
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2-1">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-2-1-icon">STEP 2</a>&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
@@ -390,11 +390,11 @@ These steps are performed in your cloud-deployment workspace.
     > $ gcloud config set project PROJECT_ID
     > ```
 
-<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3-1">STEP 3</a></sub><br><br>
+<br><sub>PROGRESS &emsp;&emsp; :heavy_check_mark: &emsp;STEP 1&emsp;&emsp; :heavy_check_mark: &emsp; STEP 2&emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-3-1-icon">STEP 3</a></sub><br><br>
 
 ---
 
-<a name="step-3-1-icon">></a>
+<a name="step-3-1-icon"></a>
 
 <a name="step-3-1-icon-png"><img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" /></a>
 
