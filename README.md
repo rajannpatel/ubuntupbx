@@ -1,8 +1,25 @@
-Install FreePBX 17 on Ubuntu 24.04 LTS
+# Install FreePBX 17 on Ubuntu 24.04 LTS
 
 - with open-source dependencies (including Asterisk) installed from Ubuntu's official repositories
 - using this [cloud-init.yaml](./cloud-init.yaml) installation template
 - on machines where Ubuntu is already installed, or on public cloud virtual machines
+
+<details>
+
+<summary>&ensp;TABLE OF CONTENTS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+
+<img alt="Table of Contents" width="50" src="./images/icons8-index-100.png" />
+
+- [Install FreePBX and Asterisk on an existing Ubuntu machine](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)
+  - [Step 1: Download and edit Jinja variables in the cloud-init file from this repository](#step-1)
+  - [Step 2: Use j2cli to interpret Jinja variables and render YAML output](#step-2)
+  - [Step 3: Install FreePBX using the cloud-init.yaml file](#step-3)
+- [Install FreePBX and Asterisk on Ubuntu in Google Cloud](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)
+  - [Step 1: Make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI)](#step-1-1)
+  - [Step 2: Install and configure gcloud CLI in the cloud-deployment workspace](#step-2-1)
+  - [Step 3: Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall](#step-3-1)
+
+</details>
 
 ---
 
