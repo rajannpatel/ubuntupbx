@@ -10,16 +10,21 @@
 
 <img align="right" alt="Table of Contents" width="50" src="./images/icons8-index-100.png" />
 
-- [Option A](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine): Install FreePBX and Asterisk on an existing Ubuntu machine
+**OPTION 1**: [Install FreePBX and Asterisk on an existing Ubuntu machine](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)
+
     > <sub>STEP 1<br>[DOWNLOAD AND EDIT JINJA VARIABLES IN THE CLOUD-INIT FILE FROM THIS REPOSITORY](#step-1)</sub><br>
 
-    > <sub>STEP 2</sub><br>[Use j2cli to interpret Jinja variables and render YAML output](#step-2)
+    > <sub>STEP 2<br>[USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT](#step-2)</sub><br>
 
-    > <sub>STEP 3</sub><br>[Install FreePBX using the cloud-init.yaml file](#step-3)
-- [Option B](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud): Install FreePBX and Asterisk on Ubuntu in Google Cloud
-  - [Step 1: Make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI)](#step-1-1)
-  - [Step 2: Install and configure gcloud CLI in the cloud-deployment workspace](#step-2-1)
-  - [Step 3: Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall](#step-3-1)
+    > <sub>STEP 3<br>[INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE](#step-3)</sub><br>
+
+**OPTION 2**: [Install FreePBX and Asterisk on Ubuntu in Google Cloud](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)
+
+    > <sub>STEP 1<br>[MAKE A CLOUD-DEPLOYMENT WORKSPACE FOR GOOGLE CLOUD COMMAND LINE INTERFACE (GCLOUD CLI)](#step-1-1)</sub><br>
+
+    > <sub>STEP 2<br>[INSTALL AND CONFIGURE GCLOUD CLI IN THE CLOUD-DEPLOYMENT WORKSPACE](#step-2-1)</sub><br>
+
+    > <sub>STEP 3<br>[USE GCLOUD CLI TO PROVISION A FREE UBUNTU VM WITH CLOUD-INIT, AND CONFIGURE THE FIREWALL](#step-3-1)</sub><br>
 
 </details>
 
