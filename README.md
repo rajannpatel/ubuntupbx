@@ -418,6 +418,8 @@ These steps are performed in your cloud-deployment workspace.
     gcloud services enable compute.googleapis.com
     ```
 
+<a name="step-3-5"></a>
+
 5. List the available cloud zones and cloud regions where VMs can be deployed:
 
     ```bash
@@ -577,6 +579,8 @@ These steps are performed in your cloud-deployment workspace.
         --rules="tcp:80,icmp" \
         --description="Access FreePBX via web and ping"
     ```
+
+<a name="step-3-11"></a>
 
 11. Permit ingress UDP traffic for analog telephone adapters (ATAs) and softphones
 
@@ -815,7 +819,7 @@ These steps are performed in your cloud-deployment workspace.
     > 4. /bin/ed
     > ```
 
-    Add the following lines at the bottom of the crontab file. Replace `example-bucket-name` with the name of your storage bucket on Google Cloud Storage.
+    Add the following lines at the bottom of the crontab file. Replace `example-bucket-name` with the name of a Google Cloud Storage bucket in the same project as the virtual machine.
 
     ```bash
     @daily gcloud storage rsync /var/spool/asterisk/backup gs://example-bucket-name/backup --recursive
@@ -895,7 +899,7 @@ The following steps remove the "ubuntupbx" VM, its static IP address, and its fi
     gcloud compute instances list
     ```
 
-2. To delete the "ubuntupbx" VM, set `ZONE` to reflect what was specified in Step 3.5:
+2. To delete the "ubuntupbx" VM, set `ZONE` to reflect what was specified in [Step 3.5](#step-3-5):
 
     ```bash
     ZONE=us-east1-b
@@ -921,7 +925,7 @@ The following steps remove the "ubuntupbx" VM, its static IP address, and its fi
     gcloud compute firewall-rules list
     ```
 
-6. To delete the ingress firewall rules created in Step 3.11
+6. To delete the ingress firewall rules created in [Step 3.11](#step-3-11)
 
     ```bash
     gcloud compute firewall-rules delete allow-management-http-icmp
