@@ -8,7 +8,7 @@
 
 <summary>&ensp;TABLE OF CONTENTS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-<img alt="Table of Contents" width="50" src="./images/icons8-index-100.png" />
+<img align="right" alt="Table of Contents" width="50" src="./images/icons8-index-100.png" />
 
 - [Install FreePBX and Asterisk on an existing Ubuntu machine](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)
   - [Step 1: Download and edit Jinja variables in the cloud-init file from this repository](#step-1)
