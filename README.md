@@ -10,29 +10,31 @@
 
 <img align="right" alt="machine" width="50" src="./images/icons8-server-100.png" />
 
-- **[OPTION 1](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine)**<br><sub>INSTALL FREEPBX AND ASTERISK ON AN UBUNTU MACHINE</sub><br>
+- **[OPTION 1](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine-icon)**<br><sub>INSTALL FREEPBX AND ASTERISK ON AN UBUNTU MACHINE</sub><br>
 
-  > <sub>[STEP 1](#step-1)<br>DOWNLOAD AND EDIT JINJA VARIABLES IN THE CLOUD-INIT FILE FROM THIS REPOSITORY</sub><br>
+  > <sub>[STEP 1](#step-1-icon)<br>DOWNLOAD AND EDIT JINJA VARIABLES IN THE CLOUD-INIT FILE FROM THIS REPOSITORY</sub><br>
 
-  > <sub>[STEP 2](#step-2)<br>USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT</sub><br>
+  > <sub>[STEP 2](#step-2-icon)<br>USE J2CLI TO INTERPRET JINJA VARIABLES AND RENDER YAML OUTPUT</sub><br>
 
-  > <sub>[STEP 3](#step-3)<br>INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE</sub><br>
+  > <sub>[STEP 3](#step-3-icon)<br>INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE</sub><br>
 
 <img align="right" alt="cloud" width="50" src="./images/icons8-cloud-100.png" />
 
-- **[OPTION 2](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud)**<br><sub>INSTALL FREEPBX AND ASTERISK ON UBUNTU IN GOOGLE CLOUD</sub><br>
+- **[OPTION 2](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon)**<br><sub>INSTALL FREEPBX AND ASTERISK ON UBUNTU IN GOOGLE CLOUD</sub><br>
 
-  > <sub>[STEP 1](#step-1-1)<br>MAKE A CLOUD-DEPLOYMENT WORKSPACE FOR GOOGLE CLOUD COMMAND LINE INTERFACE (GCLOUD CLI)</sub><br>
+  > <sub>[STEP 1](#step-1-1-icon)<br>MAKE A CLOUD-DEPLOYMENT WORKSPACE FOR GOOGLE CLOUD COMMAND LINE INTERFACE (GCLOUD CLI)</sub><br>
 
-  > <sub>[STEP 2](#step-2-1)<br>INSTALL AND CONFIGURE GCLOUD CLI IN THE CLOUD-DEPLOYMENT WORKSPACE</sub><br>
+  > <sub>[STEP 2](#step-2-1-icon)<br>INSTALL AND CONFIGURE GCLOUD CLI IN THE CLOUD-DEPLOYMENT WORKSPACE</sub><br>
 
-  > <sub>[STEP 3](#step-3-1)<br>USE GCLOUD CLI TO PROVISION A FREE UBUNTU VM WITH CLOUD-INIT, AND CONFIGURE THE FIREWALL</sub><br>
+  > <sub>[STEP 3](#step-3-1-icon)<br>USE GCLOUD CLI TO PROVISION A FREE UBUNTU VM WITH CLOUD-INIT, AND CONFIGURE THE FIREWALL</sub><br>
+
+  > <sub>[HOW DO I UNDO?](#how-do-i-undo-icon)<br>HOW TO DELETE THINGS IN GOOGLE CLOUD</sub><br>
 
 </details>
 
 ---
 
-<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="on" width="50" src="./images/icons8-right-50.png" /><img alt="Ubuntu Server" width="50" src="./images/icons8-server-100.png" />
+<a name="install-freepbx-and-asterisk-on-an-existing-ubuntu-machine-icon"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="on" width="50" src="./images/icons8-right-50.png" /><img alt="Ubuntu Server" width="50" src="./images/icons8-server-100.png" /></a>
 
 ## Install FreePBX and Asterisk on an existing Ubuntu machine
 
@@ -47,15 +49,15 @@
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
 |:---|:---|
-| **[STEP&nbsp;1](#step-1)** | Download and edit Jinja variables in the cloud-init file from this repository |
-| **[STEP&nbsp;2](#step-2)** | Use **j2cli** to interpret Jinja variables and render YAML output |
-| **[STEP&nbsp;3](#step-3)** | Install FreePBX using the cloud-init.yaml file |
+| **[STEP&nbsp;1](#step-1-icon)** | Download and edit Jinja variables in the cloud-init file from this repository |
+| **[STEP&nbsp;2](#step-2-icon)** | Use **j2cli** to interpret Jinja variables and render YAML output |
+| **[STEP&nbsp;3](#step-3-icon)** | Install FreePBX using the cloud-init.yaml file |
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
-<img alt="Download and Edit" width="50" src="./images/icons8-edit-file-100.png" />
+<a name="step-1-icon"><img alt="Download and Edit" width="50" src="./images/icons8-edit-file-100.png" /></a>
 
 ### STEP 1
 Download the cloud-init file from this repository
@@ -144,7 +146,7 @@ nano cloud-init-jinja.yaml
 
 ---
 
-<img alt="Export to YAML" width="50" src="./images/icons8-export-100.png" />
+<a name="step-2-icon"><img alt="Export to YAML" width="50" src="./images/icons8-export-100.png" /></a>
 
 ### STEP 2
 Use **j2cli** to interpret Jinja variables and render YAML output
@@ -159,7 +161,7 @@ j2 cloud-init-jinja.yaml > cloud-init.yaml
 
 ---
 
-<img alt="Apply cloud-init" width="50" src="./images/icons8-cloud-file-100.png" />
+<a name="step-3-icon"><img alt="Apply cloud-init" width="50" src="./images/icons8-cloud-file-100.png" /></a>
 
 ### STEP 3
 Install FreePBX using the cloud-init.yaml file, and configure firewall automations
@@ -238,7 +240,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 ---
 
-<img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
+<a name="install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
@@ -252,15 +254,15 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 | <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
 |:---|:---|
-| **[STEP&nbsp;1](#step-1-1)** | Make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI) |
-| **[STEP&nbsp;2](#step-2-1)** | Install and configure gcloud CLI in the cloud-deployment workspace |
-| **[STEP&nbsp;3](#step-3-1)** | Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall |
+| **[STEP&nbsp;1](#step-1-1-icon)** | Make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI) |
+| **[STEP&nbsp;2](#step-2-1-icon)** | Install and configure gcloud CLI in the cloud-deployment workspace |
+| **[STEP&nbsp;3](#step-3-1-icon)** | Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall |
 
 <br><sub>PROGRESS &emsp;&emsp; :heavy_plus_sign: &emsp; <a href="#step-1-1">STEP 1</a>&emsp;&emsp; :heavy_multiplication_x: &emsp; STEP 2&emsp;&emsp; :heavy_multiplication_x: &emsp;STEP 3</sub><br><br>
 
 ---
 
-<img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" />
+<a name="step-1-1-icon"><img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" /></a>
 
 ### STEP 1
 #### Make a cloud-deployment workspace for gcloud CLI
@@ -340,7 +342,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 ---
 
-<img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" />
+<a name="step-2-1-icon"><img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" /></a>
 
 ### STEP 2
 #### Install and configure gcloud CLI in the cloud-deployment workspace
@@ -378,7 +380,7 @@ These steps are performed in your cloud-deployment workspace.
 
 ---
 
-<img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" />
+<a name="step-3-1-icon"><img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" /></a>
 
 ### STEP 3
 #### Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall
@@ -882,10 +884,10 @@ These steps are performed in your cloud-deployment workspace.
 
 ---
 
-<img alt="Delete" width="50" src="./images/icons8-delete-100.png" />
+<a name="how-do-i-undo-icon"><img alt="Delete" width="50" src="./images/icons8-delete-100.png" /></a>
 
-## **HOW DO I UNDO?**
-### How to delete things in Google Cloud
+### **HOW DO I UNDO?**
+#### How to delete things in Google Cloud
 
 > [!WARNING]
 > <img align="right" alt="Warning Sign" width="50" src="./images/icons8-warning-100.png" />
