@@ -8,7 +8,7 @@
 
 <summary>&ensp;TABLE OF CONTENTS<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
-<img align="right" alt="machine" width="50" src="./images/icons8-server-100.png" />
+<a name="server-1-icon"><img align="right" alt="machine" width="50" src="./images/icons8-server-100.png" /></a>
 
 - **[OPTION 1](#install-freepbx-and-asterisk-on-an-existing-ubuntu-machine-icon)**<br><sub>INSTALL FREEPBX AND ASTERISK ON AN UBUNTU MACHINE</sub><br>
 
@@ -18,7 +18,7 @@
 
   > <sub>[STEP 3](#step-3-icon)<br>INSTALL FREEPBX USING THE CLOUD-INIT.YAML FILE</sub><br>
 
-<img align="right" alt="cloud" width="50" src="./images/icons8-cloud-100.png" />
+<a name="cloud-1-icon"><img align="right" alt="cloud" width="50" src="./images/icons8-cloud-100.png" /></a>
 
 - **[OPTION 2](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon)**<br><sub>INSTALL FREEPBX AND ASTERISK ON UBUNTU IN GOOGLE CLOUD</sub><br>
 
@@ -59,7 +59,9 @@
 
 ---
 
-<a name="step-1-icon"><img alt="Download and Edit" width="50" src="./images/icons8-edit-file-100.png" /></a>
+<a name="step-1-icon"></a>
+
+<a name="step-1-icon-png"><img alt="Download and Edit" width="50" src="./images/icons8-edit-file-100.png" /></a>
 
 ### STEP 1
 Download the cloud-init file from this repository
@@ -148,7 +150,9 @@ nano cloud-init-jinja.yaml
 
 ---
 
-<a name="step-2-icon"><img alt="Export to YAML" width="50" src="./images/icons8-export-100.png" /></a>
+<a name="step-2-icon"></a>
+
+<a name="step-2-icon-png"><img alt="Export to YAML" width="50" src="./images/icons8-export-100.png" /></a>
 
 ### STEP 2
 Use **j2cli** to interpret Jinja variables and render YAML output
@@ -163,7 +167,9 @@ j2 cloud-init-jinja.yaml > cloud-init.yaml
 
 ---
 
-<a name="step-3-icon"><img alt="Apply cloud-init" width="50" src="./images/icons8-cloud-file-100.png" /></a>
+<a name="step-3-icon"></a>
+
+<a name="step-3-icon-png"><img alt="Apply cloud-init" width="50" src="./images/icons8-cloud-file-100.png" /></a>
 
 ### STEP 3
 Install FreePBX using the cloud-init.yaml file, and configure firewall automations
@@ -242,19 +248,21 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 ---
 
-<a name="install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
+<a name="install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon"></a>
+
+<a name="install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon-png"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
 > [!TIP]
-> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
+> <a name="info-lightbulb-icon-1"><img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" /></a>
 > #### Run FreePBX on a FREE Ubuntu virtual machine on Google Cloud
 > - $0 cost to launch
 > - $0 recurring expense to run
 > 
 > <sub>NEXT</sub><p>Install FreePBX and Asterisk on Ubuntu in Google Cloud within the [always free](https://cloud.google.com/free/docs/free-cloud-features#compute) limits</p>
 
-| <img alt="Steps" width="50" src="./images/icons8-steps-100.png" /> | 3&nbsp;Steps |
+| <a name="steps-icon-2"><img alt="Steps" width="50" src="./images/icons8-steps-100.png" /></a> | 3&nbsp;Steps |
 |:---|:---|
 | **[STEP&nbsp;1](#step-1-1-icon)** | Make a cloud-deployment workspace for Google Cloud Command Line Interface (gcloud CLI) |
 | **[STEP&nbsp;2](#step-2-1-icon)** | Install and configure gcloud CLI in the cloud-deployment workspace |
@@ -264,7 +272,9 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 ---
 
-<a name="step-1-1-icon"><img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" /></a>
+<a name="step-1-1-icon"></a>
+
+<a name="step-1-1-icon-png"><img alt="Container or VM" width="50" src="./images/icons8-thin-client-100.png" /></a>
 
 ### STEP 1
 #### Make a cloud-deployment workspace for gcloud CLI
@@ -273,7 +283,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 -  [LXD](https://canonical.com/lxd/) creates Ubuntu containers on Linux
 -  Both Multipass and LXD provide access to an Ubuntu terminal, which is required for Step 2
 
-<img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" />
+<a name="pc-icons-1"><img alt="Windows" width="50" src="./images/icons8-windows-client-100.png" /><img alt="macOS" width="50" src="./images/icons8-mac-client-100.png" /></a>
 
 <details>
 
@@ -297,7 +307,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 </details>
 
-<br><img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" />
+<br><a name="pc-icon-2"><img alt="Linux" width="50" src="./images/icons8-linux-server-100.png" /></a>
 
 <details>
 
@@ -344,7 +354,9 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
 ---
 
-<a name="step-2-1-icon"><img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" /></a>
+<a name="step-2-1-icon"></a>
+
+<a name="step-2-1-icon-png"><img alt="Terminal" width="50" src="./images/icons8-terminal-100.png" /></a>
 
 ### STEP 2
 #### Install and configure gcloud CLI in the cloud-deployment workspace
@@ -382,7 +394,9 @@ These steps are performed in your cloud-deployment workspace.
 
 ---
 
-<a name="step-3-1-icon"><img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" /></a>
+<a name="step-3-1-icon">></a>
+
+<a name="step-3-1-icon-png"><img alt="Cloud" width="50" src="./images/icons8-upload-to-cloud-100.png" /></a>
 
 ### STEP 3
 #### Use gcloud CLI to provision a free Ubuntu VM with cloud-init, and configure the firewall
@@ -556,13 +570,13 @@ These steps are performed in your cloud-deployment workspace.
     ```
 
 > [!NOTE]
-> <img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" />
+> <a name="info-bubble-2"><img align="right" alt="Info Bubble" width="50" src="./images/icons8-information-100.png" /></a>
 > In the steps below, `--source-ranges` can be any number of globally routable IPv4 addresses written as individual IPs, or groups of IPs in slash notation, separated by commas (but no spaces).<br><sub>&ensp;EXAMPLE<br>&ensp;`192.178.0.0/15,142.251.47.238`</sub>
 >
 > `$(curl -s http://checkip.amazonaws.com)` retrieves the globally routable IPv4 address of the machine where the command is run, using an Amazon AWS service. It appears in some commands below, as a convenience, but can be replaced with manually specified IPs.
 
 > [!TIP]
-> <img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" />
+> <a name="info-lightbulb-2"><img align="right" alt="Info Lightbulb" width="50" src="./images/icons8-tip-100.png" /></a>
 > Looking up an individual IP from an ISP at [arin.net](https://arin.net) can reveal the entire CIDR block of possible IPs from that ISP, if wide ranges need to be permitted in the firewall. For example, looking up a Charter Spectrum IP [174.108.85.8](https://search.arin.net/rdap/?query=174.108.85.8) reveals a CIDR of `174.96.0.0/12`. CIDR blocks for popular ISPs serving dynamic IPs to customers in North America appear in the following table:
 > | ISP  | CIDR |
 > | ------------- | ------------- |
@@ -886,13 +900,15 @@ These steps are performed in your cloud-deployment workspace.
 
 ---
 
-<a name="how-do-i-undo-icon"><img alt="Delete" width="50" src="./images/icons8-delete-100.png" /></a>
+<a name="how-do-i-undo-icon"></a>
+
+<a name="how-do-i-undo-icon-png"><img alt="Delete" width="50" src="./images/icons8-delete-100.png" /></a>
 
 ### **HOW DO I UNDO?**
 #### How to delete things in Google Cloud
 
 > [!WARNING]
-> <img align="right" alt="Warning Sign" width="50" src="./images/icons8-warning-100.png" />
+> <a name="warning-sign-icon"><img align="right" alt="Warning Sign" width="50" src="./images/icons8-warning-100.png" /></a>
 > The following steps are destructive, and will remove everything created by following the above steps, in Google Cloud.
 
 The following steps remove the "ubuntupbx" VM, its static IP address, and its firewall rules.
@@ -948,5 +964,5 @@ The following steps remove the "ubuntupbx" VM, its static IP address, and its fi
     gcloud compute firewall-rules delete voip-bulkvs-sip
     ```
 
-<br><br><br><br>
+<br><br><br><br><br><br><br><br>
 <a href="https://icons8.com"><img alt="icon credits" align="right" src="./images/icons.png"></a>
