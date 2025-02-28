@@ -912,7 +912,7 @@ The following steps remove the "ubuntupbx" VM, its static IP address, and its fi
     gcloud compute addresses list
     ```
 
-4. To delete the address named "pbx-external-ip", set `REGION` to reflect what was specified in Step 3.5
+4. To delete the address named "pbx-external-ip", set `REGION` to reflect what was specified in [Step 3.5](#step-3-5)
 
     ```bash
     REGION=us-east1
