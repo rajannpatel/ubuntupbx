@@ -144,22 +144,15 @@ write_files:
           maxage 7
           su asterisk asterisk
       }
-      /var/log/asterisk/core*.log /var/log/asterisk/freepbx*.log /var/log/asterisk/asterisk*.log {
-          daily
-          missingok
-          copytruncate
-          rotate 3
-          su asterisk asterisk
-      }
-      /var/log/asterisk/debug /var/log/asterisk/messages /var/log/asterisk/full /var/log/asterisk/*_log {
+      /var/log/asterisk/core*.log /var/log/asterisk/freepbx*.log /var/log/asterisk/asterisk*.log /var/log/asterisk/debug /var/log/asterisk/messages /var/log/asterisk/full /var/log/asterisk/*_log {
           daily
           missingok
           rotate 3
           sharedscripts
-          postrotate
-              /usr/sbin/invoke-rc.d asterisk logger-reload > /dev/null 2> /dev/null
-          endscript
           su asterisk asterisk
+          postrotate
+              cd /home/asterisk && /usr/sbin/invoke-rc.d asterisk logger-reload > /dev/null 2> /dev/null
+          endscript
       }
   - path: /etc/fail2ban/jail.local
     permissions: '0644'
