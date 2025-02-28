@@ -140,7 +140,7 @@ write_files:
       /var/log/asterisk/backup*.log {
           weekly
           missingok
-          rotate 0
+          rotate 1
           maxage 7
           su asterisk asterisk
       }
