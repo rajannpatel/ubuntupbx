@@ -264,7 +264,6 @@ packages:
   - npm
   - odbc-mariadb
   - php-pear
-  - php-soap
   - php{{ PHP_VERSION }}
   - php{{ PHP_VERSION }}-cli
   - php{{ PHP_VERSION }}-common
@@ -273,6 +272,7 @@ packages:
   - php{{ PHP_VERSION }}-intl
   - php{{ PHP_VERSION }}-mbstring
   - php{{ PHP_VERSION }}-mysql
+  - php{{ PHP_VERSION }}-soap
   - php{{ PHP_VERSION }}-xml
   - postfix
   - sox
