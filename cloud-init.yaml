@@ -65,6 +65,11 @@
 {% set CDR_RETENTION_DAYS = "60" %}
 {% set CEL_RETENTION_DAYS = "60" %}
 
+# PHP 8.2 IS OFFICIALLY TESTED WITH FREEPBX BY SANGOMA, PHP 8.2 IS SECURITY MAINTAINED UNTIL 31 Dec 2026 FROM THE PHP GROUP (UPSTREAM)
+# PHP 8.3 IS COMPATIBLE WITH FREEPBX AND ALL AVAILABLE MODULES, PHP 8.3 GETS SECURITY PATCHING UNTIL 2036 THROUGH CANONICAL, THE PUBLISHERS OF UBUNTU
+# PHP_VERSION = 8.2|8.3
+{% set PHP_VERSION = "8.2" %}
+
 # =========================
 # END OF SETTING VARIABLES
 
@@ -219,9 +224,11 @@ apt:
       APT::Periodic::Download-Upgradeable-Packages "1";
       APT::Periodic::AutocleanInterval "7";
       APT::Periodic::Unattended-Upgrade "1";
+{% if PHP_VERSION == "8.2" %}
   sources:
     php:
       source: 'ppa:ondrej/php'
+{% endif %}
 
 # `apt update && apt upgrade -y` and reboot if /var/run/reboot-required while provisioning
 package_update: true
@@ -241,36 +248,35 @@ timezone: {{ TIMEZONE }}
 {% endif %}
 
 packages:
-  - postfix
   - apache2
-  - mariadb-server
-  - mariadb-client
-  - odbc-mariadb
-  - unixodbc
-  - php8.2
-  - php8.2-curl
-  - php8.2-cli
-  - php8.2-common
-  - php8.2-mysql
-  - php8.2-gd
-  - php8.2-mbstring
-  - php8.2-intl
-  - php8.2-xml
-  - php-pear
-  - php-soap
-  - php8.2-common
-  - nodejs
-  - npm
-  - lame
-  - ffmpeg
-  - mpg123
-  - sox
   - asterisk
   - asterisk-mp3
   - asterisk-moh-opsound-wav
   - asterisk-moh-opsound-gsm
   - asterisk-moh-opsound-g722
   - fail2ban
+  - ffmpeg
+  - lame
+  - mariadb-server
+  - mariadb-client
+  - mpg123
+  - nodejs
+  - npm
+  - odbc-mariadb
+  - php-pear
+  - php-soap
+  - php{{ PHP_VERSION }}
+  - php{{ PHP_VERSION }}-cli
+  - php{{ PHP_VERSION }}-common
+  - php{{ PHP_VERSION }}-curl
+  - php{{ PHP_VERSION }}-gd
+  - php{{ PHP_VERSION }}-intl
+  - php{{ PHP_VERSION }}-mbstring
+  - php{{ PHP_VERSION }}-mysql
+  - php{{ PHP_VERSION }}-xml
+  - postfix
+  - sox
+  - unixodbc
 
 runcmd:
 # add public IPv4 to ignoreip for fail2ban
@@ -328,12 +334,14 @@ runcmd:
   - sed -i 's|;runuser|runuser|' /etc/asterisk/asterisk.conf
   - sed -i 's|;rungroup|rungroup|' /etc/asterisk/asterisk.conf
   - ldconfig
+{% if PHP_VERSION == "8.2" %}
   - apt-get -y purge php8.3
   - rm -rf /etc/php/8.3
   - a2enmod php8.2
   - update-alternatives --set php /usr/bin/php8.2
-  - sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/8.2/apache2/php.ini
-  - sed -i 's/\(emory_limit = \).*/\1256M/' /etc/php/8.2/apache2/php.ini
+{% endif %}
+  - sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/{{ PHP_VERSION }}/apache2/php.ini
+  - sed -i 's/\(emory_limit = \).*/\1256M/' /etc/php/{{ PHP_VERSION }}/apache2/php.ini
   - sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
   - sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
   - a2enmod rewrite

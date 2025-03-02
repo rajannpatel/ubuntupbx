@@ -73,7 +73,7 @@ nano cloud-init-jinja.yaml
 
 <details>
 
-<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 69.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+<summary>&ensp;Edit cloud-init-jinja.yaml and configure Jinja variables between lines 4 and 74.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
 ```markdown
 # SET OUR VARIABLES
@@ -139,6 +139,11 @@ nano cloud-init-jinja.yaml
 # NUMBER OF DAYS TO RETAIN CDR AND CEL RECORDS IN FREEPBX
 {% set CDR_RETENTION_DAYS = "60" %}
 {% set CEL_RETENTION_DAYS = "60" %}
+
+# PHP 8.2 IS OFFICIALLY TESTED WITH FREEPBX BY SANGOMA, PHP 8.2 IS SECURITY MAINTAINED UNTIL 31 Dec 2026 FROM THE PHP GROUP (UPSTREAM)
+# PHP 8.3 IS COMPATIBLE WITH FREEPBX AND ALL AVAILABLE MODULES, PHP 8.3 GETS SECURITY PATCHING UNTIL 2036 THROUGH CANONICAL, THE PUBLISHERS OF UBUNTU
+# PHP_VERSION = 8.2|8.3
+{% set PHP_VERSION = "8.2" %}
 
 # =========================
 # END OF SETTING VARIABLES
@@ -478,7 +483,7 @@ These steps are performed in your cloud-deployment workspace.
 
     <details>
 
-    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 69.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
+    <summary>&ensp;Edit cloud-init.yaml and configure Jinja variables between lines 4 and 74.<br><sup>&emsp;&ensp;&thinsp;&thinsp;CLICK TO EXPAND</sup><br></summary>
 
     <br>Set `TOKEN` with a free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard) to enable all security patches, including the [Livepatch](https://ubuntu.com/security/livepatch) security patching automation tool to protect the Linux kernel.
 
@@ -546,6 +551,11 @@ These steps are performed in your cloud-deployment workspace.
     # NUMBER OF DAYS TO RETAIN CDR AND CEL RECORDS IN FREEPBX
     {% set CDR_RETENTION_DAYS = "60" %}
     {% set CEL_RETENTION_DAYS = "60" %}
+
+    # PHP 8.2 IS OFFICIALLY TESTED WITH FREEPBX BY SANGOMA, PHP 8.2 IS SECURITY MAINTAINED UNTIL 31 Dec 2026 FROM THE PHP GROUP (UPSTREAM)
+    # PHP 8.3 IS COMPATIBLE WITH FREEPBX AND ALL AVAILABLE MODULES, PHP 8.3 GETS SECURITY PATCHING UNTIL 2036 THROUGH CANONICAL, THE PUBLISHERS OF UBUNTU
+    # PHP_VERSION = 8.2|8.3
+    {% set PHP_VERSION = "8.2" %}
 
     # =========================
     # END OF SETTING VARIABLES
