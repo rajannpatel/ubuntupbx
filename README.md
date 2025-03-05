@@ -45,7 +45,7 @@
 > #### Securely run FreePBX on Ubuntu 24.04 LTS until 2034
 > Asterisk, NodeJS, and other FreePBX dependencies are security maintained by Canonical on Ubuntu.
 > - Ubuntu Pro includes security patching for all open source software on Ubuntu for 10 years, until 2034
-> - Ubuntu Pro Legacy adds 2 years of security patching for all open source software on Ubuntu, until 2036
+> - Ubuntu Pro Legacy adds 2 more years of security coverage until 2036
 > - Ubuntu Pro is FREE for personal use or commercial evaluation on 5 machines
 > 
 > <sub>NEXT</sub><p>Get your free or paid [Ubuntu Pro token](https://ubuntu.com/pro/dashboard)</p>
