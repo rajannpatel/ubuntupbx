@@ -42,7 +42,7 @@
 
 > [!IMPORTANT]
 > <a name="info-bubble-1"><img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" /></a>
-> #### Securely run FreePBX on Ubuntu 24.04 LTS until 2034
+> #### Securely run FreePBX on Ubuntu 24.04 LTS until 2036
 > Asterisk, NodeJS, and other FreePBX dependencies are security maintained by Canonical on Ubuntu.
 > - Ubuntu Pro includes security patching for all open source software on Ubuntu for 10 years, until 2034
 > - Ubuntu Pro Legacy adds 2 more years of security coverage until 2036
