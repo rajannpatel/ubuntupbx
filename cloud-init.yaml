@@ -167,7 +167,7 @@ write_files:
       destemail = {{ NOTIFICATION_EMAIL }}
       sender = no-reply@{{ DOMAIN }}
 {% endif %}
-      ignoreip = 127.0.0.0/8{{ FAIL2BAN_IGNOREIPS }}
+      ignoreip = 127.0.0.0/8 {{ FAIL2BAN_IGNOREIPS }}
 
       [sshd]
       enabled = true
