@@ -228,10 +228,24 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
     sudo fail2ban-client reload
     ```
 
+    ##### Confirm the ignoreip list is accurate
+
+    Invalid IPs in the ignoreip setting in /etc/fail2ban/jail.local will result in 0.0.0.0 (whole world) being ignored.
+
+    ```bash
+    sudo fail2ban-client get asterisk ignoreip
+    ```
+
     ##### List all banned IPs in fail2ban jails
 
     ```bash
     sudo sh -c "fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
+    ```
+
+    ##### Monitor IPs fail2ban is evaluating, in realtime
+
+    ```bash
+    tail -f /var/log/fail2ban.log
     ```
 
     ##### Unban IP from fail2ban jails
@@ -886,10 +900,24 @@ These steps are performed in your cloud-deployment workspace.
     gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client reload"
     ```
 
+    ##### Confirm the ignoreip list is accurate
+
+    Invalid IPs in the ignoreip setting in /etc/fail2ban/jail.local will result in 0.0.0.0 (whole world) being ignored.
+
+    ```bash
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client get asterisk ignoreip"
+    ```
+
     ##### List all banned IPs in fail2ban jails
 
     ```bash
     gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 sudo fail2ban-client status"
+    ```
+
+    ##### Monitor IPs fail2ban is evaluating, in realtime
+
+    ```bash
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "tail -f /var/log/fail2ban.log"
     ```
 
     ##### Unban IP from fail2ban jails
