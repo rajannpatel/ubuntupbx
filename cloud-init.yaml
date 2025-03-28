@@ -75,7 +75,7 @@
 
 # SIP Signaling IPs for each provider
 # T38Fax: https://helpdesk.t38fax.com/hc/en-us/articles/360053046071-Recommended-Firewall-Settings
-# Flowroute: https://manage.flowroute.com/accounts/interconnection/routes/ or https://support.bcmone.com/flowroute-support/docs/configure-an-inbound-route-with-your-preferred-pop#pop-options
+# Flowroute: https://manage.flowroute.com/accounts/interconnection/setup/ or https://support.bcmone.com/flowroute-support/docs/configure-an-inbound-route-with-your-preferred-pop#pop-options
 # Telnyx: https://sip.telnyx.com/
 # Bulkvs: `dig +short SRV _sip._udp.sip.bulkvs.com | awk '{print $4}' | xargs -I {} dig +short {}`
 
