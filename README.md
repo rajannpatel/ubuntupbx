@@ -256,9 +256,9 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 
     ```bash
     $IP='127.0.0.1'
-    sudo fail2ban-client set sshd unban $IP
-    sudo fail2ban-client set asterisk unban $IP
-    sudo fail2ban-client set freepbx unban $IP
+    sudo fail2ban-client unban sshd $IP
+    sudo fail2ban-client unban asterisk $IP
+    sudo fail2ban-client unban freepbx $IP
     ```
 
     </details>
@@ -928,9 +928,9 @@ These steps are performed in your cloud-deployment workspace.
 
     ```bash
     $IP='127.0.0.1'
-    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client set sshd unban $IP"
-    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client set asterisk unban $IP"
-    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client set freepbx unban $IP"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client unban sshd $IP"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client unban asterisk $IP"
+    gcloud compute ssh ubuntupbx --zone $ZONE --command "sudo fail2ban-client unban freepbx $IP"
     ```
 
     </details>
