@@ -221,6 +221,7 @@ write_files:
 {% endif %}
       @daily (find /var/spool/asterisk/monitor/*/ -type d -mtime +365 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor/*/*/*/ -type d -mtime +5 -exec rm -rf {} + 2>/dev/null; find /var/spool/asterisk/monitor -type f -size 44c -delete)
       @daily find /var/spool/asterisk/voicemail -type f -name msg????.??? -mtime +45 -delete
+      @daily find /var/www/html/admin/modules/_cache -type f -mtime 365 -delete
       @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cdr WHERE calldate < DATE_SUB(NOW(), INTERVAL {{ CDR_RETENTION_DAYS }} DAY); optimize table cdr;'
       @daily mysql -u root asteriskcdrdb -e 'DELETE FROM cel WHERE eventtime < DATE_SUB(NOW(), INTERVAL {{ CEL_RETENTION_DAYS }} DAY); optimize table cel;'
 
