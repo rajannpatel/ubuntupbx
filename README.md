@@ -2,7 +2,7 @@
 
 - with open-source dependencies (including Asterisk) installed from Ubuntu's official repositories
 - using this [cloud-init.yaml](./cloud-init.yaml) installation template
-- on machines where Ubuntu is already installed, or on public cloud virtual machines
+- on any major public cloud provider, and private cloud software (VMWare, OpenStack, Proxmox, [Microcloud](https://canonical.com/microcloud), etc.)
 
 <details>
 
@@ -39,6 +39,8 @@
 <a name="install-freepbx-and-asterisk-on-an-existing-ubuntu-machine-icon-png"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="on" width="50" src="./images/icons8-right-50.png" /><img alt="Ubuntu Server" width="50" src="./images/icons8-server-100.png" /></a>
 
 ## Install FreePBX and Asterisk on an existing Ubuntu machine
+
+These steps are only appropriate if Ubuntu is already installed, and hasn't been modified with package installations or configuration changes. Using cloud-init this way is a hack that worked on Ubuntu 24.04 LTS, and not a long term supported path for future Ubuntu LTS versions. Using [Option 2](#install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon) below is the superior and preferred method.
 
 > [!IMPORTANT]
 > <a name="info-bubble-1"><img align="right" alt="Info Bubble" width="50" src="./images/icons8-info-100.png" /></a>
@@ -271,6 +273,8 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 <a name="install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon"></a>
 
 <a name="install-freepbx-and-asterisk-on-ubuntu-in-google-cloud-icon-png"><img alt="VoIP" width="50" src="./images/icons8-office-phone-100.png" /><img alt="FoIP" width="50" src="./images/icons8-fax-100.png" /><img alt="via" width="50" src="./images/icons8-right-50.png" /><img alt="Cloud" width="50" src="./images/icons8-cloud-100.png" />
+
+While these steps are Google Cloud specific, the cloud-init portion of this guide can be referenced for other cloud providers.
 
 ## Install FreePBX and Asterisk on Ubuntu in Google Cloud
 
