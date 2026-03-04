@@ -201,7 +201,7 @@ Install FreePBX using the cloud-init.yaml file, and configure firewall automatio
 2. Print the FreePBX web portal address and configure Asterisk via a web browser:
 
     ```bash
-    echo "http://$(ip route get 1 | awk '{print $7; exit}')"
+    echo "http://$(curl -s http://checkip.amazonaws.com)"
     ```
 
     Connect to the Asterisk CLI, and observe output as you configure and use FreePBX:
