@@ -240,9 +240,7 @@ apt:
 # `apt update && apt upgrade -y` and reboot if /var/run/reboot-required while provisioning
 package_update: true
 package_upgrade: true
-# https://github.com/canonical/cloud-init/issues/5849
-# https://bugs.launchpad.net/ubuntu/+source/cloud-init/+bug/2094208
-# package_reboot_if_required: true
+package_reboot_if_required: true
 
 {% if TOKEN %}
 ubuntu_pro:
@@ -409,4 +407,3 @@ runcmd:
   - fwconsole reload
   - fwconsole restart
   - echo "cloud-init RUNCMD COMPLETED AT $(date)"
-  - reboot
